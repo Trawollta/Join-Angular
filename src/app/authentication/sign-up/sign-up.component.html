@@ -1,0 +1,38 @@
+<div class="frame">
+    <div class="main-container">
+      <a [routerLink]="['/login']" class="close-button-overlays close-btn-desktop" style="align-self: flex-end;">
+        <!-- Optionaler Schließ-Button -->
+      </a>
+      <div>
+        <h1>Sign up</h1>
+        <hr>
+      </div>
+      
+      <form (ngSubmit)="onSubmit()">
+        <div class="input-frame">
+          <input type="text" [(ngModel)]="firstname" name="first_name" class="form-control" placeholder="Vorname" autocomplete="off">
+        </div>
+        <div class="input-frame">
+          <input type="text" [(ngModel)]="lastname" name="last_name" class="form-control" placeholder="Nachname" autocomplete="off">
+        </div>
+        <div class="input-frame">
+          <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="E-Mail" autocomplete="off">
+        </div>
+        <div class="input-frame">
+          <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Benutzername" autocomplete="off">
+        </div>
+        <div class="input-frame">
+          <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Passwort" autocomplete="off">
+        </div>
+        <div class="btn-frame">
+          <button type="submit" class="blue-btn">Registrieren</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="legal-frame">
+      <a routerLink="/privacypolicy">Datenschutzrichtlinie</a>
+      <a routerLink="/legalnotice">Impressum</a>
+    </div>
+  </div>
+  

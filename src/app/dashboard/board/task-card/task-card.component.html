@@ -1,0 +1,25 @@
+<div class="taskcard">
+  <div *ngIf="editingTask !== task; else editingTemplate">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+  </div>
+  <ng-template #editingTemplate>
+    <input [(ngModel)]="task.title" placeholder="Titel">
+    <input [(ngModel)]="task.description" placeholder="Beschreibung">
+  </ng-template>
+  <div class="task-details">
+    <div>
+      <span>Status:</span>
+      <span>{{ task.status }}</span>
+    </div>
+    <div>
+      <span>Priorität:</span>
+      <span>{{ task.priority }}</span>
+    </div>
+  </div>
+  <div class="task-actions">
+    <button *ngIf="editingTask !== task" (click)="startEditing(task)"><img src="assets/img/edit.svg"> Bearbeiten</button>
+    <button *ngIf="editingTask === task" (click)="saveEdits(task)"><img src="assets/img/save.svg"> Speichern</button>
+    <button (click)="deleteTask(task.id)"><img src="assets/img/delete.svg"> Löschen</button>
+  </div>
+</div>

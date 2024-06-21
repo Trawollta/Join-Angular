@@ -1,0 +1,38 @@
+.contactlist {
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 400px; /* Anpassung der Breite Ihrer Kontakte */
+}
+
+.contact-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 16px; /* Größe des Buchstabens im Kreis */
+}
+
+.contact-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Abstand zwischen den Kontakten */
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-weight: bold;
+}
+
+.contact-mail {
+    color: blue;
+    font-size: 14px;
+}

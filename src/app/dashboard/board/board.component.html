@@ -1,0 +1,47 @@
+<div class="head">
+  <h1 class="h1">Board</h1>
+  <div class="headleft">
+    <div class="searchbar">
+      <input onkeyup="boardResetSearch(), board_search()" type="text" id="taskSearch" placeholder="Aufgabe finden">
+      <div class="divider"></div>
+      <div class="searchbutton">
+        <img onclick="board_search()" src="./assets/img/search.svg" alt="Suchen">
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="tasks.length; else noTasksTemplate">
+  <div class="board">
+    <!-- Zu erledigen -->
+    <div class="column">
+      <h2>To do</h2>
+      <div class="taskcard-container">
+        <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task"></app-task-card>
+      </div>
+    </div>
+    <!-- Warte auf Rückmeldung -->
+    <div class="column">
+      <h2>Waiting for Feedback</h2>
+      <div class="taskcard-container">
+        <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task"></app-task-card>
+      </div>
+    </div>
+    <!-- In Bearbeitung -->
+    <div class="column">
+      <h2>In progress</h2>
+      <div class="taskcard-container">
+        <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task"></app-task-card>
+      </div>
+    </div>
+    <!-- Erledigt -->
+    <div class="column">
+      <h2>Done</h2>
+      <div class="taskcard-container">
+        <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task"></app-task-card>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noTasksTemplate>
+  <p>Keine Tasks gefunden.</p>
+</ng-template>

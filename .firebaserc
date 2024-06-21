@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "join-f047c": {
+      "hosting": {
+        "join": [
+          "join-f047c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "join-f047c"
+  }
+}

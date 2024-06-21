@@ -1,0 +1,43 @@
+<!-- <div class="overlay">
+    <div class="contacts-overlay">
+        <div class="darkside">
+            <div id="contacts-overlay-headline"> 
+                <img src="assets/img/logo-white.svg">
+                <h2 id="contacts-overlay-h2"></h2>
+                <h3 id="contacts-overlay-h3"></h3>
+                <span class="blue-line-horizontal"></span>               
+            </div>
+        </div>
+        <div class="whiteside">
+            <div class="contacts-overlay-close">
+                <div class="contacts-overlay-close-img" (click)="closeContactOverlay()">
+                    <img src="assets/img/close.svg">
+                    <div class="contacts-overlay-close-X"></div>
+                </div>
+            </div>
+            <div class="whiteside-content">
+                <div id="contacts-overlay-whiteside-left">  
+                    <div id="contacts-overlay-icon-border" class="contacts-overlay-icon-border">
+                        <div class="initial-circle" [style.background-color]="generateRandomColor()">
+                            {{ contact.name.charAt(0) }}
+                        </div>
+                    </div>                  
+                </div>
+                <div class="contacts-overlay-whiteside-right">
+                    <div class="inputContainer">
+                        <form class="contact-input-area" (ngSubmit)="addContact()">
+                            <input class="inputName" type="text" placeholder="Vorname Nachname" [(ngModel)]="contact.name" name="name" required>
+                            <input class="inputMail" type="email" placeholder="E-Mail" [(ngModel)]="contact.email" name="email" required>
+                            <input class="inputPhone" type="tel" placeholder="Telefonnummer" [(ngModel)]="contact.number" name="number" required>
+                            <button type="submit">Hinzufügen</button>
+                          </form>    
+                            <div>
+                                <button (click)="addContact()">Hinzufügen</button>
+                            </div>
+                
+                        </div>
+                            </div>contacts-overlay-buttons">                                  
+                    </div>
+                </div>
+            </div>            
+        </div> -->

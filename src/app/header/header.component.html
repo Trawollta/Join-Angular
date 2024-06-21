@@ -1,0 +1,16 @@
+<div class="header">
+  <div>
+    <img class="logo" src="assets/img/logo_main.svg" alt="Firmenlogo">
+  </div>
+  <div *ngIf="isLoggedIn" class="user-profile-initials" (click)="toggleOverlay()">
+    {{ userInitials }}
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" *ngIf="isOverlayVisible && isLoggedIn">
+  <div class="overlay-content">
+    <span (click)="logout()">Logout</span>
+    <span (click)="toggleOverlay()">Schließen</span>
+  </div>
+</div>

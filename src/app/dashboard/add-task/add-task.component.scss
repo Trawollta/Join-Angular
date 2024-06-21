@@ -1,0 +1,50 @@
+.task-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 400px;  /* Setze eine angemessene maximale Höhe */
+  overflow-y: auto;  /* Aktiviert vertikales Scrollen, wenn nötig */
+  width: 100%;
+  padding: 10px;  /* Fügt innen etwas Platz hinzu */
+  box-sizing: border-box;
+  margin-top: 113px;  /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
+}
+
+.task-prio-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  margin-bottom: 20px; 
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center; 
+}
+
+input, select, textarea {
+  width: 100%; 
+  height: 38px; 
+}
+
+textarea {
+  resize: none; /* Nicht veränderbare Größe */
+  height: 76px; /* Höhe für Textarea */
+}
+
+.btn {
+  display: inline-block; /* Stellt sicher, dass der Button als Block-Element mit Zeilenbreite gerendert wird */
+  padding: 8px 16px; /* Fügt etwas Padding hinzu für bessere Sichtbarkeit */
+  background-color: blue; /* Hintergrundfarbe, um den Button deutlich sichtbar zu machen */
+  color: white; /* Textfarbe */
+  border: none; /* Entfernt den Rahmen */
+  cursor: pointer; /* Zeigt den Mauszeiger als Hand, wenn er über dem Button ist */
+}

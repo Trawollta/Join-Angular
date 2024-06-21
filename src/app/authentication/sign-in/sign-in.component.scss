@@ -1,0 +1,115 @@
+hr {
+  width: 65%;
+  border: 2px solid #29ABE2;
+}
+
+input[type="text"], input[type="password"], input[type="username"]{
+  width: 95% ;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #D1D1D1;
+  border-radius: 10px;
+  outline: none;
+  height: 24px;
+  cursor: pointer;
+  &:focus {
+    border: 1px solid #29ABE2;
+  }
+}
+
+.white-button{
+  width: 100%;
+}
+
+.input-box{
+  
+  position: relative;
+  max-width: 350px;
+  img{
+    position: absolute;
+    top:10;
+    right: 5%;
+    width: 30px;
+  }
+  .ng-invalid.ng-dirty{
+    border: 1px solid red;
+  }
+}
+
+form {
+  width: 100%;
+
+  gap: 0.5rem;
+  max-width: 350px;
+
+}
+
+.content-wrapper{
+ max-width: 650px;
+}
+
+.checkbox-section{
+  // @include dFlex(row, start, center);
+  width: 100%;
+  align-self: flex-start;
+  padding-left: 0.5rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.flying-img{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  z-index: 1;
+  animation: flyingToLeftTopCorner 2s ease-in-out forwards;
+
+  @media (min-width: 1000px)
+    {
+      width: 64px;
+      height: 64px;
+    }
+
+    @media (min-width: 1248px)
+    {
+      width: 74px;
+      height: 74px;
+    }
+
+    @media (min-width: 1440px)
+    {
+      width: 100px;
+      height: 122px;
+    }
+}
+
+@keyframes flyingToLeftTopCorner {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top:1rem;
+    left: 5%;
+    transform: none;
+    display: none;
+  }
+}
+
+.sign-in{
+  height: calc(100vh - 80px - 80px) !important;
+
+  @media (min-width: 1000px)
+  {
+    height: calc(100vh - 80px - 80px) !important;
+  }
+}
+
+.disabled{
+  cursor: not-allowed;
+  background-color: #D1D1D1;
+  color: #fff;
+}
