@@ -1,17 +1,25 @@
-.main {
-  height: 90vh
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-
 .content {
-    margin: 0 auto;
-    max-width: 100%;
-  
-    @media screen and (min-width: 1921px) {
-      max-width: 1920px;
-    }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0 auto;
+  max-width: 100%;
+
+  @media screen and (min-width: 1921px) {
+    max-width: 1920px;
   }
+}
 
+.main {
+  flex: 1;
+  overflow-y: auto; // falls der Inhalt größer ist als der sichtbare Bereich
+}
 
-
-
+app-header, app-navigation {
+  flex-shrink: 0;
+}

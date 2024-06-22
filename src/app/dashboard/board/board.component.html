@@ -16,28 +16,28 @@
     <div class="column">
       <h2>To do</h2>
       <div class="taskcard-container">
-        <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task"></app-task-card>
+        <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
       </div>
     </div>
     <!-- Warte auf Rückmeldung -->
     <div class="column">
       <h2>Waiting for Feedback</h2>
       <div class="taskcard-container">
-        <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task"></app-task-card>
+        <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
       </div>
     </div>
     <!-- In Bearbeitung -->
     <div class="column">
       <h2>In progress</h2>
       <div class="taskcard-container">
-        <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task"></app-task-card>
+        <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
       </div>
     </div>
     <!-- Erledigt -->
     <div class="column">
       <h2>Done</h2>
       <div class="taskcard-container">
-        <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task"></app-task-card>
+        <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
       </div>
     </div>
   </div>

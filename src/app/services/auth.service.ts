@@ -11,19 +11,23 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
 
   constructor(private http: HttpClient) {
-    const currentUser = localStorage.getItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<User | null>(currentUser ? JSON.parse(currentUser) : null);
+    const currentUserString = localStorage.getItem('currentUser');
+    let currentUser: User | null = null;
+    if (currentUserString) {
+      try {
+        currentUser = JSON.parse(currentUserString);
+      } catch (error) {
+        console.error('Fehler beim Parsen des aktuellen Benutzers:', error);
+        currentUser = null;
+      }
+    }
+    this.currentUserSubject = new BehaviorSubject<User | null>(currentUser);
   }
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
-    if (token) {
-      console.log(`Token gefunden: ${token}`);
-    } else {
-      console.log('Kein Token gefunden');
-    }
     return new HttpHeaders({
-      'Authorization': token ? `Token ${token}` : '',
+      'Authorization': token ? `Bearer ${token}` : '',
       'Content-Type': 'application/json'
     });
   }
@@ -38,16 +42,16 @@ export class AuthService {
     }
   }
 
-  async login(credentials: { username: string, password: string }): Promise<User> {
+  async login(credentials: { username: string, password: string }): Promise<void> {
     try {
-      const requestObservable = this.http.post<User>(`${this.apiUrl}login/`, credentials);
-      const user = await lastValueFrom(requestObservable);
-      if (user && user.token) {
-        localStorage.setItem('authToken', user.token);
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+      const response: any = await lastValueFrom(this.http.post(`${this.apiUrl}login/`, credentials));
+      const token = response.access;
+      if (token) {
+        localStorage.setItem('authToken', token);
+        const currentUser = await lastValueFrom(this.getCurrentUser());
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        this.currentUserSubject.next(currentUser);
       }
-      return user;
     } catch (error) {
       console.error('Login-Fehler:', error);
       throw error;
@@ -56,7 +60,6 @@ export class AuthService {
 
   getCurrentUser(): Observable<User> {
     const headers = this.getHeaders();
-    console.log(headers);  // Füge dies zur Überprüfung hinzu
     return this.http.get<User>(`${this.apiUrl}current_user/`, { headers });
   }
 

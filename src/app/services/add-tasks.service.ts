@@ -15,8 +15,9 @@ export class AddTaskService {
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
+    console.log('Token:', token);
     return new HttpHeaders({
-      'Authorization': `Token ${token}`,
+      'Authorization': token ? `Bearer ${token}` : '',
       'Content-Type': 'application/json'
     });
   }

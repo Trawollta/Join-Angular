@@ -15,17 +15,20 @@ import { AuthService } from '../../services/auth.service';
 export class SummaryComponent implements OnInit {
   username: string | null = null;
   firstname: string | null = null;
+  greeting: string = '';
 
-  constructor(private authService: AuthService) {} // Verwende den User-Service
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe((user) => {
       if (user) {
         this.username = user.username;
-        this.firstname = user.first_name; // Vorname des Benutzers speichern
+        this.firstname = user.first_name;
+        this.greeting = this.greetTime(); // Grußtext speichern
       } else {
         this.username = null;
         this.firstname = null;
+        this.greeting = this.greetTime(); // Grußtext speichern
       }
     });
   }
@@ -45,7 +48,6 @@ export class SummaryComponent implements OnInit {
       greeting = 'Zeit, ins Bett zu gehen';
     }
 
-    console.log('Greeting:', greeting); // Überprüfe den Gruß in der Konsole
     return greeting + (this.firstname ? ' ' + this.firstname : '!');
   }
 }

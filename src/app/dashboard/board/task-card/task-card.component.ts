@@ -16,27 +16,23 @@ export class TaskCardComponent {
   editingTask: Task | null = null;
   statuses: any[] = [];
 
-
-
   @Input() task!: Task;
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Task>();
 
   constructor(private addTaskService: AddTaskService) {}
 
-  deleteTask(taskId: number | undefined): void {
-      if (taskId === undefined) {
-        console.error('Versuch, eine Aufgabe ohne gültige ID zu löschen');
-        return; // Beenden der Funktion, wenn keine gültige ID vorhanden ist
-      } 
-        this.addTaskService.deleteTask(taskId).subscribe({
-          next: () => {
-            this.tasks = this.tasks.filter(task => task.id !== taskId);
-          },
-          error: (error) => console.error('Fehler beim Löschen der Aufgabe:', error)
-        });
-    }
-  
+  deleteTask(taskId: number): void {
+    this.addTaskService.deleteTask(taskId).subscribe({
+      next: () => {
+        console.log('Task erfolgreich gelöscht');
+        this.delete.emit(taskId);  // Event auslösen
+      },
+      error: (error) => {
+        console.error('Fehler beim Löschen des Tasks', error);
+      }
+    });
+  }
 
   startEditing(task: Task): void {
     this.editingTask = task;

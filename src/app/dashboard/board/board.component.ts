@@ -35,4 +35,8 @@ export class BoardComponent implements OnInit {
       }
     });
   }
+
+  onDeleteTask(taskId: number): void {
+    this.loadTasks();
+  }
 }

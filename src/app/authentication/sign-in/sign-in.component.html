@@ -1,36 +1,34 @@
 <ng-container>
-  <div class="frame sign-in">
-    <div class="content-wrapper">
+  <div class="login-container">
+    <div class="login-content">
       <div>
-        <h1>Log in</h1>
+        <h1>Anmelden</h1>
         <hr>
       </div>
 
       <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-        <div class="w-100 input-box">
-          <input type="username" id="email" formControlName="username" class="form-control" placeholder="Username" autocomplete="false">
-          <!-- <img src="../../../../assets/img/inputs/mail.svg" alt=""> -->
+        <div class="input-wrapper">
+          <input type="username" id="username" formControlName="username" class="form-control" placeholder="Benutzername" autocomplete="off">
         </div>
-        <div class="w-100 input-box">
-          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password" autocomplete="false">
-          <!-- <img src="../../../../assets/img/inputs/password.svg" alt=""> -->
+        <div class="input-wrapper">
+          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Passwort" autocomplete="off">
         </div>
-        <div class="checkbox-section">
-          <input type="checkbox" formControlName="remember" id="remember-me"> <span>Remember me</span>
+        <div class="checkbox-container">
+          <input type="checkbox" formControlName="remember" id="remember-me"> <span>Angemeldet bleiben</span>
         </div>
 
-        <div class="button-wrapper">
-          <button type="submit" class="blue-button">Log in</button>
-          <a class="white-button a-button" (click)="guestLogin()">Guest Log in</a>
+        <div class="button-container">
+          <button type="submit" class="primary-button">Anmelden</button>
+          <a class="secondary-button" (click)="guestLogin()">Gast-Anmeldung</a>
         </div>
       </form>
     </div>
-    <div class="signup-section">
-      <span>Not a Join user?</span><a routerLink="/signup" class="blue-button a-button"> Sign up</a>
+    <div class="signup-container">
+      <span>Kein Konto?</span><a routerLink="/signup" class="primary-button"> Registrieren</a>
     </div>
-    <div class="legal-section">
-      <a routerLink="/privacypolicy">Privacy policy</a>
-      <a routerLink="/legalnotice">Legal notice</a>
+    <div class="legal-links">
+      <a routerLink="/privacypolicy">Datenschutzrichtlinie</a>
+      <a routerLink="/legalnotice">Impressum</a>
     </div>
   </div>
 </ng-container>
