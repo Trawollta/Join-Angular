@@ -34,7 +34,8 @@ export class SignInComponent {
       })
     }
 
-  guestLogin() {
-    // Handle guest login
-  }
+    guestLogin() {
+      this.authService.guestLogin();
+      this.router.navigate(['/summary']);
+    }
 }

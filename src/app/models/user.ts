@@ -5,3 +5,10 @@ export interface User {
     last_name: string;
     // Weitere nützliche Eigenschaften
   }
+
+
+  export interface GuestUser {
+    id: null;
+    username: string;
+    
+  }

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserServiceService } from '../../services/user-service.service';
-import { User } from '../../models/user';
+import { GuestUser, User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,10 +19,10 @@ export class SummaryComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.getCurrentUser().subscribe((user) => {
+    this.authService.getCurrentUser().subscribe((user: User | GuestUser | null) => {
       if (user) {
         this.username = user.username;
-        this.firstname = user.first_name;
+        this.firstname = 'first_name' in user ? user.first_name : 'Gast'; // Setzen Sie den Vornamen für Gastbenutzer
         this.greeting = this.greetTime(); // Grußtext speichern
       } else {
         this.username = null;

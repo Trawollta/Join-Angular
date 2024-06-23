@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { User, GuestUser } from '../models/user';
 
 @Component({
   selector: 'app-header',
@@ -18,26 +19,49 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // Überprüfe, ob ein Token vorhanden ist, bevor die Anfrage gesendet wird
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      this.authService.getCurrentUser().subscribe({
-        next: (user) => {
-          this.isLoggedIn = true;
-          this.userInitials = this.getInitials(user.first_name, user.last_name);
-        },
-        error: (error) => {
-          console.error('Fehler beim Abrufen des aktuellen Benutzers:', error);
-          this.isLoggedIn = false;
-        }
-      });
+    this.authService.loggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      if (isLoggedIn) {
+        this.loadUserIcon();
+      }
+    });
+    this.loadUserIcon();
+  }
+
+  loadUserIcon() {
+    const currentUserString = localStorage.getItem('currentUser');
+    if (currentUserString) {
+      const user = JSON.parse(currentUserString) as User | GuestUser;
+      this.userInitials = this.getInitials(user);
     } else {
-      console.log('Kein Token gefunden, Benutzer ist nicht eingeloggt');
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        this.authService.getCurrentUser().subscribe({
+          next: (user) => {
+            if (user) {
+              this.isLoggedIn = true;
+              this.userInitials = this.getInitials(user);
+            }
+          },
+          error: (error) => {
+            console.error('Fehler beim Abrufen des aktuellen Benutzers:', error);
+            this.isLoggedIn = false;
+          }
+        });
+      } else {
+        console.log('Kein Token gefunden, Benutzer ist nicht eingeloggt');
+      }
     }
   }
 
-  private getInitials(firstName: string, lastName: string): string {
-    return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+  private getInitials(user: User | GuestUser): string {
+    if ('first_name' in user && 'last_name' in user) {
+      return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
+    } else if ('username' in user && user.username === 'Gast') {
+      return 'G';
+    } else {
+      return '';
+    }
   }
 
   toggleOverlay() {
