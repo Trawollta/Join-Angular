@@ -1,42 +1,48 @@
 <div class="add-task-section">
   <div class="taskHeader">
-    <h2> Add Task</h2>
+    <h2>Add Task</h2>
   </div>
 
-<form [formGroup]="taskForm" (ngSubmit)="addTask()">
-  <div class="task-container">
-    <div class="form-row">
-      <label for="title">Titel:</label>
-      <input type="text" formControlName="title" required class="title-input" placeholder="enter a title">
-    </div>
-    <div class="form-row">
-      <label for="description">Beschreibung:</label>
-      <textarea formControlName="description" required class="description-input" placeholder="enter a description"></textarea>
-    </div>
-    <div class="form-row">
-      <label for="status">Status:</label>
-      <select formControlName="status" required class="status-select">
-        <option value="TO_DO">To Do</option>
-        <option value="AWAIT_FEEDBACK">Auf Rückmeldung warten</option>
-        <option value="IN_PROGRESS">In Bearbeitung</option>
-        <option value="DONE">Erledigt</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label for="priority">Priorität:</label>
+  <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+    <div class="task-container">
+      <div class="form-row">
+        <label for="title">Titel:</label>
+        <input type="text" formControlName="title" required class="title-input" placeholder="Enter a title">
+      </div>
+      <div class="form-row">
+        <label for="description">Beschreibung:</label>
+        <textarea formControlName="description" required class="description-input" placeholder="Enter a description"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="status">Status:</label>
+        <select formControlName="status" required class="status-select">
+          <option value="TO_DO">To Do</option>
+          <option value="AWAIT_FEEDBACK">Auf Rückmeldung warten</option>
+          <option value="IN_PROGRESS">In Bearbeitung</option>
+          <option value="DONE">Erledigt</option>
+        </select>
+      </div>
+      <div class="dropdown">
+        <button (click)="toggleDropdown()">Zuweisen an</button>
+        <div *ngIf="dropdownOpen" class="dropdown-content">
+          <div *ngFor="let user of contacts$ | async">
+            <label>
+              <input type="checkbox" [checked]="isSelected(user.id)" (change)="onCheckboxChange($event, user.id)">
+              {{ user.first_name }} {{ user.last_name }}
+            </label>
+          </div>
+        </div>
+      </div>
       <div class="task-prio-container">
-        <app-button [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" caption="Low" priority="Low" (clicked)="setPriority($event)"></app-button>
-        <app-button [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" caption="Medium" priority="Medium" (clicked)="setPriority($event)"></app-button>
-        <app-button [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" caption="Urgent" priority="Urgent" (clicked)="setPriority($event)"></app-button>
+        <app-button [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" caption="Low" priority="Low" (clicked)="setPriority('Low')"></app-button>
+        <app-button [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" caption="Medium" priority="Medium" (clicked)="setPriority('Medium')"></app-button>
+        <app-button [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" caption="Urgent" priority="Urgent" (clicked)="setPriority('Urgent')"></app-button>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-   <div class="add-btn">
-    <app-button [type]="'submit' "[classes]="'add-task'" [caption]="'Add task'"></app-button>
-   </div>
-   
-  </div>
-</form>
-
+    <div class="modal-footer">
+      <div class="add-btn">
+        <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add task'"></app-button>
+      </div>
+    </div>
+  </form>
 </div>
