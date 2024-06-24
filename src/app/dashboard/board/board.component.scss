@@ -1,93 +1,172 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.main-container {
+  padding: 20px; /* Allgemeines Padding für die gesamte Seite */
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
 .boardbody {
-    font-family: "Inter";
-    background-color: #f6f7f8;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    padding-bottom: 24px;
+  font-family: "Inter";
+  background-color: #f6f7f8;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  max-width: 237px;
+  padding: 40px;
 }
 
 .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 5px 10px; /* angepasst für kleinere Bildschirme */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px; /* angepasst für kleinere Bildschirme */
+}
+
+.searchbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  width: 34px;
+  border-radius: 50%;
+}
+
+.divider {
+  background-color: #a8a8a8;
+  height: 90%;
+  width: 1px;
+  margin-right: 16px;
 }
 
 .h1 {
-    font-size: 24px; /* angepasst für kleinere Bildschirme */
-    font-weight: 700;
-    margin: 0;
+  font-size: 24px; /* angepasst für kleinere Bildschirme */
+  font-weight: 700;
+  margin: 0;
+}
+
+.searchbar {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 312px;
+  height: 48px;
+  border-radius: 10px;
+  border: solid 1px #a8a8a8;
+  background-color: white;
+  padding: 8px 16px 8px 16px;
+}
+
+.taskboard {
+  margin-top: 20px;
+  justify-content: center;
+  overflow: auto;
+}
+
+h2 {
+  color: #42526e;
+}
+
+.add-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .headleft, .searchbar {
-    display: flex;
-    align-items: center;
-    width: 100%; /* vollständige Breite auf kleinen Bildschirmen */
-    padding: 8px; /* angepasst für kleinere Bildschirme */
+  display: flex;
+  align-items: center;
+  width: 100%; /* vollständige Breite auf kleinen Bildschirmen */
+  padding: 8px; /* angepasst für kleinere Bildschirme */
 }
 
 .searchbar input {
-    border: none;
-    width: 100%;
-    outline: none;
-    font-size: 16px; /* kleinere Schriftgröße für Mobilgeräte */
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 16px; /* kleinere Schriftgröße für Mobilgeräte */
+}
+
+.categorie {
+  display: flex;
+  justify-content: space-between;
+}
+
+.panelheadbutton {
+  cursor: pointer;
+  padding: 3px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #f6f7f8;
+  border: solid 2.5px #2a3647;
+  width: 24px;
+  height: 24px;
+  // background-image: url(assets/img/Capa1.svg);
+  background-repeat: no-repeat;
+  background-position-x: 53%;
+  background-position-y: 50%;
 }
 
 .taskcard {
-    padding: 10px;
-    width: 100%;
-    background-color: white;
-    border-radius: 10px; /* weniger abgerundet für kleinere Bildschirme */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px; /* weniger abgerundet für kleinere Bildschirme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .task-actions button {
-    width: 24px;
-    height: 24px;
-    display:flex;
+  width: 24px;
+  height: 24px;
+  display: flex;
 }
 
 .taskcard-container {
-    // max-height: 79vh;
-    overflow-y: auto;
-    width: 100%;
-    padding: 0 8px;
+  max-height: 70vh; /* Feste Höhe, um Platz für Scrollen zu schaffen */
+  overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+  width: 100%;
+  padding: 0 8px;
 }
 
-
 @media (min-width: 768px) {
-    .h1 {
-        font-size: 61px; /* zurück zu ursprünglicher Größe */
-    }
+  .h1 {
+    font-size: 61px; /* zurück zu ursprünglicher Größe */
+  }
 
-    .head {
-        padding: 5px 40px; /* mehr Padding für größere Bildschirme */
-    }
+  .head {
+    padding: 5px 40px; /* mehr Padding für größere Bildschirme */
+  }
 
-    .searchbar {
-        width: 312px; /* festgelegte Breite für größere Bildschirme */
-        padding: 8px 16px;
-    }
+  .searchbar {
+    width: 312px; /* festgelegte Breite für größere Bildschirme */
+    padding: 8px 16px;
+  }
 
-    .searchbar input {
-        font-size: 20px; /* größere Schriftgröße für Desktop */
-    }
+  .searchbar input {
+    font-size: 20px; /* größere Schriftgröße für Desktop */
+  }
 
-    .taskcard {
-        border-radius: 24px; /* stärker abgerundet wie ursprünglich */
-        box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
-    }
+  .taskcard {
+    border-radius: 24px; /* stärker abgerundet wie ursprünglich */
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+  }
 
-    .task-actions button {
-        width: 32px;
-        height: 32px;
-    }
+  .task-actions button {
+    width: 32px;
+    height: 32px;
+  }
 
-    .taskcard-container {
-        max-height: 400px; /* höherer Container für mehr Inhalt */
-        padding: 0 16px;
-    }
+  .taskcard-container {
+    max-height: 70vh; /* Stellen Sie sicher, dass genügend Platz zum Scrollen vorhanden ist */
+    padding: 0 16px;
+  }
 }

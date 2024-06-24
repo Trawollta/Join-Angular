@@ -1,7 +1,7 @@
 <div class="taskcard">
   <div *ngIf="editingTask !== task; else editingTemplate">
     <h3>{{ task.title }}</h3>
-    <p>{{ task.description }}</p>
+    <p class="description">{{ task.description }}</p>
   </div>
   <ng-template #editingTemplate>
     <input [(ngModel)]="task.title" placeholder="Titel">

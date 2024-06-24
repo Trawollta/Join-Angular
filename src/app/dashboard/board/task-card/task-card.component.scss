@@ -5,9 +5,9 @@
     width: calc(100% - 100px);
     margin-top: 20px;
     margin-bottom: 40px;
-}
-
-.taskcard {
+  }
+  
+  .taskcard {
     width: 255px;
     min-height: 200px;
     padding: 15px;
@@ -19,30 +19,55 @@
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-sizing: border-box;
     transition: opacity 0.3s ease;
-}
-
-
-
-.card.loading {
+  }
+  
+  .input-title {
+    width: 100%;
+    border-radius: 10px;
+    border: solid 1px #d1d1d1;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 12px 21px;
+    font-size: 20px;
+    margin-bottom: 10px; /* Um etwas Abstand zwischen den Eingabefeldern zu schaffen */
+  }
+  
+  .input-description {
+    margin-top: 10px; /* Wenn Sie möchten, dass das Beschreibungsfeld etwas Abstand hat */
+  }
+  
+  h3 {
+    font-weight: 700;
+    font-size: 16px;
+    color: #2a3647;
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #a8a8a8;
+    margin-top: 8px;
+  }
+  
+  .card.loading {
     opacity: 0.2;
     pointer-events: none;
-}
-
-.category {
+  }
+  
+  .category {
     width: max-content;
     font-size: 16px;
-    padding: 4px 16px 4px 16px;
+    padding: 4px 16px;
     border-radius: 10px;
     color: white;
     margin-bottom: 28px;
-}
-
-.title {
+  }
+  
+  .title {
     font-weight: 700;
     margin-bottom: 8px;
-}
-
-.description {
+  }
+  
+  .description {
     display: -webkit-box;
     width: 200px;
     overflow: hidden;
@@ -53,44 +78,44 @@
     line-height: 19px;
     color: #A8A8A8;
     margin-bottom: 24px;
-}
-
-.line-subtask {
+  }
+  
+  .line-subtask {
     width: 128px;
     height: 8px;
     border-radius: 4px;
     background-color: #F4F4F4;
     margin-right: 8px;
-}
-
-.progress-line {
+  }
+  
+  .progress-line {
     height: 8px;
     border-radius: 4px;
     background-color: #4589FF;
-}
-
-.subtask-container {
+  }
+  
+  .subtask-container {
     display: flex;
     align-items: center;
     font-size: 12px;
     margin-bottom: 28px;
-}
-
-.footer {
+  }
+  
+  .footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    img {
-        padding-right: 15px;
-    }
-}
-
-.users {
+  }
+  
+  .footer img {
+    padding-right: 15px;
+  }
+  
+  .users {
     display: flex;
-}
-
-.user-border {
+  }
+  
+  .user-border {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,9 +128,10 @@
     border-radius: 14px;
     font-size: 12px;
     margin-right: -7px;
-}
-
-.task-actions {
-    display:flex;
+  }
+  
+  .task-actions {
+    display: flex;
     justify-content: space-between;
-}
+  }
+  

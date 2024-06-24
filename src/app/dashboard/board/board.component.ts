@@ -4,13 +4,14 @@ import { Task } from '../../models/tasks';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TaskCardComponent } from "./task-card/task-card.component";
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  imports: [CommonModule, FormsModule, TaskCardComponent]
+  imports: [CommonModule, FormsModule, TaskCardComponent, ButtonComponent]
 })
 export class BoardComponent implements OnInit {
   tasks: Task[] = [];

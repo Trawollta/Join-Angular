@@ -1,33 +1,35 @@
 <form [formGroup]="taskForm" (ngSubmit)="addTask()">
-    <div class="task-container">
-      <div class="form-row">
-        <label for="title">Titel:</label>
-        <input type="text" formControlName="title" required>
-      </div>
-      <div class="form-row">
-        <label for="description">Beschreibung:</label>
-        <textarea formControlName="description" required></textarea>
-      </div>
-      <div class="form-row">
-        <label for="status">Status:</label>
-        <select formControlName="status" required>
-          <option value="TO_DO">To Do</option>
-          <option value="AWAIT_FEEDBACK">Auf Rückmeldung warten</option>
-          <option value="IN_PROGRESS">In Bearbeitung</option>
-          <option value="DONE">Erledigt</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label for="priority">Priorität:</label>
-        <div class="task-prio-container">
-          <app-button [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" caption="Low" priority="Low" (clicked)="setPriority($event)"></app-button>
-          <app-button [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" caption="Medium" priority="Medium" (clicked)="setPriority($event)"></app-button>
-          <app-button [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" caption="Urgent" priority="Urgent" (clicked)="setPriority($event)"></app-button>
-        </div>
+  <div class="task-container">
+    <div class="form-row">
+      <label for="title">Titel:</label>
+      <input type="text" formControlName="title" required class="title-input" placeholder="enter a title">
+    </div>
+    <div class="form-row">
+      <label for="description">Beschreibung:</label>
+      <textarea formControlName="description" required class="description-input" placeholder="enter a description"></textarea>
+    </div>
+    <div class="form-row">
+      <label for="status">Status:</label>
+      <select formControlName="status" required class="status-select">
+        <option value="TO_DO">To Do</option>
+        <option value="AWAIT_FEEDBACK">Auf Rückmeldung warten</option>
+        <option value="IN_PROGRESS">In Bearbeitung</option>
+        <option value="DONE">Erledigt</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="priority">Priorität:</label>
+      <div class="task-prio-container">
+        <app-button [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" caption="Low" priority="Low" (clicked)="setPriority($event)"></app-button>
+        <app-button [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" caption="Medium" priority="Medium" (clicked)="setPriority($event)"></app-button>
+        <app-button [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" caption="Urgent" priority="Urgent" (clicked)="setPriority($event)"></app-button>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Aufgabe erstellen</button>
-    </div>
-  </form>
-  
+  </div>
+  <div class="modal-footer">
+   <div class="add-btn">
+    <app-button [type]="'submit' "[classes]="'add-task'" [caption]="'Add task'"></app-button>
+   </div>
+   
+  </div>
+</form>

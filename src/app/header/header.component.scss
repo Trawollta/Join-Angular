@@ -4,18 +4,25 @@
   align-items: center;
   padding: 1rem;
   background-color: #f8f9fa;
+  box-shadow: 0px 4px 4px 0px #00000010;
+}
 
-  .logo {
-    height: 40px;
-  }
+
+.logo {
+  height: 40px;
+}
 
   .user-profile-initials {
-    background-color: #007bff;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 50%;
+    height: 56px;
+    width: 56px;
+    border: #2A3647 solid 3px;
+    border-radius: 100%;
     cursor: pointer;
-  }
+    color: #29ABE2;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .overlay {

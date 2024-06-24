@@ -30,7 +30,8 @@ import { lastValueFrom } from 'rxjs';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  ButtonComponent],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss']
 
