@@ -29,25 +29,25 @@ export class HeaderComponent implements OnInit {
   }
 
   loadUserIcon() {
-    const currentUserString = localStorage.getItem('currentUser');
-    if (currentUserString) {
-      const user = JSON.parse(currentUserString) as User | GuestUser;
-      this.userInitials = this.getInitials(user);
-    } else {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        this.authService.getCurrentUser().subscribe({
-          next: (user) => {
-            if (user) {
-              this.isLoggedIn = true;
-              this.userInitials = this.getInitials(user);
-            }
-          },
-          error: (error) => {
-            console.error('Fehler beim Abrufen des aktuellen Benutzers:', error);
-            this.isLoggedIn = false;
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      this.authService.getCurrentUser().subscribe({
+        next: (user) => {
+          if (user) {
+            this.isLoggedIn = true;
+            this.userInitials = this.getInitials(user);
           }
-        });
+        },
+        error: (error) => {
+          console.error('Fehler beim Abrufen des aktuellen Benutzers:', error);
+          this.isLoggedIn = false;
+        }
+      });
+    } else {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        const user = JSON.parse(currentUser) as User | GuestUser;
+        this.userInitials = this.getInitials(user);
       } else {
         console.log('Kein Token gefunden, Benutzer ist nicht eingeloggt');
       }

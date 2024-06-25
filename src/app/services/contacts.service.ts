@@ -1,5 +1,3 @@
-// contacts.service.ts
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,6 +12,6 @@ export class ContactsService {
   constructor(private http: HttpClient) {}
 
   getContacts(): Observable<Contact[]> {
-      return this.http.get<Contact[]>(this.apiUrl);
+    return this.http.get<Contact[]>(this.apiUrl);
   }
 }

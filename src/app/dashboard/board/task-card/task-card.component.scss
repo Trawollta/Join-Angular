@@ -1,13 +1,4 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100% - 100px);
-    margin-top: 20px;
-    margin-bottom: 40px;
-  }
-  
-  .taskcard {
+.taskcard {
     width: 255px;
     min-height: 200px;
     padding: 15px;
@@ -125,13 +116,11 @@
     outline: 2px solid white;
     outline-offset: -1px;
     background-color: white;
-    border-radius: 14px;
+    border-radius: 50%;
     font-size: 12px;
     margin-right: -7px;
-  }
-  
-  .task-actions {
-    display: flex;
-    justify-content: space-between;
+    font-weight: bold;
+    color: #2a3647;
+    text-align: center;
   }
   

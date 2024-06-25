@@ -1,12 +1,16 @@
 <div class="taskcard">
-  <div *ngIf="editingTask !== task; else editingTemplate">
+  <!-- Nur anzeigen, wenn editingTask NICHT null ist -->
+  <ng-container *ngIf="editingTask; else viewMode">
+    <input [(ngModel)]="editingTask.title" placeholder="Titel" class="input-title">
+    <input [(ngModel)]="editingTask.description" placeholder="Beschreibung" class="input-description">
+  </ng-container>
+
+  <!-- Standardansicht, wenn NICHT im Bearbeitungsmodus -->
+  <ng-template #viewMode>
     <h3>{{ task.title }}</h3>
     <p class="description">{{ task.description }}</p>
-  </div>
-  <ng-template #editingTemplate>
-    <input [(ngModel)]="task.title" placeholder="Titel">
-    <input [(ngModel)]="task.description" placeholder="Beschreibung">
   </ng-template>
+
   <div class="task-details">
     <div>
       <span>Status:</span>
@@ -16,10 +20,25 @@
       <span>Priorität:</span>
       <span>{{ task.priority }}</span>
     </div>
+    <div>
+      <span>Zugewiesen an:</span>
+      <div class="users">
+        <div *ngFor="let user of assignedUsers" class="user-border">
+          {{ getInitials(user.first_name, user.last_name) }}
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="task-actions">
-    <button *ngIf="editingTask !== task" (click)="startEditing(task)"><img src="assets/img/edit.svg"> Bearbeiten</button>
-    <button *ngIf="editingTask === task" (click)="saveEdits(task)"><img src="assets/img/check.png"> Speichern</button>
-    <button (click)="deleteTask(task.id)"><img src="assets/img/delete.svg"> Löschen</button>
+    <button *ngIf="editingTask !== task" (click)="startEditing(task)">
+      <img src="assets/img/edit.svg"> Bearbeiten
+    </button>
+    <button *ngIf="editingTask === task" (click)="saveEdits(task)">
+      <img src="assets/img/check.png"> Speichern
+    </button>
+    <button (click)="deleteTask(task.id)">
+      <img src="assets/img/delete.svg"> Löschen
+    </button>
   </div>
 </div>

@@ -5,14 +5,22 @@ import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
+
 })
+
+
 export class UserServiceService {
   private apiUrl = 'http://localhost:8000/api/auth/'; // Angepasste Basis-URL deines Django-Servers
+  task: any; // Declare the 'task' property
 
   constructor(private http: HttpClient) {
   }
 
-  
+  getUsersByIds(ids: number[]): Observable<User[]> {
+    const url = `${this.apiUrl}usersByIds`;
+    return this.http.post<User[]>(url, { ids }, { headers: this.getHeaders() });
+  }
+
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -40,5 +48,7 @@ export class UserServiceService {
       }
     );
   }
+
+
 
 }

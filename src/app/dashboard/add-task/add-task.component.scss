@@ -1,3 +1,11 @@
+/* Hauptcontainer */
+.add-task-section {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Header */
 .taskHeader {
   width: 100%;
   display: flex;
@@ -5,88 +13,70 @@
   align-items: flex-start;
 }
 
-h2 {
+.taskHeader h2 {
   font-size: 48px;
   font-weight: 700;
   margin-top: 0;
+  margin-bottom: 20px;
 }
 
+/* Formularcontainer */
 .task-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 400px;  /* Setze eine angemessene maximale Höhe */
-  overflow-y: auto;  /* Aktiviert vertikales Scrollen, wenn nötig */
+  max-height: 400px;
+  overflow-y: auto;
   width: 100%;
-  padding: 10px;  /* Fügt innen etwas Platz hinzu */
-  box-sizing: border-box;  /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.task-prio-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
+/* Formularzeilen */
 .form-row {
   display: flex;
   flex-direction: column;
   width: 100%; 
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center; 
-}
-
+/* Formularelemente */
 input, select, textarea {
-  width: 100%; 
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: solid 1px #d1d1d1;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
 }
 
 textarea {
-  resize: none; /* Nicht veränderbare Größe */
-}
-
-.title-input {
-  width: 100%;
-  border-radius: 10px;
-  border: solid 1px #d1d1d1;
-  height: 48px;
-  box-sizing: border-box;
-  padding: 12px 21px 12px 21px;
-  font-size: 20px;
-}
-
-.description-input {
-  font-family: Inter;
-  font-size: 20px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: flex;
-  background-color: white;
-  border-radius: 10px;
-  border: solid 1px #d1d1d1;
   resize: none;
+}
+
+/* Spezifische Stile für Titel */
+.title-input {
+  height: 48px;
+  padding: 12px 21px;
+  font-size: 20px;
+}
+
+/* Spezifische Stile für Beschreibung */
+.description-input {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
   min-height: 100px;
   max-height: 120px;
-  box-sizing: border-box;
-  max-width: 100%;
-  width: 100%;
-  min-width: 100%;
-  /* background-image: url(../assets/img/Recurso1.svg); */
-  background-repeat: no-repeat;
-  background-position-x: 98%;
-  background-position-y: 92%;
-  padding: 18px 16px 18px 16px;
+  padding: 18px 16px;
 }
 
+/* Dropdown-Selects */
 .status-select, .user-select {
   cursor: pointer;
-  position: relative;
   min-height: 25.5px;
   background-color: white;
   padding: 12px 16px;
@@ -100,30 +90,113 @@ textarea {
 
 .status-select:focus, .user-select:focus {
   outline: none;
-  border-color: #4a90e2; /* Optional: Farbe für den Fokuszustand */
+  border-color: #4a90e2;
 }
 
+/* Prioritätscontainer */
+.task-prio-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* Button */
 .btn {
-  display: inline-block; /* Stellt sicher, dass der Button als Block-Element mit Zeilenbreite gerendert wird */
-  padding: 8px 16px; /* Fügt etwas Padding hinzu für bessere Sichtbarkeit */
-  background-color: blue; /* Hintergrundfarbe, um den Button deutlich sichtbar zu machen */
-  color: white; /* Textfarbe */
-  border: none; /* Entfernt den Rahmen */
-  cursor: pointer; /* Zeigt den Mauszeiger als Hand, wenn er über dem Button ist */
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
+.btn:hover {
+  background-color: #003f7f;
+}
+
+/* Add-Button Container */
 .add-btn {
   margin-bottom: 20px;
 }
 
+/* Dropdown-Inhalte */
+.dropdown {
+  position: relative;
+  margin-bottom: 20px;
+}
 
-// .dropdown-content {
-//     border-radius: 10px;
-//     cursor: pointer;
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     flex-direction: column;
-//     width: calc(100% - 16px);
-//     padding: 8px 16px 8px 4px;
-// }
+.assigned-btn {
+  padding: 12px 16px;
+  background-color: white;
+  border: solid 1px #d1d1d1;
+  border-radius: 10px;
+  width: calc(100% - 35px);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.dropdown-content {
+  top: calc(100% + 5px); /* Setzt das Dropdown direkt unter das zugehörige Feld */
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.dropdown-content label {
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Anpassung hier */
+  width: calc(100% - 16px);
+  padding: 8px 16px 8px 4px;
+  margin-bottom: 8px;
+}
+
+.dropdown-content label:last-child {
+  margin-bottom: 0;
+}
+
+/* Initialen-Kreise */
+.initials {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Fokuszustand für Eingaben */
+input:focus, select:focus, textarea:focus, .dropdown-content button:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+label {
+  flex-wrap: nowrap;
+  position: relative;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  font-size: 19px;
+  margin-bottom: .2em;
+}

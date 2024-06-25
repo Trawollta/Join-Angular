@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from '../../shared/input/input.component';
 import { ButtonComponent } from '../../shared/button/button.component';
@@ -45,17 +45,22 @@ export class AddTaskComponent implements OnInit {
     private contactsService: ContactsService,
     private fb: FormBuilder
   ) {
-    this.contacts$ = this.contactsService.getContacts(); // Initialisiere das Observable
-  }
-
-  ngOnInit() {
+    this.contacts$ = this.contactsService.getContacts(); // Initialize the Observable
+  
+    // Initialize taskForm with FormBuilder
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      priority: [this.currentPriority, Validators.required], // Initialisiert mit aktuellem Wert
       status: ['', Validators.required],
-      users: [[], Validators.required] // Hinzugefügt für die Benutzer
+      priority: [this.currentPriority, Validators.required],
+      assigned_to: this.fb.array([]),
     });
+  }
+
+  ngOnInit(): void {}
+
+  get assigned_to() {
+    return this.taskForm.get('assigned_to') as FormArray;
   }
 
   isSelected(userId: number): boolean {
@@ -73,20 +78,30 @@ export class AddTaskComponent implements OnInit {
   }
 
   onCheckboxChange(event: Event, userId: number) {
+    console.log('Checkbox geändert, UserID:', userId); 
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
-      this.selectedUsers.push(userId);
+      if (!this.selectedUsers.includes(userId)) {
+        this.selectedUsers.push(userId);
+        this.assigned_to.push(new FormControl(userId));
+      }
     } else {
       this.selectedUsers = this.selectedUsers.filter(id => id !== userId);
+      const index = this.assigned_to.controls.findIndex(control => control.value === userId);
+      this.assigned_to.removeAt(index);
     }
-    this.taskForm.patchValue({ users: this.selectedUsers });
+  }
+
+  getInitials(firstName: string, lastName: string): string {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
   async addTask() {
     if (this.taskForm.valid) {
       try {
-        console.log('Formulardaten:', this.taskForm.value);
-        await this.taskService.newTask(this.taskForm.value);
+        const taskData = this.taskForm.value;
+        console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
+        await this.taskService.newTask(taskData);
         alert('Task erfolgreich hinzugefügt!');
       } catch (e) {
         if (e instanceof Error) {
