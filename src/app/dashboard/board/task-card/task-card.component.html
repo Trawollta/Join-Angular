@@ -1,11 +1,9 @@
-<div class="taskcard">
-  <!-- Nur anzeigen, wenn editingTask NICHT null ist -->
+<div class="taskcard" (click)="openOverlay()">
   <ng-container *ngIf="editingTask; else viewMode">
     <input [(ngModel)]="editingTask.title" placeholder="Titel" class="input-title">
     <input [(ngModel)]="editingTask.description" placeholder="Beschreibung" class="input-description">
   </ng-container>
 
-  <!-- Standardansicht, wenn NICHT im Bearbeitungsmodus -->
   <ng-template #viewMode>
     <h3>{{ task.title }}</h3>
     <p class="description">{{ task.description }}</p>
@@ -29,16 +27,6 @@
       </div>
     </div>
   </div>
-
-  <div class="task-actions">
-    <button *ngIf="editingTask !== task" (click)="startEditing(task)">
-      <img src="assets/img/edit.svg"> Bearbeiten
-    </button>
-    <button *ngIf="editingTask === task" (click)="saveEdits(task)">
-      <img src="assets/img/check.png"> Speichern
-    </button>
-    <button (click)="deleteTask(task.id)">
-      <img src="assets/img/delete.svg"> Löschen
-    </button>
-  </div>
 </div>
+
+<app-edit-contacts-dialog *ngIf="showOverlay" [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>

@@ -1,1 +1,54 @@
-<p>edit-contacts-dialog works!</p>
+<div class="overlay">
+    <div class="overlay-content">
+      <button class="close-button" (click)="closeOverlay()">X</button>
+      <span>Title</span>
+      <h2 *ngIf="!isEditing">{{ task.title }}</h2>
+      <input *ngIf="isEditing" [(ngModel)]="task.title" class="input-title" placeholder="Titel">
+      
+      <span>Description</span>
+      <p *ngIf="!isEditing">{{ task.description }}</p>
+      <textarea *ngIf="isEditing" [(ngModel)]="task.description" class="input-description" placeholder="Beschreibung"></textarea>
+  
+      <div class="task-details">
+        <div>
+          <div class="status-details">
+            <span>Status:</span>
+            <span *ngIf="!isEditing">{{ task.status }}</span>
+            <select *ngIf="isEditing" [(ngModel)]="task.status" class="input-status">
+              <option value="to do">To do</option>
+              <option value="waiting for feedback">Waiting for feedback</option>
+              <option value="in progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+        </div>
+        <div class="status-details">
+          <span>Priorität:</span>
+          <span *ngIf="!isEditing">{{ task.priority }}</span>
+          <select *ngIf="isEditing" [(ngModel)]="task.priority" class="input-priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+        <div>
+          <span>Assigned to:</span>
+          <div class="users">
+            <div *ngFor="let user of task.assigned_to" class="user-border">
+              {{ getInitials(user.first_name, user.last_name) }}
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="button-container">
+        <img src="assets/img/delete.svg" alt="Delete Icon">
+        <button (click)="deleteTask(task.id)">Delete</button>
+        <div class="divider"></div>
+        <img src="assets/img/edit.svg" alt="Edit Icon">
+        <button *ngIf="!isEditing" (click)="startEditing()">Edit</button>
+        <button *ngIf="isEditing" (click)="saveEdits()">Save</button>
+      </div>
+    </div>
+  </div>
+  

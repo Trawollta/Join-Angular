@@ -63,42 +63,35 @@ body, html {
   border-radius: 10px;
   border: solid 1px #a8a8a8;
   background-color: white;
-  padding: 8px 16px 8px 16px;
-}
-
-.taskboard {
-  margin-top: 20px;
-  justify-content: center;
-  overflow: auto;
-}
-
-h2 {
-  color: #42526e;
-}
-
-.add-button {
-  margin-top: 20px;
-  display: flex;
-  align-items: flex-end;
-}
-
-.headleft, .searchbar {
-  display: flex;
-  align-items: center;
-  width: 100%; /* vollständige Breite auf kleinen Bildschirmen */
-  padding: 8px; /* angepasst für kleinere Bildschirme */
+  padding: 8px 16px;
 }
 
 .searchbar input {
   border: none;
-  width: 100%;
   outline: none;
-  font-size: 16px; /* kleinere Schriftgröße für Mobilgeräte */
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  border-radius: 0; /* Entfernt die abgerundeten Ecken des inneren Suchfelds */
+}
+
+.taskboard {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.column {
+  width: 100%;
+  padding: 10px;
 }
 
 .categorie {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Stellt sicher, dass die Items auf der gleichen Höhe sind */
+  padding: 10px 0; /* Abstand oben und unten */
 }
 
 .panelheadbutton {
@@ -110,10 +103,8 @@ h2 {
   border: solid 2.5px #2a3647;
   width: 24px;
   height: 24px;
-  // background-image: url(assets/img/Capa1.svg);
   background-repeat: no-repeat;
-  background-position-x: 53%;
-  background-position-y: 50%;
+  background-position: center; /* Zentriert das Bild in der Mitte */
 }
 
 .taskcard {
@@ -122,6 +113,7 @@ h2 {
   background-color: white;
   border-radius: 10px; /* weniger abgerundet für kleinere Bildschirme */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
 }
 
 .task-actions button {
@@ -153,6 +145,15 @@ h2 {
 
   .searchbar input {
     font-size: 20px; /* größere Schriftgröße für Desktop */
+  }
+
+  .taskboard {
+    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
+  }
+
+  .column {
+    width: 23%; /* Verkleinert die Breite der Spalten, um Platz für mehrere nebeneinander zu schaffen */
+    margin-right: 10px; /* Fügt etwas Abstand zwischen den Spalten hinzu */
   }
 
   .taskcard {

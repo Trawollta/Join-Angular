@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { NgModule } from '@angular/core';
 // import { AddContactsDialogComponent } from './add-contacts-dialog/add-contacts-dialog.component';
 import { CommonModule } from '@angular/common';
+import { SidenavComponent } from './dashboard/board/sidenav/sidenav.component';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { CommonModule } from '@angular/common';
     AddTaskComponent,
     NavigationComponent,
     HeaderComponent,
-    CommonModule],
+    CommonModule,
+  SidenavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

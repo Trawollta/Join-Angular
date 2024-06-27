@@ -3,52 +3,66 @@
     <div class="board">
       <div>
         <h1>Board</h1>
-
-        <div class="searchbar">
-          <input type="text" placeholder="Find task">
-          <div class="divider"></div>
-          <img onclick="board_search()" src="./assets/img/search.svg" alt="">
-        </div>
       </div>
+
+      <div class="searchbar">
+        <input type="text" placeholder="Find task">
+        <div class="divider"></div>
+        <img src="./assets/img/search.svg" alt="">
+      </div>
+      
       <div class="add-button">
         <app-button [caption]="'Add Task'" [classes]="'add-task'"></app-button>
       </div>
 
-      <!-- Zu erledigen -->
       <div class="taskboard">
-        <div class="column">
+        <!-- Zu erledigen -->
+        <div class="column" cdkDropList [cdkDropListData]="getTasksByStatus('TO_DO')" (cdkDropListDropped)="drop($event)">
           <div class="categorie">
-            <div>
-              <h2>To do</h2>
-            </div>
+            <h2>To do</h2>
             <div class="panelheadbutton">
               <img src="assets/img/Capa1.svg" alt="">
             </div>
           </div>
   
           <div class="taskcard-container">
-            <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
+            <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag></app-task-card>
           </div>
         </div>
         <!-- Warte auf Rückmeldung -->
-        <div class="column">
-          <h2>Waiting for Feedback</h2>
+        <div class="column" cdkDropList [cdkDropListData]="getTasksByStatus('AWAIT_FEEDBACK')" (cdkDropListDropped)="drop($event)">
+          <div class="categorie">
+            <h2>Waiting for Feedback</h2>
+            <div class="panelheadbutton">
+              <img src="assets/img/Capa1.svg" alt="">
+            </div>
+          </div>
           <div class="taskcard-container">
-            <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
+            <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag></app-task-card>
           </div>
         </div>
         <!-- In Bearbeitung -->
-        <div class="column">
-          <h2>In progress</h2>
+        <div class="column" cdkDropList [cdkDropListData]="getTasksByStatus('IN_PROGRESS')" (cdkDropListDropped)="drop($event)">
+          <div class="categorie">
+            <h2>In progress</h2>
+            <div class="panelheadbutton">
+              <img src="assets/img/Capa1.svg" alt="">
+            </div>
+          </div>
           <div class="taskcard-container">
-            <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
+            <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag></app-task-card>
           </div>
         </div>
         <!-- Erledigt -->
-        <div class="column">
-          <h2>Done</h2>
+        <div class="column" cdkDropList [cdkDropListData]="getTasksByStatus('DONE')" (cdkDropListDropped)="drop($event)">
+          <div class="categorie">
+            <h2>Done</h2>
+            <div class="panelheadbutton">
+              <img src="assets/img/Capa1.svg" alt="">
+            </div>
+          </div>
           <div class="taskcard-container">
-            <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
+            <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag></app-task-card>
           </div>
         </div>
       </div>

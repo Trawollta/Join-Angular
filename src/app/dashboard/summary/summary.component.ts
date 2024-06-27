@@ -15,6 +15,12 @@ export class SummaryComponent implements OnInit {
   username: string | null = null;
   firstname: string | null = null;
   greeting: string = '';
+  toDoCount: number = 0;
+  inProgressCount: number = 0;
+  awaitFeedbackCount: number = 0;
+  doneCount: number = 0;
+  urgentCount: number = 0;
+  tasksCount: number = 0;
 
   constructor(private authService: AuthService) {}
 

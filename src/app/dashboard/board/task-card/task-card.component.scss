@@ -10,6 +10,7 @@
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-sizing: border-box;
     transition: opacity 0.3s ease;
+    position: relative; /* Neu hinzugefügt */
   }
   
   .input-title {
@@ -122,5 +123,11 @@
     font-weight: bold;
     color: #2a3647;
     text-align: center;
+  }
+  
+  .task-actions {
+    position: absolute; /* Neu hinzugefügt */
+    top: 10px; /* Abstand von oben */
+    right: 10px; /* Abstand von rechts */
   }
   
