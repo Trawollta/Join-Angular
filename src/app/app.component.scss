@@ -1,43 +1,43 @@
-html, body {
-  height: 100%;
-  margin: 0;
-}
+// html, body {
+//   height: 100%;
+//   margin: 0;
+// }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0 auto;
-  max-width: 100%;
+// .content {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+//   margin: 0 auto;
+//   max-width: 100%;
 
-  @media screen and (min-width: 1921px) {
-    max-width: 1920px;
-  }
-}
+//   @media screen and (min-width: 1921px) {
+//     max-width: 1920px;
+//   }
+// }
 
-.main {
-  display: flex;
-  justify-content: center;
-  width: 100%;// Fügen Sie dies hinzu, um die sidenav und den Inhalt nebeneinander anzuordnen
-}
+// .main {
+//   display: flex;
+//   justify-content: center;
+//   width: 100%;// Fügen Sie dies hinzu, um die sidenav und den Inhalt nebeneinander anzuordnen
+// }
 
-app-header, app-navigation {
-  flex-shrink: 0;
-}
+// app-header, app-navigation {
+//   flex-shrink: 0;
+// }
 
-.sidenav {
-  display: none; // Standardmäßig ausgeblendet
-}
+// .sidenav {
+//   display: none; // Standardmäßig ausgeblendet
+// }
 
-@media screen and (min-width: 700px) {
-  .sidenav {
-    display: block; // Bei einer Bildschirmbreite von 700px und darüber einblenden
-    width: 250px; // Breite der sidenav
-    flex-shrink: 0;
-  }
+// @media screen and (min-width: 700px) {
+//   .sidenav {
+//     display: block; // Bei einer Bildschirmbreite von 700px und darüber einblenden
+//     width: 250px; // Breite der sidenav
+//     flex-shrink: 0;
+//   }
 
 
-  .navbar {
-    display: none; // Bei einer Bildschirmbreite von 700px und darüber ausblenden
-  }
-}
+//   .navbar {
+//     display: none; // Bei einer Bildschirmbreite von 700px und darüber ausblenden
+//   }
+// }

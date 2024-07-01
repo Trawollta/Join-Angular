@@ -1,3 +1,54 @@
-// @import '../src/app/scss/mixins.scss';
-// @import '../src/app/scss/colors.scss';
-// @import '../src/app/scss/theme.scss';
+/* Grundlayout */
+.content {
+  display: flex;
+  flex-direction: row;
+  height: 100svh;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.navbar {
+  display: none; /* Standardmäßig ausblenden */
+}
+
+/* Layout für mobile Ansichten */
+@media (max-width: 699px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none; /* Sidebar ausblenden */
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .main-content {
+    flex: 1;
+  }
+
+  .navbar {
+    display: block; /* Navbar anzeigen */
+  }
+}

@@ -6,21 +6,38 @@ body, html {
 }
 
 .main-container {
-  padding: 20px; /* Allgemeines Padding für die gesamte Seite */
+  padding: 20px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
 }
 
-.boardbody {
-  font-family: "Inter";
-  background-color: #f6f7f8;
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  width: -webkit-fill-available;
-  max-width: 237px;
-  padding: 40px;
+h1 {
+  font-size: 18px;
+}
+
+.board {
+  display: block; /* Standardmäßig block für mobile Ansicht */
+  
+  @media screen and (min-width: 700px) {
+    display: flex; /* Flex-Eigenschaften für Desktop-Ansicht */
+    flex-direction: column; /* Vertikale Ausrichtung der Flex-Elemente */
+    width: 100%; /* Breite auf 100% setzen */
+    max-width: 237px; /* Maximale Breite festlegen */
+    padding: 40px; /* Padding für den Container */
+  }
+
+  .boardbody {
+    font-family: "Inter";
+    background-color: #f6f7f8;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Breite auf 100% setzen */
+
+    @media screen and (min-width: 700px) {
+      justify-content: space-between; /* Abstand zwischen den Elementen für größere Bildschirme */
+    }
+  }
 }
 
 .head {
@@ -29,28 +46,10 @@ body, html {
   align-items: center;
   width: 100%;
   padding: 5px 10px; /* angepasst für kleinere Bildschirme */
-}
 
-.searchbutton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 26px;
-  width: 34px;
-  border-radius: 50%;
-}
-
-.divider {
-  background-color: #a8a8a8;
-  height: 90%;
-  width: 1px;
-  margin-right: 16px;
-}
-
-.h1 {
-  font-size: 24px; /* angepasst für kleinere Bildschirme */
-  font-weight: 700;
-  margin: 0;
+  @media screen and (min-width: 768px) {
+    padding: 5px 40px; /* mehr Padding für größere Bildschirme */
+  }
 }
 
 .searchbar {
@@ -58,12 +57,19 @@ body, html {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  width: 312px;
-  height: 48px;
+  width: 100%; /* Breite auf 100% setzen */
+  max-width: 312px; /* Maximale Breite für die Suchleiste */
+  height: 38px;
   border-radius: 10px;
   border: solid 1px #a8a8a8;
   background-color: white;
   padding: 8px 16px;
+  margin-bottom: 10px; /* Abstand unterhalb der Suchleiste */
+
+  @media screen and (min-width: 700px) {
+    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
+    margin-bottom: 0; /* Kein Abstand unterhalb der Suchleiste */
+  }
 }
 
 .searchbar input {
@@ -73,6 +79,21 @@ body, html {
   height: 100%;
   font-size: 16px;
   border-radius: 0; /* Entfernt die abgerundeten Ecken des inneren Suchfelds */
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px; /* größere Schriftgröße für Desktop */
+  }
+}
+
+.add-button {
+  margin-top: 10px; /* Abstand oberhalb des Buttons */
+  width: 100%; /* Breite auf 100% setzen */
+
+  @media screen and (min-width: 700px) {
+    display: flex; /* Flexbox verwenden */
+    justify-content: flex-end; /* Am Ende der Flexbox ausrichten */
+    margin-top: 0; /* Kein Abstand oberhalb des Buttons */
+  }
 }
 
 .taskboard {
@@ -80,31 +101,18 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  @media screen and (min-width: 700px) {
+    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
+  }
 }
 
 .column {
-  width: 100%;
-  padding: 10px;
-}
-
-.categorie {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Stellt sicher, dass die Items auf der gleichen Höhe sind */
-  padding: 10px 0; /* Abstand oben und unten */
-}
-
-.panelheadbutton {
-  cursor: pointer;
-  padding: 3px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  background-color: #f6f7f8;
-  border: solid 2.5px #2a3647;
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-position: center; /* Zentriert das Bild in der Mitte */
+  width: 100%; /* Breite auf 100% für mobile Ansicht */
+  
+  @media screen and (min-width: 700px) {
+    width: 275px; /* Feste Breite für größere Bildschirme */
+  }
 }
 
 .taskcard {
@@ -114,12 +122,22 @@ body, html {
   border-radius: 10px; /* weniger abgerundet für kleinere Bildschirme */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 10px;
+
+  @media screen and (min-width: 768px) {
+    border-radius: 24px; /* stärker abgerundet wie ursprünglich */
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .task-actions button {
   width: 24px;
   height: 24px;
   display: flex;
+
+  @media screen and (min-width: 768px) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .taskcard-container {
@@ -127,47 +145,8 @@ body, html {
   overflow-y: auto; /* Ermöglicht vertikales Scrollen */
   width: 100%;
   padding: 0 8px;
-}
 
-@media (min-width: 768px) {
-  .h1 {
-    font-size: 61px; /* zurück zu ursprünglicher Größe */
-  }
-
-  .head {
-    padding: 5px 40px; /* mehr Padding für größere Bildschirme */
-  }
-
-  .searchbar {
-    width: 312px; /* festgelegte Breite für größere Bildschirme */
-    padding: 8px 16px;
-  }
-
-  .searchbar input {
-    font-size: 20px; /* größere Schriftgröße für Desktop */
-  }
-
-  .taskboard {
-    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
-  }
-
-  .column {
-    width: 23%; /* Verkleinert die Breite der Spalten, um Platz für mehrere nebeneinander zu schaffen */
-    margin-right: 10px; /* Fügt etwas Abstand zwischen den Spalten hinzu */
-  }
-
-  .taskcard {
-    border-radius: 24px; /* stärker abgerundet wie ursprünglich */
-    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
-  }
-
-  .task-actions button {
-    width: 32px;
-    height: 32px;
-  }
-
-  .taskcard-container {
-    max-height: 70vh; /* Stellen Sie sicher, dass genügend Platz zum Scrollen vorhanden ist */
+  @media screen and (min-width: 768px) {
     padding: 0 16px;
   }
 }

@@ -1,0 +1,82 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sign-up-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f6f7f8;
+  }
+  
+  .login {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .login h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .login hr {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .input-frame {
+    margin-bottom: 15px;
+  }
+  
+  .input-frame input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .btn-frame {
+    margin-top: 20px;
+  }
+  
+  .blue-btn {
+    background-color: #29ABE2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .blue-btn:hover {
+    background-color: #238bbf;
+  }
+  
+  .legal-area {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .legal-area a {
+    color: #29ABE2;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+  }
+  
+  .legal-area a:hover {
+    text-decoration: underline;
+  }
+  

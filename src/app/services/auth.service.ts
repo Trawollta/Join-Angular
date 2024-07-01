@@ -81,6 +81,11 @@ export class AuthService {
     }
   }
 
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('authToken');
+    return !!token;
+  }
+
   logout(): void {
     const refreshToken = localStorage.getItem('refreshToken');
     const accessToken = localStorage.getItem('authToken');

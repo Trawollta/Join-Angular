@@ -3,6 +3,11 @@
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  @media screen and (min-width: 700px) {
+    
+      max-height: 1000px;
+    display:flex;
+  }
 }
 
 /* Header */
@@ -20,7 +25,6 @@
   margin-bottom: 20px;
 }
 
-/* Formularcontainer */
 .task-container {
   display: flex;
   flex-direction: column;
@@ -30,6 +34,12 @@
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 700px) {
+  .task-container {
+    max-height: 1000px;
+  }
 }
 
 /* Formularzeilen */
@@ -42,7 +52,6 @@
 
 /* Formularelemente */
 input, select, textarea {
-  width: 100%;
   padding: 12px;
   border-radius: 10px;
   border: solid 1px #d1d1d1;
@@ -149,6 +158,7 @@ textarea {
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
+  width: 82%;
 }
 
 .dropdown-content label {
@@ -199,4 +209,8 @@ label {
   gap: 16px;
   font-size: 19px;
   margin-bottom: .2em;
+}
+
+.user-name {
+  display:flex;
 }

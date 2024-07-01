@@ -5,20 +5,18 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContactsService } from '../../services/contacts.service';
 
-
 @Component({
-  
   selector: 'app-contacts',
   standalone: true,
   templateUrl: './contacts.component.html',
   imports: [CommonModule, ButtonComponent],
   styleUrls: ['./contacts.component.scss']
-
 })
 export class ContactsComponent implements OnInit {
   contactsList: Contact[] = [];
   sortedContacts: { [key: string]: Contact[] } = {};
   contactColors: { [key: string]: string } = {};
+  displayedAlphabet: string[] = [];  // Buchstaben, die tatsächlich Kontakte haben
 
   constructor(private contactsService: ContactsService) {}
 
@@ -36,11 +34,11 @@ export class ContactsComponent implements OnInit {
         this.contactsList = contacts;
         this.sortedContacts = this.getSortedContactsFromList(contacts);
         this.generateContactColors(contacts);
+        this.generateAlphabet();  // Aktualisiere das angezeigte Alphabet
       },
       error: (err) => console.error('Fehler beim Laden der Kontakte', err)
     });
   }
-  
 
   generateContactColors(contacts: Contact[]) {
     contacts.forEach(contact => {
@@ -51,17 +49,17 @@ export class ContactsComponent implements OnInit {
   getSortedContactsFromList(contacts: Contact[]): { [key: string]: Contact[] } {
     console.log('Kontakte vor dem Sortieren:', contacts);
     const sortedContacts: { [key: string]: Contact[] } = {};
-  
+
     // Sortiere die Kontakte mit einer sicheren Vergleichsfunktion
     contacts.sort((a, b) => {
       // Sicherstellen, dass first_name existiert, sonst leere Strings verwenden
       const nameA = a.first_name || '';
       const nameB = b.first_name || '';
-  
+
       // Vergleiche die Namen mit einem Basis-String-Vergleich
       return nameA.localeCompare(nameB);
     });
-  
+
     // Gruppiere die sortierten Kontakte nach dem ersten Buchstaben des Vornamens
     contacts.forEach(contact => {
       // Sicherstellen, dass first_name existiert, sonst '?' verwenden
@@ -71,10 +69,19 @@ export class ContactsComponent implements OnInit {
       }
       sortedContacts[firstLetter].push(contact);
     });
-  
+
     console.log('Sortierte Kontakte:', sortedContacts);
     return sortedContacts;
   }
-  
 
+  getInitials(firstName: string, lastName: string): string {
+    const firstInitial = firstName.charAt(0).toUpperCase();
+    const lastInitial = lastName.charAt(0).toUpperCase();
+    return `${firstInitial}${lastInitial}`;
+  }
+
+  generateAlphabet() {
+    // Extrahiere die Buchstaben aus den vorhandenen Kontakten
+    this.displayedAlphabet = Object.keys(this.sortedContacts).sort();
+  }
 }

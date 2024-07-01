@@ -19,6 +19,12 @@
       <span>{{ task.priority }}</span>
     </div>
     <div>
+      <span>Erstellt von:</span>
+      <div class="user-border">
+        {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
+      </div>
+    </div>
+    <div>
       <span>Zugewiesen an:</span>
       <div class="users">
         <div *ngFor="let user of assignedUsers" class="user-border">
@@ -29,4 +35,4 @@
   </div>
 </div>
 
-<app-edit-contacts-dialog *ngIf="showOverlay" [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>
+<!-- <app-edit-contacts-dialog *ngIf="showOverlay" [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog> -->

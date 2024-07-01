@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, lastValueFrom } from 'rxjs';
 import { Task } from '../../app/models/tasks';
+import { Contact } from '../models/contacts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTaskService {
-  taskId!: number;
-
   private apiUrl = 'http://localhost:8000/tasks/';
+  private usersUrl = 'http://localhost:8000/users/';
 
   constructor(public http: HttpClient) {}
 
@@ -22,7 +22,7 @@ export class AddTaskService {
     });
   }
 
-  newTask(taskData: any): Promise<any> {
+  newTask(taskData: Task): Promise<any> {
     const url = `${this.apiUrl}createTask/`;
     return lastValueFrom(this.http.post(url, taskData, { headers: this.getHeaders() }));
   }
@@ -40,5 +40,15 @@ export class AddTaskService {
   updateTask(task: Task): Observable<any> {
     const url = `${this.apiUrl}updateTask/${task.id}/`;
     return this.http.put(url, task, { headers: this.getHeaders() });
+  }
+
+  getUsers(): Observable<Contact[]> {
+    return this.http.get<Contact[]>(this.usersUrl, { headers: this.getHeaders() });
+  }
+
+  getUserById(userId: number): Observable<Contact> {
+    debugger;
+    const url = `${this.usersUrl}${userId}/`;
+    return this.http.get<Contact>(url, { headers: this.getHeaders() });
   }
 }

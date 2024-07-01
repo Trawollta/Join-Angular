@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GuestUser, User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
+import { AddTaskService } from '../../services/add-tasks.service';
+import { Task } from '../../models/tasks';
 
 @Component({
   selector: 'app-summary',
@@ -22,18 +24,19 @@ export class SummaryComponent implements OnInit {
   urgentCount: number = 0;
   tasksCount: number = 0;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private taskService: AddTaskService) {}
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe((user: User | GuestUser | null) => {
       if (user) {
         this.username = user.username;
-        this.firstname = 'first_name' in user ? user.first_name : 'Gast'; // Setzen Sie den Vornamen für Gastbenutzer
-        this.greeting = this.greetTime(); // Grußtext speichern
+        this.firstname = 'first_name' in user ? user.first_name : 'Gast';
+        this.greeting = this.greetTime();
+        this.loadTasks();
       } else {
         this.username = null;
         this.firstname = null;
-        this.greeting = this.greetTime(); // Grußtext speichern
+        this.greeting = this.greetTime();
       }
     });
   }
@@ -54,5 +57,18 @@ export class SummaryComponent implements OnInit {
     }
 
     return greeting + (this.firstname ? ' ' + this.firstname : '!');
+  }
+
+  loadTasks() {
+    this.taskService.getTasks().subscribe((tasks: Task[]) => {
+      this.tasksCount = tasks.length;
+      this.toDoCount = tasks.filter(task => task.status === 'TO_DO').length;
+      this.inProgressCount = tasks.filter(task => task.status === 'IN_PROGRESS').length;
+      this.awaitFeedbackCount = tasks.filter(task => task.status === 'AWAIT_FEEDBACK').length;
+      this.doneCount = tasks.filter(task => task.status === 'DONE').length;
+      this.urgentCount = tasks.filter(task => task.priority === 'Urgent').length; // Typ sollte mit dem tatsächlichen Wert übereinstimmen
+    }, (error: any) => {
+      console.error('Fehler beim Laden der Tasks', error);
+    });
   }
 }

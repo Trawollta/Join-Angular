@@ -1,2 +1,16 @@
-<section>
-</section>
+<div class="overview">
+  <div class="content">
+    <div class="sidebar">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="main">
+      <div class="header">
+        <app-header></app-header>
+      </div>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <app-navigation class="navbar"></app-navigation>
+</div>

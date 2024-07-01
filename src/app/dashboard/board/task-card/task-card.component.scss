@@ -10,7 +10,7 @@
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-sizing: border-box;
     transition: opacity 0.3s ease;
-    position: relative; /* Neu hinzugefügt */
+    position: relative;
   }
   
   .input-title {
@@ -21,11 +21,11 @@
     box-sizing: border-box;
     padding: 12px 21px;
     font-size: 20px;
-    margin-bottom: 10px; /* Um etwas Abstand zwischen den Eingabefeldern zu schaffen */
+    margin-bottom: 10px;
   }
   
   .input-description {
-    margin-top: 10px; /* Wenn Sie möchten, dass das Beschreibungsfeld etwas Abstand hat */
+    margin-top: 10px;
   }
   
   h3 {
@@ -68,7 +68,7 @@
     -webkit-box-orient: vertical;
     height: 38px;
     line-height: 19px;
-    color: #A8A8A8;
+    color: #a8a8a8;
     margin-bottom: 24px;
   }
   
@@ -76,14 +76,14 @@
     width: 128px;
     height: 8px;
     border-radius: 4px;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     margin-right: 8px;
   }
   
   .progress-line {
     height: 8px;
     border-radius: 4px;
-    background-color: #4589FF;
+    background-color: #4589ff;
   }
   
   .subtask-container {
@@ -113,7 +113,7 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    border: 3px solid #29ABE2;
+    border: 3px solid #29abe2;
     outline: 2px solid white;
     outline-offset: -1px;
     background-color: white;
@@ -126,8 +126,7 @@
   }
   
   .task-actions {
-    position: absolute; /* Neu hinzugefügt */
-    top: 10px; /* Abstand von oben */
-    right: 10px; /* Abstand von rechts */
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
-  

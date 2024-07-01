@@ -4,18 +4,19 @@ import { AddTaskService } from '../../../services/add-tasks.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-contacts-dialog.component';
+import { Contact } from '../../../models/contacts'; // Importieren des Contact-Interfaces
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [FormsModule, CommonModule, EditContactsDialogComponent],
+  imports: [FormsModule, CommonModule, ],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements OnInit {
   tasks: Task[] = [];
   editingTask: Task | null = null;
-  assignedUsers: { first_name: string, last_name: string }[] = [];
+  assignedUsers: Contact[] = [];
   showOverlay = false;
 
   @Input() task!: Task;
@@ -25,17 +26,30 @@ export class TaskCardComponent implements OnInit {
   constructor(private addTaskService: AddTaskService) {}
 
   ngOnInit(): void {
-    console.log('Initiale Task-Daten:', this.task);
+    this.loadAssignedUsers();
+  }
+
+  async loadAssignedUsers() {
     if (this.task && this.task.assigned_to) {
-      this.assignedUsers = this.task.assigned_to;
+      this.assignedUsers = [];
+      for (const user of this.task.assigned_to) {
+        try {
+          const userData = await this.addTaskService.getUserById(user.id).toPromise();
+          if (userData) {
+            this.assignedUsers.push(userData);
+          }
+        } catch (error) {
+          console.error('Fehler beim Abrufen der Benutzerdaten:', error);
+        }
+      }
       console.log('Assigned Users:', this.assignedUsers);
     } else {
       console.error('Kein assigned_to-Array im Task-Objekt gefunden');
+      this.assignedUsers = [];
     }
   }
 
   getInitials(firstName: string, lastName: string): string {
-    console.log('GetInitials aufgerufen mit:', firstName, lastName);
     if (!firstName || !lastName) {
       return '';
     }

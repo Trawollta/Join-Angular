@@ -1,14 +1,20 @@
 <div class="contactlist">
-  <div class="list" *ngFor="let letter of sortedContacts | keyvalue">
-      <h2>{{ letter.key }}</h2>
-      <div *ngFor="let contact of letter.value" class="contact-field">
-          <div class="contact-circle" [style.background-color]="contactColors[contact.first_name]">
-              {{ contact.first_name.split(' ')[0].charAt(0) }}{{ contact.first_name.split(' ')[1] ? contact.first_name.split(' ')[1].charAt(0) : '' }}
-          </div>
-          <div class="contact-info">
-              <div class="contact-name">{{ contact.first_name }} {{contact.last_name}}</div>
+    <div class="list">
+      <div *ngFor="let letter of displayedAlphabet">
+        <h2>{{ letter }}</h2>
+        <div class="divider"></div>
+        <div *ngFor="let contact of sortedContacts[letter]">
+          <div class="contact-field">
+            <div class="contact-circle" [style.background-color]="contactColors[contact.first_name]">
+              {{ getInitials(contact.first_name, contact.last_name) }}
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
               <div class="contact-mail">{{ contact.email }}</div>
+            </div>
           </div>
-      </div>         
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  

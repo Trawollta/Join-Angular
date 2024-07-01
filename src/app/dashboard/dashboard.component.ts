@@ -4,6 +4,9 @@ import { ContentComponent } from './content/content.component';
 import { SummaryComponent } from './summary/summary.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { HeaderComponent } from '../header/header.component';
+import { SidenavComponent } from './board/sidenav/sidenav.component';
+import { RouterModule } from '@angular/router';
+
 // import { AddContactsDialogComponent } from '../add-contacts-dialog/add-contacts-dialog.component';
 
 
@@ -15,7 +18,9 @@ import { HeaderComponent } from '../header/header.component';
     ContentComponent,
     SummaryComponent,
     AddTaskComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidenavComponent,
+    RouterModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'

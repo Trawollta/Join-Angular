@@ -13,6 +13,8 @@ import { ContactsService } from '../../services/contacts.service';
 import { Contact } from '../../models/contacts';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Observable } from 'rxjs';
+import { Task } from '../../models/tasks';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
@@ -43,11 +45,12 @@ export class AddTaskComponent implements OnInit {
   constructor(
     private taskService: AddTaskService,
     private contactsService: ContactsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
-    this.contacts$ = this.contactsService.getContacts(); // Initialize the Observable
+    this.contacts$ = this.contactsService.getContacts(); // Initialisiere das Observable
   
-    // Initialize taskForm with FormBuilder
+    // Initialisiere taskForm mit FormBuilder
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -99,10 +102,11 @@ export class AddTaskComponent implements OnInit {
   async addTask() {
     if (this.taskForm.valid) {
       try {
-        const taskData = this.taskForm.value;
+        const taskData = this.taskForm.value as Task;
         console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
         await this.taskService.newTask(taskData);
         alert('Task erfolgreich hinzugefügt!');
+        this.router.navigate(['/board']); 
       } catch (e) {
         if (e instanceof Error) {
           console.error('Es gab ein Problem', e);
