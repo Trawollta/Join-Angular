@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Task } from '../../app/models/tasks';
 import { Contact } from '../models/contacts';
 
@@ -17,14 +17,14 @@ export class AddTaskService {
     const token = localStorage.getItem('authToken');
     console.log('Token:', token);
     return new HttpHeaders({
-      'Authorization': token ? `Bearer ${token}` : '',
+      'Authorization': token ? `${token}` : '',
       'Content-Type': 'application/json'
     });
   }
 
-  newTask(taskData: Task): Promise<any> {
+  newTask(taskData: Task): Observable<any> {
     const url = `${this.apiUrl}createTask/`;
-    return lastValueFrom(this.http.post(url, taskData, { headers: this.getHeaders() }));
+    return this.http.post(url, taskData, { headers: this.getHeaders() });
   }
 
   getTasks(): Observable<Task[]> {
@@ -47,7 +47,6 @@ export class AddTaskService {
   }
 
   getUserById(userId: number): Observable<Contact> {
-    debugger;
     const url = `${this.usersUrl}${userId}/`;
     return this.http.get<Contact>(url, { headers: this.getHeaders() });
   }

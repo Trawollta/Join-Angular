@@ -7,5 +7,12 @@ export interface Task {
   status: 'TO_DO' | 'AWAIT_FEEDBACK' | 'IN_PROGRESS' | 'DONE';
   project_lead: number | null;
   created_by: { id: number; username: string; first_name: string; last_name: string };
-  assigned_to: { id: number;}[];
+  assigned_to: assigned_to[];
+}
+
+interface assigned_to {
+  first_name: string;
+  last_name:string;
+  email:string;
+  id:number
 }

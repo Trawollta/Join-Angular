@@ -30,7 +30,7 @@
         <div *ngIf="dropdownOpen" class="dropdown-content">
           <div *ngFor="let user of contacts$ | async" class="user-item">
             <label>
-              <input type="checkbox" (change)="onCheckboxChange($event, user.id)">
+              <input type="checkbox" (change)="onCheckboxChange($event, user)">
               <span class="initials">{{ getInitials(user.first_name, user.last_name) }}</span>
               <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
             </label>

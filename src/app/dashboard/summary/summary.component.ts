@@ -5,6 +5,7 @@ import { GuestUser, User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { AddTaskService } from '../../services/add-tasks.service';
 import { Task } from '../../models/tasks';
+import { GetUserService } from '../../services/getuser.service';
 
 @Component({
   selector: 'app-summary',
@@ -24,21 +25,11 @@ export class SummaryComponent implements OnInit {
   urgentCount: number = 0;
   tasksCount: number = 0;
 
-  constructor(private authService: AuthService, private taskService: AddTaskService) {}
+  constructor(private authService: AuthService, private taskService: AddTaskService, private getUserService: GetUserService) {}
 
   ngOnInit() {
-    this.authService.getCurrentUser().subscribe((user: User | GuestUser | null) => {
-      if (user) {
-        this.username = user.username;
-        this.firstname = 'first_name' in user ? user.first_name : 'Gast';
-        this.greeting = this.greetTime();
-        this.loadTasks();
-      } else {
-        this.username = null;
-        this.firstname = null;
-        this.greeting = this.greetTime();
-      }
-    });
+    
+    this.getUserService.getCurrentUser()
   }
 
   greetTime(): string {

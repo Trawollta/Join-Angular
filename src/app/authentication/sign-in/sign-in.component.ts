@@ -14,29 +14,30 @@ import { ButtonComponent } from '../../shared/button/button.component';
 })
 export class SignInComponent {
   signInForm = new FormGroup({
-    // email: new FormControl('', [Validators.required, Validators.email]),
-    username: new FormControl<string>('', [Validators.required, ]),
+    username: new FormControl<string>('', [Validators.required]),
     password: new FormControl<string>('', [Validators.required, Validators.minLength(8)]),
     remember: new FormControl(false)
   });
 
   constructor(private router: Router, private authService: AuthService) {}
 
-  onSubmit() {
-      // Formulardaten holen
+  async onSubmit() {
+    if (this.signInForm.valid) {
       const credentials = {
         username: this.signInForm.value.username as string,
         password: this.signInForm.value.password as string
       };
-      // const credentials = this.signInForm.get(['username', 'password'])
-      // Login-Funktion des AuthService aufrufen
-      this.authService.login(credentials).then(()=>{
-        this.router.navigate(['/summary'])
-      })
+      try {
+        await this.authService.login(credentials);
+        console.log('Login erfolgreich'); 
+        
+        this.router.navigateByUrl('dashboard/summary');
+      } catch (error) {
+        console.error('Login fehlgeschlagen', error);
+        // Fehlerbehandlung hinzufügen, z.B. Anzeige einer Fehlermeldung
+      }
+    } else {
+      console.error('Formular ist ungültig'); // Debug-Ausgabe
     }
-
-    guestLogin() {
-      this.authService.guestLogin();
-      this.router.navigate(['/summary']);
-    }
+  }
 }

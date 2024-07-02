@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+// header.component.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { User, GuestUser } from '../models/user';
+import { GetUserService } from '../services/getuser.service';
 
 @Component({
   selector: 'app-header',
@@ -16,33 +17,19 @@ export class HeaderComponent implements OnInit {
   userInitials: string = '';
   isOverlayVisible: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private getUserService: GetUserService, private router: Router) {}
 
   ngOnInit() {
-    this.authService.loggedIn$.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-      if (isLoggedIn) {
-        this.loadUserIcon();
-      }
-    });
     this.loadUserIcon();
   }
 
   loadUserIcon() {
     const token = localStorage.getItem('authToken');
+    console.log('Gefundener Token:', token); // Debug-Ausgabe
+
     if (token) {
-      this.authService.getCurrentUser().subscribe({
-        next: (user) => {
-          if (user) {
-            this.isLoggedIn = true;
-            this.userInitials = this.getInitials(user);
-          }
-        },
-        error: (error) => {
-          console.error('Fehler beim Abrufen des aktuellen Benutzers:', error);
-          this.isLoggedIn = false;
-        }
-      });
+      this.getUserService.getCurrentUser() 
+      
     } else {
       const currentUser = localStorage.getItem('currentUser');
       if (currentUser) {
@@ -69,7 +56,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
     this.isLoggedIn = false;
     this.router.navigate(['/login']); // Angenommen, du hast eine Login-Seite
   }

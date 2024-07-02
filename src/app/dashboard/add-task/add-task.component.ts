@@ -80,7 +80,7 @@ export class AddTaskComponent implements OnInit {
     this.taskForm.patchValue({ priority });
   }
 
-  onCheckboxChange(event: Event, userId: number) {
+  onCheckboxChange(event: Event, userId:any) {
     console.log('Checkbox geändert, UserID:', userId); 
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
@@ -102,11 +102,12 @@ export class AddTaskComponent implements OnInit {
   async addTask() {
     if (this.taskForm.valid) {
       try {
-        const taskData = this.taskForm.value as Task;
+        const taskData = this.taskForm.value;
+        debugger
         console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
-        await this.taskService.newTask(taskData);
+        await this.taskService.newTask(taskData).toPromise();
         alert('Task erfolgreich hinzugefügt!');
-        this.router.navigate(['/board']); 
+        // this.router.navigate(['/board']); 
       } catch (e) {
         if (e instanceof Error) {
           console.error('Es gab ein Problem', e);

@@ -25,20 +25,19 @@ import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthguardService } from './services/authguard.service';
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: AuthenticationComponent,
-    children: [
+  
+  
       { path: 'login', component: SignInComponent },
       { path: 'signup', component: SignUpComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-    ]
-  },
+ 
   {
-    path: '',
+    path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthguardService],
     children: [
       { path: 'contacts', component: ContactsComponent },
       { path: 'summary', component: SummaryComponent },
