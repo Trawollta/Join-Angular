@@ -103,7 +103,7 @@ export class AddTaskComponent implements OnInit {
     if (this.taskForm.valid) {
       try {
         const taskData = this.taskForm.value;
-        debugger
+
         console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
         await this.taskService.newTask(taskData).toPromise();
         alert('Task erfolgreich hinzugefügt!');

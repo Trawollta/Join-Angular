@@ -17,7 +17,7 @@ export class AddTaskService {
     const token = localStorage.getItem('authToken');
     console.log('Token:', token);
     return new HttpHeaders({
-      'Authorization': token ? `${token}` : '',
+      'Authorization': token ? `Token ${token}` : '',
       'Content-Type': 'application/json'
     });
   }
@@ -29,7 +29,7 @@ export class AddTaskService {
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}getTasks/`, { headers: this.getHeaders() });
-  } 
+  }
 
   deleteTask(taskId: number): Observable<any> {
     console.log(`Attempting to delete task with id: ${taskId}`);

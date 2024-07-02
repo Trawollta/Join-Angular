@@ -1,9 +1,9 @@
-// header.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { User, GuestUser } from '../models/user';
 import { GetUserService } from '../services/getuser.service';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,35 +16,26 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   userInitials: string = '';
   isOverlayVisible: boolean = false;
+  currentUser$: Observable<User | null>;
 
-  constructor(private getUserService: GetUserService, private router: Router) {}
+  constructor(private getUserService: GetUserService, private router: Router) {
+    this.currentUser$ = this.getUserService.getCurrentUserObservable();
+  }
 
   ngOnInit() {
-    this.loadUserIcon();
-  }
-
-  loadUserIcon() {
-    const token = localStorage.getItem('authToken');
-    console.log('Gefundener Token:', token); // Debug-Ausgabe
-
-    if (token) {
-      this.getUserService.getCurrentUser() 
-      
-    } else {
-      const currentUser = localStorage.getItem('currentUser');
-      if (currentUser) {
-        const user = JSON.parse(currentUser) as User | GuestUser;
+    this.getUserService.fetchCurrentUser();
+    this.currentUser$.subscribe(user => {
+      if (user) {
+        this.isLoggedIn = true;
         this.userInitials = this.getInitials(user);
-      } else {
-        console.log('Kein Token gefunden, Benutzer ist nicht eingeloggt');
       }
-    }
+    });
   }
 
-  private getInitials(user: User | GuestUser): string {
-    if ('first_name' in user && 'last_name' in user) {
+  private getInitials(user: User): string {
+    if (user.first_name && user.last_name) {
       return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
-    } else if ('username' in user && user.username === 'Gast') {
+    } else if (user.username === 'Gast') {
       return 'G';
     } else {
       return '';

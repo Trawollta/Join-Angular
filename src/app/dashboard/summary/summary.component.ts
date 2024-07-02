@@ -29,8 +29,10 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit() {
     
-    this.getUserService.getCurrentUser()
+    
+    // this.getUserService.getCurrentUser()
   }
+  
 
   greetTime(): string {
     let date = new Date();

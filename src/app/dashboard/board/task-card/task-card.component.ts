@@ -3,12 +3,13 @@ import { Task } from '../../../models/tasks';
 import { AddTaskService } from '../../../services/add-tasks.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Contact } from '../../../models/contacts'; // Importieren des Contact-Interfaces
+import { Contact } from '../../../models/contacts';
+import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-contacts-dialog.component';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, EditContactsDialogComponent],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss']
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -8,6 +8,8 @@ import { User } from '../models/user';
 })
 export class GetUserService {
   private apiUrl = 'http://localhost:8000/api/auth/current_user/';
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -15,18 +17,19 @@ export class GetUserService {
     const token = localStorage.getItem('authToken');
     let headers = new HttpHeaders();
     if (token) {
-      console.log('Setze Token im Header:', token); // Debug-Ausgabe
-      headers = headers.set('Authorization', `${token}`); // Kein 'Bearer' Präfix
+      headers = headers.set('Authorization', `Token ${token}`); // 'Token' Präfix hinzufügen
     }
     return headers;
   }
 
-  getCurrentUser(){
-    // const headers = this.getHeaders();
-    // return this.http.get<User>(this.apiUrl, { headers });
-    const token = localStorage.getItem('authToken');
-
-    return lastValueFrom(this.http.post(this.apiUrl, {token}))
+  fetchCurrentUser(): void {
+    this.http.get<User>(this.apiUrl, { headers: this.getHeaders() }).subscribe(
+      user => this.currentUserSubject.next(user),
+      error => console.error('Fehler beim Abrufen des Benutzers:', error)
+    );
   }
 
+  getCurrentUserObservable(): Observable<User | null> {
+    return this.currentUser$;
+  }
 }
