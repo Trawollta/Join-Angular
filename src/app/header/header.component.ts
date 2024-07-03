@@ -32,10 +32,14 @@ export class HeaderComponent implements OnInit {
       (user) => {
         if (user) {
           this.userInitials = this.getInitials(user.first_name, user.last_name);
+          this.isLoggedIn = true; // Hier setzen wir isLoggedIn auf true
+        } else {
+          this.isLoggedIn = false;
         }
       },
       (error) => {
         console.error('Fehler beim Abrufen des Benutzers:', error);
+        this.isLoggedIn = false;
       }
     );
   }
