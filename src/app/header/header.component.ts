@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { GetUserService } from '../services/getuser.service';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,30 +15,36 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   userInitials: string = '';
   isOverlayVisible: boolean = false;
-  currentUser$: Observable<User | null>;
+  userId: number = 0;
 
-  constructor(private getUserService: GetUserService, private router: Router) {
-    this.currentUser$ = this.getUserService.getCurrentUserObservable();
-  }
+  constructor(private getUserService: GetUserService, private router: Router) {}
 
   ngOnInit() {
-    this.getUserService.fetchCurrentUser();
-    this.currentUser$.subscribe(user => {
-      if (user) {
-        this.isLoggedIn = true;
-        this.userInitials = this.getInitials(user);
-      }
+    this.getUserService.currentUserId.subscribe((userId) => {
+      this.userId = userId;
     });
+    this.fetchCurrentUser();
   }
 
-  private getInitials(user: User): string {
-    if (user.first_name && user.last_name) {
-      return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
-    } else if (user.username === 'Gast') {
-      return 'G';
-    } else {
+  fetchCurrentUser() {
+    this.getUserService.fetchCurrentUser();
+    this.getUserService.getCurrentUserObservable().subscribe(
+      (user) => {
+        if (user) {
+          this.userInitials = this.getInitials(user.first_name, user.last_name);
+        }
+      },
+      (error) => {
+        console.error('Fehler beim Abrufen des Benutzers:', error);
+      }
+    );
+  }
+
+  private getInitials(firstName: string, lastName: string): string {
+    if (!firstName || !lastName) {
       return '';
     }
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
   toggleOverlay() {
@@ -50,6 +55,6 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('authToken');
     localStorage.removeItem('currentUser');
     this.isLoggedIn = false;
-    this.router.navigate(['/login']); // Angenommen, du hast eine Login-Seite
+    this.router.navigate(['/login']);
   }
 }

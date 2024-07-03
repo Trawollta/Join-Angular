@@ -1,12 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../models/contacts';
 import { Task } from '../models/tasks';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-edit-contacts-dialog',
   templateUrl: './edit-contacts-dialog.component.html',
-  styleUrls: ['./edit-contacts-dialog.component.scss']
+  styleUrls: ['./edit-contacts-dialog.component.scss'],
+  imports: [CommonModule]
 })
 export class EditContactsDialogComponent {
   @Input() task!: Task;

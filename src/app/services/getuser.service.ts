@@ -11,13 +11,16 @@ export class GetUserService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
+  currentUserId = new BehaviorSubject<number>(0);
+  $currentUserId = this.currentUserId.asObservable();
+
   constructor(private http: HttpClient) {}
 
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set('Authorization', `Token ${token}`); // 'Token' Präfix hinzufügen
+      headers = headers.set('Authorization', `Token ${token}`);
     }
     return headers;
   }
