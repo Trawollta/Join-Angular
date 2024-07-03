@@ -15,6 +15,7 @@ export class AuthService {
   loggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient, private router: Router, private getUserService: GetUserService) {
+    
     const currentUserString = localStorage.getItem('currentUser');
     let currentUser: User | null = null as User | null;
     if (currentUserString) {

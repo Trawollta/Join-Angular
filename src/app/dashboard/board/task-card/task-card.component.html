@@ -23,16 +23,15 @@
       <div class="user-border">
         {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
       </div>
-    </div>
-    <div>
-      <span>Zugewiesen an:</span>
-      <div class="users">
-        <div *ngFor="let user of assignedUsers" class="user-border">
-          {{ getInitials(user.first_name, user.last_name) }}
+      <div class="task-details">
+        <div>
+          <span>Zugewiesen an:</span>
+          <div class="users">
+            <div *ngFor="let user of assignedUsers" class="user-border">
+              {{ getInitials(user.first_name, user.last_name) }}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
 <app-edit-contacts-dialog *ngIf="showOverlay" [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>

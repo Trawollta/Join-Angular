@@ -1,34 +1,26 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthInterceptor implements HttpInterceptor {
+export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  const router = inject(Router);
+  const token = localStorage.getItem('authToken'); // Stelle sicher, dass der Schlüssel korrekt ist
 
-  constructor(private router: Router) { }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-    if (token) {
-      request = request.clone({
-        setHeaders: { Authorization: `Token ${token}` }
-      });
-    }
-
-    return next.handle(request).pipe(
-      catchError((err) => {
-        if(err instanceof HttpErrorResponse){
-          if(err.status === 401){
-            this.router.navigateByUrl('/login');
-          }
-        }
-        return throwError(() => err);
-      })
-    );
+  if (token) {
+    request = request.clone({
+      setHeaders: { Authorization: `Token ${token}` }
+    });
   }
-}
 
-
+  return next(request).pipe(
+    catchError((err) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 401) {
+          router.navigateByUrl('/login'); // Navigiere bei 401-Fehler zur Login-Seite
+        }
+      }
+      return throwError(() => err);
+    })
+  );
+};

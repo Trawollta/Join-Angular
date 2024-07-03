@@ -80,17 +80,18 @@ export class AddTaskComponent implements OnInit {
     this.taskForm.patchValue({ priority });
   }
 
-  onCheckboxChange(event: Event, userId:any) {
-    console.log('Checkbox geändert, UserID:', userId); 
+  onCheckboxChange(event: Event, user: Contact) {
+    console.log('Checkbox geändert, UserID:', user.id); 
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
-      if (!this.selectedUsers.includes(userId)) {
-        this.selectedUsers.push(userId);
-        this.assigned_to.push(new FormControl(userId));
+      if (!this.selectedUsers.includes(user.id)) {
+        this.selectedUsers.push(user.id);
+        this.assigned_to.push(new FormControl(user));
+        console.log(this.assigned_to.value);
       }
     } else {
-      this.selectedUsers = this.selectedUsers.filter(id => id !== userId);
-      const index = this.assigned_to.controls.findIndex(control => control.value === userId);
+      this.selectedUsers = this.selectedUsers.filter(id => id !== user.id);
+      const index = this.assigned_to.controls.findIndex(control => control.value.id === user.id);
       this.assigned_to.removeAt(index);
     }
   }
@@ -103,8 +104,16 @@ export class AddTaskComponent implements OnInit {
     if (this.taskForm.valid) {
       try {
         const taskData = this.taskForm.value;
-
-        console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
+        
+        // Hier die `assigned_to` Felder als Objekte senden
+        taskData.assigned_to = this.assigned_to.value.map((user: Contact) => ({
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+        }));
+  
+        console.log('Gesendete Formulardaten:', JSON.stringify(taskData, null, 2)); // Debugging-Ausgabe
         await this.taskService.newTask(taskData).toPromise();
         alert('Task erfolgreich hinzugefügt!');
         // this.router.navigate(['/board']); 
@@ -121,4 +130,6 @@ export class AddTaskComponent implements OnInit {
       console.error('Formular ist nicht gültig');
     }
   }
+  
+  
 }

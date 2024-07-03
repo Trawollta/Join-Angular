@@ -15,4 +15,5 @@ interface assigned_to {
   last_name:string;
   email:string;
   id:number
+  // username: string;
 }
