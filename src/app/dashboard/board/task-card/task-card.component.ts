@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../models/contacts';
 import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-contacts-dialog.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-task-card',
@@ -23,33 +24,22 @@ export class TaskCardComponent implements OnInit {
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Task>();
 
-  constructor(private addTaskService: AddTaskService) {}
+  constructor(private addTaskService: AddTaskService) { }
+
 
   ngOnInit(): void {
-    // this.loadAssignedUsers();
+    this.loadAssignedUsers();
   }
 
-  // async loadAssignedUsers() {
-  //   if (this.task && this.task.assigned_to) {
-  //     this.assignedUsers = [];
-  //     for (const user of this.task.assigned_to) {
-  //       try {
-  //         const userData = await this.addTaskService.getUserById(user.id).toPromise();
-  //         if (userData) {
-  //           this.assignedUsers.push(userData);
-  //         }
-  //       } catch (error) {
-  //         console.error('Fehler beim Abrufen der Benutzerdaten:', error);
-  //       }
-  //     }
-  //     console.log('Assigned Users:', this.assignedUsers);
-  //   } else {
-  //     console.error('Kein assigned_to-Array im Task-Objekt gefunden');
-  //     this.assignedUsers = [];
-  //   }
-  // }
-  
-  
+  loadAssignedUsers(): void {
+    if (this.task && this.task.assigned_to) {
+      this.assignedUsers = this.task.assigned_to.map(user => new Contact(user));
+    } else {
+      console.error('Kein assigned_to-Array im Task-Objekt gefunden');
+      this.assignedUsers = [];
+    }
+  }
+
 
   getInitials(firstName: string, lastName: string): string {
     if (!firstName || !lastName) {

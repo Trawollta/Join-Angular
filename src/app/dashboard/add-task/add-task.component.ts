@@ -106,10 +106,11 @@ export class AddTaskComponent implements OnInit {
         const taskData = this.taskForm.value;
         taskData.assigned_to = this.selectedUsers;
   
-        console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
-        await this.taskService.newTask(taskData).toPromise();
+        console.log('Gesendete Formulardaten:', taskData);
+        const response = await this.taskService.newTask(taskData).toPromise();
+        console.log('Serverantwort:', response); 
         alert('Task erfolgreich hinzugefügt!');
-        // this.router.navigate(['/board']); 
+        this.router.navigate(['/board']);
       } catch (e) {
         if (e instanceof Error) {
           console.error('Es gab ein Problem', e);
