@@ -104,16 +104,9 @@ export class AddTaskComponent implements OnInit {
     if (this.taskForm.valid) {
       try {
         const taskData = this.taskForm.value;
-        
-        // Hier die `assigned_to` Felder als Objekte senden
-        taskData.assigned_to = this.assigned_to.value.map((user: Contact) => ({
-          id: user.id,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          email: user.email,
-        }));
+        taskData.assigned_to = this.selectedUsers;
   
-        console.log('Gesendete Formulardaten:', JSON.stringify(taskData, null, 2)); // Debugging-Ausgabe
+        console.log('Gesendete Formulardaten:', taskData); // Debugging-Ausgabe
         await this.taskService.newTask(taskData).toPromise();
         alert('Task erfolgreich hinzugefügt!');
         // this.router.navigate(['/board']); 
@@ -130,6 +123,5 @@ export class AddTaskComponent implements OnInit {
       console.error('Formular ist nicht gültig');
     }
   }
-  
   
 }
