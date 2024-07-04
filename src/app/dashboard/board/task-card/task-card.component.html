@@ -1,37 +1,34 @@
 <div class="taskcard" (click)="openOverlay()">
-  <ng-container *ngIf="editingTask; else viewMode">
-    <input [(ngModel)]="editingTask.title" placeholder="Titel" class="input-title">
-    <input [(ngModel)]="editingTask.description" placeholder="Beschreibung" class="input-description">
-  </ng-container>
-
-  <ng-template #viewMode>
+  <ng-container *ngIf="!showOverlay; else editMode">
     <h3>{{ task.title }}</h3>
     <p class="description">{{ task.description }}</p>
-  </ng-template>
-
-  <div class="task-details">
-    <div>
-      <span>Status:</span>
-      <span>{{ task.status }}</span>
-    </div>
-    <div>
-      <span>Priorität:</span>
-      <span>{{ task.priority }}</span>
-    </div>
-    <div>
-      <span>Erstellt von:</span>
-      <div class="user-border">
-        {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
+    <div class="task-details">
+      <div>
+        <span>Status:</span>
+        <span>{{ task.status }}</span>
       </div>
-      <div class="task-details">
-        <div>
-          <span>Zugewiesen an:</span>
-          <div class="users">
-            <div *ngFor="let user of assignedUsers" class="user-border">
-              {{ getInitials(user.first_name, user.last_name) }}
-            </div>
+      <div>
+        <span>Priorität:</span>
+        <span>{{ task.priority }}</span>
+      </div>
+      <div>
+        <span>Erstellt von:</span>
+        <div class="user-border">
+          {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
+        </div>
+      </div>
+      <div>
+        <span>Zugewiesen an:</span>
+        <div class="users">
+          <div *ngFor="let user of assignedUsers" class="user-border">
+            {{ getInitials(user.first_name, user.last_name) }}
           </div>
         </div>
       </div>
-
-<app-edit-contacts-dialog *ngIf="showOverlay" [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>
+    </div>
+  </ng-container>
+  
+  <ng-template #editMode>
+    <app-edit-contacts-dialog [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>
+  </ng-template>
+</div>

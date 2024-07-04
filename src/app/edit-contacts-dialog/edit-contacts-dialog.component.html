@@ -1,31 +1,44 @@
 <div class="overlay">
   <div class="overlay-content">
     <button class="close-button" (click)="closeOverlay()">X</button>
-    <span>Title</span>
-    <h2>{{ task.title }}</h2>
-    
-    <span>Description</span>
-    <p>{{ task.description }}</p>
 
-    <div class="task-details">
-      <div>
-        <div class="status-details">
-          <span>Status:</span>
-          <span>{{ task.status }}</span>
+    <div>
+      <input [(ngModel)]="task.title" placeholder="Titel" class="input-title">
+    </div>
+    <div>
+      <input [(ngModel)]="task.description" placeholder="Beschreibung" class="input-description">
+    </div>
+    <div>
+      <select [(ngModel)]="task.status" class="input-status">
+        <option value="offen">Offen</option>
+        <option value="in Bearbeitung">In Bearbeitung</option>
+        <option value="abgeschlossen">Abgeschlossen</option>
+      </select>
+    </div>
+    <div>
+      <select [(ngModel)]="task.priority" class="input-priority">
+        <option value="hoch">Hoch</option>
+        <option value="mittel">Mittel</option>
+        <option value="niedrig">Niedrig</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Zugewiesen an:</span>
+      <div class="users">
+        <div *ngFor="let user of task.assigned_to; let i = index" class="user-border">
+          {{ getInitials(user.first_name, user.last_name) }}
+          <button (click)="removeAssignedUser(i)">Entfernen</button>
         </div>
       </div>
-      <div class="status-details">
-        <span>Priorität:</span>
-        <span>{{ task.priority }}</span>
-      </div>
-      <div>
-        <span>Assigned to:</span>
-        <div class="users">
-          <div *ngFor="let user of assignedUsers" class="user-border">
-            {{ getInitials(user.first_name, user.last_name) }}
-          </div>
-        </div>
-      </div>
+      <select [(ngModel)]="selectedUser" (change)="addAssignedUser()">
+        <option *ngFor="let user of availableUsers" [ngValue]="user">{{ user.first_name }} {{ user.last_name }}</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button (click)="saveTask()">Speichern</button>
+      <button (click)="deleteTask()">Löschen</button>
     </div>
   </div>
 </div>

@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../models/contacts';
 import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-contacts-dialog.component';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-task-card',
@@ -16,7 +15,6 @@ import { firstValueFrom } from 'rxjs';
 })
 export class TaskCardComponent implements OnInit {
   tasks: Task[] = [];
-  editingTask: Task | null = null;
   assignedUsers: Contact[] = [];
   showOverlay = false;
 
@@ -25,7 +23,6 @@ export class TaskCardComponent implements OnInit {
   @Output() edit = new EventEmitter<Task>();
 
   constructor(private addTaskService: AddTaskService) { }
-
 
   ngOnInit(): void {
     this.loadAssignedUsers();
@@ -39,7 +36,6 @@ export class TaskCardComponent implements OnInit {
       this.assignedUsers = [];
     }
   }
-
 
   getInitials(firstName: string, lastName: string): string {
     if (!firstName || !lastName) {

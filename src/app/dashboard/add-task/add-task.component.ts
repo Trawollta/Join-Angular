@@ -110,7 +110,7 @@ export class AddTaskComponent implements OnInit {
         const response = await this.taskService.newTask(taskData).toPromise();
         console.log('Serverantwort:', response); 
         alert('Task erfolgreich hinzugefügt!');
-        this.router.navigate(['/board']);
+        this.router.navigate(['/dashboard/board']);
       } catch (e) {
         if (e instanceof Error) {
           console.error('Es gab ein Problem', e);

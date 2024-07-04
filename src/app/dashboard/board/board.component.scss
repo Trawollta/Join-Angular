@@ -2,14 +2,14 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  
 }
 
 .main-container {
   padding: 20px;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  // height: 100%;
 }
 
 h1 {
@@ -141,7 +141,7 @@ h1 {
 }
 
 .taskcard-container {
-  max-height: 70vh; /* Feste Höhe, um Platz für Scrollen zu schaffen */
+  // max-height: 70vh; /* Feste Höhe, um Platz für Scrollen zu schaffen */
   overflow-y: auto; /* Ermöglicht vertikales Scrollen */
   width: 100%;
   padding: 0 8px;
