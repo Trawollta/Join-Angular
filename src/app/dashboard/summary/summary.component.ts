@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { GuestUser, User } from '../../models/user';
+import { Task } from '../../models/tasks';
 import { AuthService } from '../../services/auth.service';
 import { AddTaskService } from '../../services/add-tasks.service';
-import { Task } from '../../models/tasks';
 import { GetUserService } from '../../services/getuser.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-summary',
@@ -28,11 +28,16 @@ export class SummaryComponent implements OnInit {
   constructor(private authService: AuthService, private taskService: AddTaskService, private getUserService: GetUserService) {}
 
   ngOnInit() {
-    
-    
-    // this.getUserService.getCurrentUser()
+    this.getUserService.fetchCurrentUser();
+    this.getUserService.getCurrentUserObservable().subscribe((user: User | null) => {
+      if (user) {
+        this.firstname = user.first_name;
+        this.username = user.username;
+        this.greeting = this.greetTime();
+      }
+    });
+    this.loadTasks();
   }
-  
 
   greetTime(): string {
     let date = new Date();
@@ -59,7 +64,7 @@ export class SummaryComponent implements OnInit {
       this.inProgressCount = tasks.filter(task => task.status === 'IN_PROGRESS').length;
       this.awaitFeedbackCount = tasks.filter(task => task.status === 'AWAIT_FEEDBACK').length;
       this.doneCount = tasks.filter(task => task.status === 'DONE').length;
-      this.urgentCount = tasks.filter(task => task.priority === 'Urgent').length; // Typ sollte mit dem tatsächlichen Wert übereinstimmen
+      this.urgentCount = tasks.filter(task => task.priority === 'Urgent').length;
     }, (error: any) => {
       console.error('Fehler beim Laden der Tasks', error);
     });

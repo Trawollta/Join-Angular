@@ -21,10 +21,14 @@
 
 .header {
   width: 100%;
-  flex: 0 0 auto;
+  // flex: 0 0 auto;
   position: sticky;
   top: 0;
   z-index: 1000;
+  @media (max-width: 699px) {
+    width: 100%;
+    height: 10vh;
+  }
 }
 
 .main-content {
@@ -44,23 +48,23 @@
   }
 
   .sidebar {
-    display: none; /* Sidebar ausblenden */
+    display: none; 
   }
 
   .header {
     width: 100%;
-    height: 10vh; /* Feste Höhe für Header */
+    height: 10vh;
   }
 
   .main-content {
     flex: 1;
-    height: calc(100vh - 20vh); /* Höhe für Main-Content anpassen, abzüglich Header und Navbar */
+    height: calc(100vh - 20vh); 
   }
 
   .navbar {
-    display: block; /* Navbar anzeigen */
-    height: 10vh; /* Feste Höhe für Navbar */
-    position: fixed; /* Navbar unten fixieren */
+    display: block;
+    height: 10vh; 
+    position: fixed; 
     bottom: 0;
     width: 100%;
   }

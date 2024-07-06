@@ -10,6 +10,9 @@
 
 .logo {
   height: 40px;
+  @media (min-width: 699px) {
+      display: none;
+}
 }
 
   .user-profile-initials {

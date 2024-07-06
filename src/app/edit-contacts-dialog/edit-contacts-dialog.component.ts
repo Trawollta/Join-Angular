@@ -14,10 +14,12 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule]
 })
 export class EditContactsDialogComponent implements OnInit {
+
   @Input() task!: Task;
   @Output() close = new EventEmitter<void>();
   availableUsers: Contact[] = [];
   selectedUser: Contact | null = null;
+  isEditDialogOpen = true;
 
   constructor(private addTaskService: AddTaskService, private contactsService: ContactsService) { }
 
@@ -43,8 +45,10 @@ export class EditContactsDialogComponent implements OnInit {
     return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
-  closeOverlay(): void {
-    this.close.emit();
+  closeOverlay() {
+    console.log('Overlay wird geschlossen');
+    this.isEditDialogOpen = false;
+    // this.close.emit();
   }
 
   saveTask() {

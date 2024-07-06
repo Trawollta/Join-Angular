@@ -1,25 +1,26 @@
-<div class="overlay">
+<div class="overlay" *ngIf="isEditDialogOpen">
   <div class="overlay-content">
-    <button class="close-button" (click)="closeOverlay()">X</button>
+    <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay()">
 
     <div>
-      <input [(ngModel)]="task.title" placeholder="Titel" class="input-title">
+      <input [(ngModel)]="task.title" placeholder="Titel" class="input-title" name="title">
     </div>
     <div>
-      <input [(ngModel)]="task.description" placeholder="Beschreibung" class="input-description">
+      <input [(ngModel)]="task.description" placeholder="Beschreibung" class="input-description" name="description">
     </div>
     <div>
-      <select [(ngModel)]="task.status" class="input-status">
-        <option value="offen">Offen</option>
-        <option value="in Bearbeitung">In Bearbeitung</option>
-        <option value="abgeschlossen">Abgeschlossen</option>
+      <select [(ngModel)]="task.status" class="input-status" name="status">
+        <option value="TO_DO">Offen</option>
+        <option value="AWAIT_FEEDBACK">Wartet auf Feedback</option>
+        <option value="IN_PROGRESS">In Bearbeitung</option>
+        <option value="DONE">Abgeschlossen</option>
       </select>
     </div>
     <div>
-      <select [(ngModel)]="task.priority" class="input-priority">
-        <option value="hoch">Hoch</option>
-        <option value="mittel">Mittel</option>
-        <option value="niedrig">Niedrig</option>
+      <select [(ngModel)]="task.priority" class="input-priority" name="priority">
+        <option value="Urgent">Dringend</option>
+        <option value="Medium">Mittel</option>
+        <option value="Low">Niedrig</option>
       </select>
     </div>
 
@@ -28,10 +29,10 @@
       <div class="users">
         <div *ngFor="let user of task.assigned_to; let i = index" class="user-border">
           {{ getInitials(user.first_name, user.last_name) }}
-          <button (click)="removeAssignedUser(i)">Entfernen</button>
+          <button class="remove-button" (click)="removeAssignedUser(i)">X</button>
         </div>
       </div>
-      <select [(ngModel)]="selectedUser" (change)="addAssignedUser()">
+      <select [(ngModel)]="selectedUser" (change)="addAssignedUser()" name="assignedUser">
         <option *ngFor="let user of availableUsers" [ngValue]="user">{{ user.first_name }} {{ user.last_name }}</option>
       </select>
     </div>
