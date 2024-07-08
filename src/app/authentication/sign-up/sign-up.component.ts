@@ -17,13 +17,19 @@ import { ButtonComponent } from '../../shared/button/button.component';
 export class SignUpComponent {
   username = '';
   password = '';
-  firstname= '';
-  lastname= '';
-  email= '';
+  confirmPassword = '';
+  firstname = '';
+  lastname = '';
+  email = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   async onSubmit() {
+    if (this.password !== this.confirmPassword) {
+      console.error('Die Passwörter stimmen nicht überein.');
+      return;
+    }
+
     try {
       const userData = {
         username: this.username,
@@ -32,16 +38,16 @@ export class SignUpComponent {
         last_name: this.lastname,
         email: this.email
       };
-  
+
       let response = await this.authService.register(userData);
-  
+
       this.router.navigateByUrl('/login');
     } catch (e) {
       if (e instanceof HttpErrorResponse) {
-        console.error('Registration failed with status:', e.status);
-        console.error('Error response:', e.error);
+        console.error('Registrierung fehlgeschlagen mit Status:', e.status);
+        console.error('Fehlermeldung:', e.error);
       } else {
-        console.error('An unexpected error occurred:', e);
+        console.error('Ein unerwarteter Fehler ist aufgetreten:', e);
       }
     }
   }

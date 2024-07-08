@@ -20,6 +20,7 @@ export class EditContactsDialogComponent implements OnInit {
   availableUsers: Contact[] = [];
   selectedUser: Contact | null = null;
   isEditDialogOpen = true;
+  dropdownOpen = false;
 
   constructor(private addTaskService: AddTaskService, private contactsService: ContactsService) { }
 
@@ -31,9 +32,6 @@ export class EditContactsDialogComponent implements OnInit {
     this.contactsService.getContacts().subscribe(
       users => {
         this.availableUsers = users;
-      },
-      error => {
-        console.error('Fehler beim Laden der Benutzer:', error);
       }
     );
   }
@@ -47,7 +45,6 @@ export class EditContactsDialogComponent implements OnInit {
 
   closeOverlay() {
     this.isEditDialogOpen = false;
- 
   }
 
   saveTask() {
@@ -63,9 +60,6 @@ export class EditContactsDialogComponent implements OnInit {
           assigned_to: updatedTask.assigned_to.map((id: number) => this.availableUsers.find(user => user.id === id)!)
         };
         this.closeOverlay();
-      },
-      error => {
-        console.error('Fehler beim Aktualisieren der Aufgabe:', error);
       }
     );
   }
@@ -73,13 +67,29 @@ export class EditContactsDialogComponent implements OnInit {
   deleteTask() {
     if (confirm('Möchten Sie diese Aufgabe wirklich löschen?')) {
       this.addTaskService.deleteTask(this.task.id).subscribe(
-        response => {
+        () => {
           this.closeOverlay();
-        },
-        error => {
-          console.error('Fehler beim Löschen der Aufgabe:', error);
         }
       );
+    }
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  isSelected(user: Contact): boolean {
+    return this.task.assigned_to.some(u => u.id === user.id);
+  }
+
+  onCheckboxChange(event: Event, user: Contact) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      if (!this.task.assigned_to.some(u => u.id === user.id)) {
+        this.task.assigned_to.push(user);
+      }
+    } else {
+      this.task.assigned_to = this.task.assigned_to.filter(u => u.id !== user.id);
     }
   }
 

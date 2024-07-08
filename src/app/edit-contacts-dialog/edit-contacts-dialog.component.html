@@ -32,9 +32,20 @@
           <button class="remove-button" (click)="removeAssignedUser(i)">X</button>
         </div>
       </div>
-      <select [(ngModel)]="selectedUser" (change)="addAssignedUser()" name="assignedUser">
-        <option *ngFor="let user of availableUsers" [ngValue]="user">{{ user.first_name }} {{ user.last_name }}</option>
-      </select>
+      <div class="assigned-users-dropdown">
+        <div class="assigned-btn" (click)="toggleDropdown()">
+          <span>Benutzer auswählen</span>
+        </div>
+        <div *ngIf="dropdownOpen" class="dropdown-content">
+          <div *ngFor="let user of availableUsers" class="user-item">
+            <label>
+              <input type="checkbox" [checked]="isSelected(user)" (change)="onCheckboxChange($event, user)">
+              <span class="initials">{{ getInitials(user.first_name, user.last_name) }}</span>
+              {{ user.first_name }} {{ user.last_name }}
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="actions">

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../models/contacts';
 import { CommonModule } from '@angular/common';
-// import { AddContactsDialogComponent } from '../../add-contacts-dialog/add-contacts-dialog.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContactsService } from '../../services/contacts.service';
 
@@ -16,7 +15,7 @@ export class ContactsComponent implements OnInit {
   contactsList: Contact[] = [];
   sortedContacts: { [key: string]: Contact[] } = {};
   contactColors: { [key: string]: string } = {};
-  displayedAlphabet: string[] = [];  // Buchstaben, die tatsächlich Kontakte haben
+  displayedAlphabet: string[] = [];  
 
   constructor(private contactsService: ContactsService) {}
 
@@ -29,12 +28,11 @@ export class ContactsComponent implements OnInit {
       next: (contacts) => {
         if (!contacts.every(contact => contact.first_name)) {
           console.error('Alle Kontakte müssen einen Vornamen haben.');
-          // Behandle den Fall, dass einige Kontakte keinen Vornamen haben
         }
         this.contactsList = contacts;
         this.sortedContacts = this.getSortedContactsFromList(contacts);
         this.generateContactColors(contacts);
-        this.generateAlphabet();  // Aktualisiere das angezeigte Alphabet
+        this.generateAlphabet(); 
       },
       error: (err) => console.error('Fehler beim Laden der Kontakte', err)
     });
@@ -50,27 +48,20 @@ export class ContactsComponent implements OnInit {
     console.log('Kontakte vor dem Sortieren:', contacts);
     const sortedContacts: { [key: string]: Contact[] } = {};
 
-    // Sortiere die Kontakte mit einer sicheren Vergleichsfunktion
     contacts.sort((a, b) => {
-      // Sicherstellen, dass first_name existiert, sonst leere Strings verwenden
       const nameA = a.first_name || '';
       const nameB = b.first_name || '';
 
-      // Vergleiche die Namen mit einem Basis-String-Vergleich
       return nameA.localeCompare(nameB);
     });
 
-    // Gruppiere die sortierten Kontakte nach dem ersten Buchstaben des Vornamens
     contacts.forEach(contact => {
-      // Sicherstellen, dass first_name existiert, sonst '?' verwenden
       const firstLetter = contact.first_name ? contact.first_name.charAt(0).toUpperCase() : '?';
       if (!sortedContacts[firstLetter]) {
         sortedContacts[firstLetter] = [];
       }
       sortedContacts[firstLetter].push(contact);
     });
-
-    console.log('Sortierte Kontakte:', sortedContacts);
     return sortedContacts;
   }
 
@@ -81,7 +72,6 @@ export class ContactsComponent implements OnInit {
   }
 
   generateAlphabet() {
-    // Extrahiere die Buchstaben aus den vorhandenen Kontakten
     this.displayedAlphabet = Object.keys(this.sortedContacts).sort();
   }
 }
