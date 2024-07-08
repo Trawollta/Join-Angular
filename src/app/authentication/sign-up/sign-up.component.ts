@@ -5,11 +5,12 @@ import { AuthService } from '../../services/auth.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule, ButtonComponent],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
@@ -24,7 +25,6 @@ export class SignUpComponent {
 
   async onSubmit() {
     try {
-      // Erstelle ein Objekt, das die Benutzerdaten enthält
       const userData = {
         username: this.username,
         password: this.password,
@@ -33,11 +33,8 @@ export class SignUpComponent {
         email: this.email
       };
   
-      // Rufe die Registrierungsmethode auf und übergebe die Benutzerdaten
       let response = await this.authService.register(userData);
-      console.log('User registration successful', response);
   
-      // Navigiere zur Login-Seite
       this.router.navigateByUrl('/login');
     } catch (e) {
       if (e instanceof HttpErrorResponse) {

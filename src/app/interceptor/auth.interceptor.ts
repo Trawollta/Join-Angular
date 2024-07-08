@@ -17,7 +17,8 @@ export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, ne
     catchError((err) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
-          router.navigateByUrl('/login'); // Navigiere bei 401-Fehler zur Login-Seite
+          localStorage.removeItem('authToken');
+          router.navigateByUrl('/login');
         }
       }
       return throwError(() => err);

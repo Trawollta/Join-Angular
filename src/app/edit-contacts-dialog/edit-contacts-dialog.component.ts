@@ -46,15 +46,14 @@ export class EditContactsDialogComponent implements OnInit {
   }
 
   closeOverlay() {
-    console.log('Overlay wird geschlossen');
     this.isEditDialogOpen = false;
-    // this.close.emit();
+ 
   }
 
   saveTask() {
     const updatedTask = {
       ...this.task,
-      assigned_to: this.task.assigned_to.map(user => user.id) // Nur die IDs der Benutzer senden
+      assigned_to: this.task.assigned_to.map(user => user.id)
     };
 
     this.addTaskService.updateTask(updatedTask as any).subscribe(

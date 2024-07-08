@@ -7,7 +7,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserServiceService {
-  private apiUrl = 'http://localhost:8000/api/auth/'; // Angepasste Basis-URL deines Django-Servers
+  private apiUrl = 'http://localhost:8000/api/auth/';
 
   constructor(private http: HttpClient) {}
 
@@ -17,21 +17,12 @@ export class UserServiceService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}current_user/`); // Endpunkt für aktuellen Benutzer
+    return this.http.get<User>(`${this.apiUrl}current_user/`);
   }
 
   logout(): void {
-    // Entferne den Token aus dem lokalen Speicher
     localStorage.removeItem('authToken');
     localStorage.removeItem('currentUser');
-    // Optional: Sende eine Anfrage an das Backend, um den Token ungültig zu machen
-    this.http.post(`${this.apiUrl}logout/`, {}).subscribe(
-      response => {
-        console.log('Logout erfolgreich', response);
-      },
-      error => {
-        console.error('Logout Fehler', error);
-      }
-    );
+    this.http.post(`${this.apiUrl}logout/`, {}).subscribe();
   }
 }

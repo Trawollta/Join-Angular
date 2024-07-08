@@ -6,37 +6,77 @@ body, html {
 }
 
 .main-container {
-  padding: 20px;
-  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  // margin-top: 100px;
+  background-color: #F6F7F8;
+  padding: 100px;
+}
+
+.categorie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #42526e;
+
+}
+
+.boardbody {
+  background-color: #f6f7f8;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
-  height: 90vh;
-  // height: 100%;
+  max-width: 1208px;
+  padding-bottom: 24px;
+  min-height: 688px;
+}
+
+.panelheadbutton {
+  cursor: pointer;
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #f6f7f8;
+    border: solid 2.5px #2a3647;
+    width: 24px;
+    height: 24px;
+    // background-image: url(../assets/img/Capa1.svg);
+    background-repeat: no-repeat;
+    background-position-x: 53%;
+    background-position-y: 50%;
 }
 
 h1 {
   font-size: 18px;
+  @media screen and (min-width: 700px) {
+    font-size: 61px;
+    font-weight: 700;
+    margin: 0;
+
+  }
 }
 
 .board {
   display: block;
   
   @media screen and (min-width: 700px) {
-    display: flex; 
-    flex-direction: column; 
-    width: 100%; 
-    max-width: 237px; 
-    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 32px;
   }
 
   .boardbody {
-    font-family: "Inter";
     background-color: #f6f7f8;
     display: flex;
     flex-direction: column;
-    width: 100%; /* Breite auf 100% setzen */
+    width: 100%; 
 
     @media screen and (min-width: 700px) {
-      justify-content: space-between; /* Abstand zwischen den Elementen für größere Bildschirme */
+      justify-content: space-between; 
+      overflow-y: scroll;
     }
   }
 }
@@ -46,10 +86,10 @@ h1 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 5px 10px; /* angepasst für kleinere Bildschirme */
+  padding: 5px 10px; 
 
   @media screen and (min-width: 768px) {
-    padding: 5px 40px; /* mehr Padding für größere Bildschirme */
+    padding: 5px 40px; 
   }
 }
 
@@ -58,18 +98,18 @@ h1 {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  width: 100%; /* Breite auf 100% setzen */
-  max-width: 312px; /* Maximale Breite für die Suchleiste */
+  width: 100%; 
+  max-width: 312px; 
   height: 38px;
   border-radius: 10px;
   border: solid 1px #a8a8a8;
   background-color: white;
   padding: 8px 16px;
-  margin-bottom: 10px; /* Abstand unterhalb der Suchleiste */
+  margin-bottom: 10px; 
 
   @media screen and (min-width: 700px) {
-    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
-    margin-bottom: 0; /* Kein Abstand unterhalb der Suchleiste */
+    flex-direction: row; 
+    margin-bottom: 0; 
   }
 }
 
@@ -79,21 +119,21 @@ h1 {
   width: 100%;
   height: 100%;
   font-size: 16px;
-  border-radius: 0; /* Entfernt die abgerundeten Ecken des inneren Suchfelds */
+  border-radius: 0;
 
   @media screen and (min-width: 768px) {
-    font-size: 20px; /* größere Schriftgröße für Desktop */
+    font-size: 20px;
   }
 }
 
 .add-button {
-  margin-top: 10px; /* Abstand oberhalb des Buttons */
-  width: 100%; /* Breite auf 100% setzen */
+  margin-top: 10px; 
+  width: 100%; 
 
   @media screen and (min-width: 700px) {
-    display: flex; /* Flexbox verwenden */
-    justify-content: flex-end; /* Am Ende der Flexbox ausrichten */
-    margin-top: 0; /* Kein Abstand oberhalb des Buttons */
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 0;
   }
 }
 
@@ -102,9 +142,10 @@ h1 {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  gap:30px;
 
   @media screen and (min-width: 700px) {
-    flex-direction: row; /* Ändert die Richtung in eine Reihe für größere Bildschirme */
+    flex-direction: row; 
   }
 }
 
@@ -112,21 +153,32 @@ h1 {
   width: 100%; /* Breite auf 100% für mobile Ansicht */
   
   @media screen and (min-width: 700px) {
-    width: 275px; /* Feste Breite für größere Bildschirme */
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    min-width: 200px;
+    gap: 16px;
   }
 }
 
 .taskcard {
-  padding: 10px;
-  width: 100%;
-  background-color: white;
-  border-radius: 10px; /* weniger abgerundet für kleinere Bildschirme */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  margin-bottom: 10px;
+  // padding: 10px;
+  // width: 100%;
+  // background-color: white;
+  // border-radius: 10px; 
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  // margin-bottom: 10px;
 
   @media screen and (min-width: 768px) {
-    border-radius: 24px; /* stärker abgerundet wie ursprünglich */
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 16px;
+    width: 100%;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 24px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+    touch-action: none;
   }
 }
 
@@ -142,12 +194,11 @@ h1 {
 }
 
 .taskcard-container {
-  // max-height: 70vh; /* Feste Höhe, um Platz für Scrollen zu schaffen */
-  overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+  overflow-y: auto; 
   width: 100%;
   padding: 0 8px;
 
   @media screen and (min-width: 768px) {
-    padding: 0 16px;
+    // padding: 0 16px;
   }
 }

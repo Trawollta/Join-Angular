@@ -29,15 +29,10 @@ export class SignInComponent {
       };
       try {
         await this.authService.login(credentials);
-        console.log('Login erfolgreich'); 
-        
         this.router.navigateByUrl('dashboard/summary');
       } catch (error) {
-        console.error('Login fehlgeschlagen', error);
         // Fehlerbehandlung hinzufügen, z.B. Anzeige einer Fehlermeldung
       }
-    } else {
-      console.error('Formular ist ungültig'); // Debug-Ausgabe
     }
   }
 }

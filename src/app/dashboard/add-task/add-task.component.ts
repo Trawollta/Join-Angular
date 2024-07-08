@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { Task } from '../../models/tasks';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-add-task',
@@ -32,15 +33,28 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
   ],
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.scss']
+  styleUrls: ['./add-task.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      state('void', style({ right: '-100%' })),
+      state('*', style({ right: '0' })),
+      transition(':enter', [
+        animate('0.5s ease')
+      ]),
+      transition(':leave', [
+        animate('0.5s ease')
+      ])
+    ])
+  ]
 })
 export class AddTaskComponent implements OnInit {
   taskForm!: FormGroup;
   currentPriority: 'Low' | 'Medium' | 'Urgent' = 'Low';
   activePriority: 'Low' | 'Medium' | 'Urgent' = 'Low';
-  contacts$: Observable<Contact[]>; // Benutzerdaten als Observable
+  contacts$: Observable<Contact[]>;
   selectedUsers: number[] = [];
   dropdownOpen = false;
+  taskCreated = false;
 
   constructor(
     private taskService: AddTaskService,
@@ -48,9 +62,7 @@ export class AddTaskComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    this.contacts$ = this.contactsService.getContacts(); // Initialisiere das Observable
-  
-    // Initialisiere taskForm mit FormBuilder
+    this.contacts$ = this.contactsService.getContacts();
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -81,13 +93,11 @@ export class AddTaskComponent implements OnInit {
   }
 
   onCheckboxChange(event: Event, user: Contact) {
-    console.log('Checkbox geändert, UserID:', user.id); 
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
       if (!this.selectedUsers.includes(user.id)) {
         this.selectedUsers.push(user.id);
         this.assigned_to.push(new FormControl(user));
-        console.log(this.assigned_to.value);
       }
     } else {
       this.selectedUsers = this.selectedUsers.filter(id => id !== user.id);
@@ -106,23 +116,19 @@ export class AddTaskComponent implements OnInit {
         const taskData = this.taskForm.value;
         taskData.assigned_to = this.selectedUsers;
   
-        console.log('Gesendete Formulardaten:', taskData);
         const response = await this.taskService.newTask(taskData).toPromise();
-        console.log('Serverantwort:', response); 
-        alert('Task erfolgreich hinzugefügt!');
-        this.router.navigate(['/dashboard/board']);
+        this.taskCreated = true;
+        setTimeout(() => {
+          this.taskCreated = false;
+          this.router.navigate(['/dashboard/board']);
+        }, 4000);
       } catch (e) {
         if (e instanceof Error) {
-          console.error('Es gab ein Problem', e);
           alert('Fehler beim Hinzufügen der Aufgabe: ' + e.message);
         } else {
-          console.error('Unbekannter Fehler', e);
           alert('Ein unbekannter Fehler ist aufgetreten');
         }
       }
-    } else {
-      console.error('Formular ist nicht gültig');
     }
   }
-  
 }

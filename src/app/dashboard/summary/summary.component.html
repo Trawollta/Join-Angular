@@ -14,71 +14,59 @@
 
   <div class="container">
     <div class="overview">
-      <div class="first-row">
-        <div class="box box-size-first-row">
-          <div class="image-circle">
-            <div>
-              <img src="assets/img/pencil-grey.svg" alt="">
-            </div>
-          </div>
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ toDoCount }}</span>
-              <span>To-do</span>
-            </div>
-          </div>
+      <div class="box">
+        <div class="image-circle">
+          <img src="assets/img/pencil-grey.svg" alt="">
         </div>
-        <div class="box box-size-first-row">
-          <div class="image-circle">
-            <div>
-              <img src="assets/img/check.png" alt="">
-            </div>
-          </div>
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ doneCount }}</span>
-              <span>Done</span>
-            </div>
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ toDoCount }}</span>
+            <span>To-do</span>
           </div>
         </div>
       </div>
-
-      <div class="second-row">
-        <div class="box box-size-second-row">
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ urgentCount }}</span>
-              <span>Urgent</span>
-            </div>
+      <div class="box">
+        <div class="image-circle">
+          <img src="assets/img/check.png" alt="">
+        </div>
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ doneCount }}</span>
+            <span>Done</span>
           </div>
-          <div class="border-urgent"></div>
-          <div class="upcoming-urgent"></div>
         </div>
       </div>
-
-      <div class="third-row">
-        <div class="box box-size-third-row">
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ tasksCount }}</span>
-              <span>Tasks in <br>Board</span>
-            </div>
+      <div class="box box-size-second-row">
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ urgentCount }}</span>
+            <span>Urgent</span>
           </div>
         </div>
-        <div class="box box-size-third-row">
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ inProgressCount }}</span>
-              <span>Tasks in <br>Progress</span>
-            </div>
+        <div class="border-urgent"></div>
+        <div class="upcoming-urgent"></div>
+      </div>
+      <div class="box">
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ tasksCount }}</span>
+            <span>Tasks in <br>Board</span>
           </div>
         </div>
-        <div class="box box-size-third-row">
-          <div class="column">
-            <div class="status">
-              <span class="ammount">{{ awaitFeedbackCount }}</span>
-              <span>Awaiting<br>Feedback</span>
-            </div>
+      </div>
+      <div class="box">
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ inProgressCount }}</span>
+            <span>Tasks in <br>Progress</span>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="column">
+          <div class="status">
+            <span class="ammount">{{ awaitFeedbackCount }}</span>
+            <span>Awaiting<br>Feedback</span>
           </div>
         </div>
       </div>

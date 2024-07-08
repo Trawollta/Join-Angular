@@ -23,7 +23,6 @@ export class AddTaskService {
   }
 
   deleteTask(taskId: number): Observable<any> {
-    console.log(`Attempting to delete task with id: ${taskId}`);
     const url = `${this.apiUrl}deleteTask/?task_id=${taskId}`;
     return this.http.delete(url);
   }
