@@ -13,9 +13,8 @@
           <label for="description">Description:</label>
           <textarea formControlName="description" required class="description-input" placeholder="Enter a description"></textarea>
         </div>
-      </div>
-      <div class="divider"></div>
-      <div class="right">
+    
+      
         <div class="form-row">
           <label for="status">Status:</label>
           <select formControlName="status" required class="status-select">
@@ -24,7 +23,11 @@
             <option value="IN_PROGRESS">In Bearbeitung</option>
             <option value="DONE">Erledigt</option>
           </select>
+          
         </div>
+      </div>
+        <div class="divider"></div>
+        <div class="right">
         <div class="form-row">
           <label for="">Assigned to:</label>
           <div class="assigned-btn" (click)="toggleDropdown()">
@@ -42,17 +45,37 @@
         </div>
         <span>Prio:</span>
         <div class="task-prio-container">
-          <app-button [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" caption="Niedrig" priority="Low" (clicked)="setPriority('Low')"></app-button>
-          <app-button [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" caption="Mittel" priority="Medium" (clicked)="setPriority('Medium')"></app-button>
-          <app-button [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" caption="Dringend" priority="Urgent" (clicked)="setPriority('Urgent')"></app-button>
+          <app-button 
+            [classes]="['task-prio', activePriority === 'Low' ? 'active low' : 'Low']" 
+            caption="Low" 
+            priority="Low" 
+            (clicked)="setPriority('Low')"
+            imgPath="assets/img/Prio_baja.png">
+          </app-button>
+          <app-button 
+            [classes]="['task-prio', activePriority === 'Medium' ? 'active medium' : 'Medium']" 
+            caption="Medium" 
+            priority="Medium" 
+            (clicked)="setPriority('Medium')"
+            imgPath="assets/img/Prio_media.png">
+          </app-button>
+          <app-button 
+            [classes]="['task-prio', activePriority === 'Urgent' ? 'active urgent' : 'Urgent']" 
+            caption="Urgent" 
+            priority="Urgent" 
+            (clicked)="setPriority('Urgent')"
+            imgPath="assets/img/Prio_alta.png">
+          </app-button>
         </div>
-      </div>
-    </div>
+     
+    
     <div class="modal-footer">
       <div class="add-btn">
-        <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add Task'"></app-button>
+        <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add Task'"imgPath="assets/img/check.png"></app-button>
       </div>
     </div>
+  </div>
+</div>
   </form>
 
   <div class="task-created" *ngIf="taskCreated" @slideInOut>

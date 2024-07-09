@@ -33,7 +33,10 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 32%;
+  @media (min-width: 700px) {
+    width: 100%;
+  }
 }
 
 .overview {
@@ -41,26 +44,24 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 30px;
+  gap: 10px; /* Geändert */
   @media (min-width: 700px) {
     width: 560px;
     gap: 30px;
     margin-right: 70px;
-    align-items: center; /* Hinzugefügt */
-    justify-content: center; /* Hinzugefügt */
+    align-items: center;
+    justify-content: center;
   }
 }
 
-.first-row, .third-row {
+.first-row, .second-row, .third-row {
   display: flex;
   justify-content: center;
   gap: 10px;
-  width: 40%;
+  width: 100%; /* Geändert */
   @media (min-width: 700px) {
-    width: 100%;
     display: flex;
     justify-content: center;
-    height: 163px; /* Geändert */
   }
 }
 
@@ -93,24 +94,13 @@ h1 {
   }
 }
 
-.box-size-first-row, .box-size-third-row {
+.box-size-first-row, .box-size-third-row, .box-size-second-row {
+  flex-grow: 1; /* Hinzugefügt */
   height: 84px;
   @media (min-width: 700px) {
     height: 130px;
   }
 }
-
-.box-size-second-row {
-  width: 100%;
-  height: 73px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media (min-width: 700px) {
-    height: 130px;
-  }
-}
-
 
 .ammount {
   font-size: 30px;
@@ -137,21 +127,20 @@ h1 {
   align-items: center;
   text-align: center;
   @media screen and (max-width: 768px) {
-    
     display: flex;
     flex-direction: column;
 
     span:nth-child(1) {
-        font-size: 47px;
-        font-weight: 500;
+      font-size: 47px;
+      font-weight: 500;
     }
 
     span:nth-child(2) {
-        font-size: 64px;
-        font-weight: 700;
-        color: #29ABE2;
+      font-size: 64px;
+      font-weight: 700;
+      color: #29ABE2;
     }
-    }
+  }
 }
 
 /* Mobile Ansicht anpassen */
@@ -160,22 +149,20 @@ h1 {
     gap: 20px;
   }
 
-  .first-row, .third-row {
-    flex-direction: column;
+  .first-row, .second-row, .third-row {
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .box {
-    width: 100%;
+    width: calc(50% - 10px); /* Zwei Boxen pro Zeile */
     max-width: none;
     margin-bottom: 20px;
   }
 
-  .box-size-first-row, .box-size-third-row {
-    width: 100%;
-  }
-
-  .box-size-second-row {
+  .box-size-first-row, .box-size-third-row, .box-size-second-row {
     width: 100%;
   }
 

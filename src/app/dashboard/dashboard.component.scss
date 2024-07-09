@@ -9,9 +9,14 @@
 }
 
 .sidebar {
-  width: 250px;
-  height: 100vh;
+  display: none; /* Standardmäßig ausblenden */
+  @media (min-width: 900px) {
+    display: block; /* Ab 900px anzeigen */
+    width: 250px;
+    height: 100vh;
+  }
 }
+
 
 .main {
   flex: 1;
@@ -47,9 +52,9 @@
     flex-direction: column;
   }
 
-  .sidebar {
-    display: none; 
-  }
+  // .sidebar {
+  //   display: none; 
+  // }
 
   .header {
     width: 100%;

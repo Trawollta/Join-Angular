@@ -1,10 +1,11 @@
-<div class="contactlist">
+<div class="main-container">
+  <div class="contactlist">
     <div class="list">
       <div *ngFor="let letter of displayedAlphabet">
         <h2>{{ letter }}</h2>
         <div class="divider"></div>
         <div *ngFor="let contact of sortedContacts[letter]">
-          <div class="contact-field">
+          <div class="contact-field" (click)="selectContact(contact)">
             <div class="contact-circle" [style.background-color]="contactColors[contact.first_name]">
               {{ getInitials(contact.first_name, contact.last_name) }}
             </div>
@@ -17,4 +18,24 @@
       </div>
     </div>
   </div>
-  
+
+  <div class="user-details" *ngIf="selectedContact">
+    <div class="details-headline">
+      <h1>Contacts</h1>
+      <div class="border-line"></div>
+      <span>Better with a team</span>
+    </div>
+    <div class="name-details">
+      <div class="user-border-big"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div>
+      <span>{{ selectedContact.first_name }} {{ selectedContact.last_name }}</span>
+    </div>
+    <p><b>Username:</b></p>
+    <p>{{ selectedContact.username }}</p>
+    <p><b>Email:</b></p>
+    <a [href]="'mailto:' + selectedContact.email">{{ selectedContact.email }}</a>
+  </div>
+</div>
+
+<ng-template #noTasksTemplate>
+  <p>Keine Tasks gefunden.</p>
+</ng-template>

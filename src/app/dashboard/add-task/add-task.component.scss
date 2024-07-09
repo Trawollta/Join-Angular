@@ -1,85 +1,90 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .add-task-section {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto; 
+  height: 100vh; 
+}
 
-  @media screen and (min-width: 700px) {
-      .add-task-section{
-      display: flex;
-      flex: 1;
-      margin-top: 100px;
-      background-color: #F6F7F8;
-      padding: 100px;
-  
-    }
+@media screen and (min-width: 1200px) {
+  .add-task-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #F6F7F8;
+    padding: 100px;
+    height: auto;
+  }
 
-    .left, .right {
-      width: 48%;
-    }
+  .task-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 4%; /* Optional: Abstand zwischen left und right */
+  }
 
-    .divider {
-      height: 424px;
+  .left, .right {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right {
+    margin-bottom: 120px;
+  }
+
+  .divider {
+    height: 424px;
     background-color: #d1d1d1;
     width: 1px;
-    }
   }
 }
 
-.right {
-  height: 100%;
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.first-row {
+  display: flex;
+  justify-content: space-between;
 }
 
-.left {
+.right, .left {
   height: 100%;
-  width: 45%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.title {
-  color: black !important;
-  margin: 0 0 8px 0;
-  font-size: 20px;
-}
-
-.add-task-section {
-  position: relative;
-  .task-created {
-    position: absolute;
-    top: 0;
-    right: -100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    border-radius: 4px;
-    transition: right 0.5s ease;
-    &.visible {
-      right: 0;
-    }
+  @media screen and (min-width: 1200px) {
+    width: 45%;
   }
 }
 
-/* Header */
 .taskHeader {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
 }
 
 .taskHeader h2 {
   font-size: 34px;
-  font-weight: 700;
-  margin-top: 10;
+  font-weight: 700; /* Fett */
+  margin-top: 10px;
   margin-bottom: 20px;
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 1200px) {
     font-size: 61px;
-    font-weight: 700;
+    font-weight: 700; /* Fett */
     margin-top: 0;
   }
 }
@@ -88,25 +93,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 58vh;
-  overflow-y: auto;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 1200px) {
+    position: relative;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center; /* Zentriert left und right */
+    box-sizing: border-box;
+    font-size: 20px;
   }
 }
 
-@media screen and (min-width: 700px) {
-  .task-container {
-    max-height: 1000px;
-  }
-}
-
-/* Formularzeilen */
 .form-row {
   display: flex;
   flex-direction: column;
@@ -114,7 +112,6 @@
   margin-bottom: 20px;
 }
 
-/* Formularelemente */
 input, select, textarea {
   padding: 12px;
   border-radius: 10px;
@@ -131,23 +128,27 @@ textarea {
   resize: none;
 }
 
-/* Spezifische Stile für Titel */
 .title-input {
   height: 48px;
   padding: 12px 21px;
   font-size: 20px;
+  width: 100%;
+  @media screen and (min-width: 1200px) {
+    width: 400px;
+  }
 }
 
-/* Spezifische Stile für Beschreibung */
 .description-input {
-  font-family: Inter, sans-serif;
   font-size: 20px;
   min-height: 100px;
   max-height: 120px;
   padding: 18px 16px;
+  width: 100%;
+  @media screen and (min-width: 1200px) {
+    width: 400px;
+  }
 }
 
-/* Dropdown-Selects */
 .status-select, .user-select {
   cursor: pointer;
   min-height: 25.5px;
@@ -166,15 +167,17 @@ textarea {
   border-color: #4a90e2;
 }
 
-/* Prioritätscontainer */
 .task-prio-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-bottom: 20px;
   gap: 10px;
+  @media screen and (min-width: 1200px) {
+    flex-direction: row;
+    gap: 50px;
+  }
 }
 
-/* Button */
 .btn {
   display: inline-block;
   padding: 8px 16px;
@@ -189,12 +192,10 @@ textarea {
   background-color: #003f7f;
 }
 
-/* Add-Button Container */
 .add-btn {
   margin-bottom: 20px;
 }
 
-/* Dropdown-Inhalte */
 .dropdown {
   position: relative;
   margin-bottom: 20px;
@@ -205,13 +206,13 @@ textarea {
   background-color: white;
   border: solid 1px #d1d1d1;
   border-radius: 10px;
-  width: calc(100% - 35px);
+  width: 450px;
   cursor: pointer;
   box-sizing: border-box;
 }
 
 .dropdown-content {
-  top: calc(100% + 5px); /* Setzt das Dropdown direkt unter das zugehörige Feld */
+  top: calc(100% + 5px);
   left: 0;
   right: 0;
   background-color: white;
@@ -222,7 +223,7 @@ textarea {
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
-  width: 82%;
+  width: 90%;
 }
 
 .dropdown-content label {
@@ -230,7 +231,7 @@ textarea {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Anpassung hier */
+  justify-content: flex-start;
   width: calc(100% - 16px);
   padding: 8px 16px 8px 4px;
   margin-bottom: 8px;
@@ -240,7 +241,6 @@ textarea {
   margin-bottom: 0;
 }
 
-/* Initialen-Kreise */
 .initials {
   display: inline-block;
   width: 30px;
@@ -256,7 +256,6 @@ textarea {
   font-weight: bold;
 }
 
-/* Fokuszustand für Eingaben */
 input:focus, select:focus, textarea:focus, .dropdown-content button:focus {
   border-color: #4a90e2;
   outline: none;
@@ -273,8 +272,14 @@ label {
   gap: 16px;
   font-size: 19px;
   margin-bottom: .2em;
+  font-weight: 700; /* Fett */
 }
 
 .user-name {
   display: flex;
+}
+
+/* Überschriften */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; /* Fett */
 }

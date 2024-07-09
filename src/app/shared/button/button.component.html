@@ -1,4 +1,6 @@
-<button [disabled]="isDisabled" type="{{type}}" [ngClass]="classes" (click)="onClick()">
-    <img [src]="imgPath" />
+<button [disabled]="isDisabled" [type]="type" [ngClass]="classes" (click)="onClick()">
+    <ng-container *ngIf="priority">
+      <img [src]="imgPath" />
+    </ng-container>
     {{ caption }}
-</button>
+  </button>

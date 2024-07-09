@@ -16,6 +16,8 @@ export class ContactsComponent implements OnInit {
   sortedContacts: { [key: string]: Contact[] } = {};
   contactColors: { [key: string]: string } = {};
   displayedAlphabet: string[] = [];  
+  selectedContact: Contact | null = null; // Hinzugefügt
+  usedColors: Set<string> = new Set(); // Hinzugefügt
 
   constructor(private contactsService: ContactsService) {}
 
@@ -31,17 +33,33 @@ export class ContactsComponent implements OnInit {
         }
         this.contactsList = contacts;
         this.sortedContacts = this.getSortedContactsFromList(contacts);
-        this.generateContactColors(contacts);
+        this.loadContactColors(contacts);
         this.generateAlphabet(); 
       },
       error: (err) => console.error('Fehler beim Laden der Kontakte', err)
     });
   }
 
-  generateContactColors(contacts: Contact[]) {
+  loadContactColors(contacts: Contact[]) {
     contacts.forEach(contact => {
-      this.contactColors[contact.first_name] = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      const savedColor = localStorage.getItem(contact.first_name);
+      if (savedColor) {
+        this.contactColors[contact.first_name] = savedColor;
+        this.usedColors.add(savedColor);
+      } else {
+        let color;
+        do {
+          color = this.generateRandomColor();
+        } while (this.usedColors.has(color));
+        this.usedColors.add(color);
+        this.contactColors[contact.first_name] = color;
+        localStorage.setItem(contact.first_name, color);
+      }
     });
+  }
+
+  generateRandomColor(): string {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   }
 
   getSortedContactsFromList(contacts: Contact[]): { [key: string]: Contact[] } {
@@ -73,5 +91,9 @@ export class ContactsComponent implements OnInit {
 
   generateAlphabet() {
     this.displayedAlphabet = Object.keys(this.sortedContacts).sort();
+  }
+
+  selectContact(contact: Contact) {
+    this.selectedContact = contact; // Hinzugefügt
   }
 }

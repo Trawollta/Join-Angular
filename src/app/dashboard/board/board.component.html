@@ -13,11 +13,11 @@
     </div>
     
     <div class="add-button">
-      <app-button [caption]="'Add Task'" [classes]="'add-task'" (click)="navigateToAddTask()" ></app-button>
+      <app-button [caption]="'Add Task'" [classes]="'add-task'" (click)="navigateToAddTask()" imgPath="assets/img/add.svg"></app-button>
     </div>
 
     <div class="taskboard">
-      <!-- Zu erledigen -->
+       <div class="first-row">
       <div id="TO_DO" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('TO_DO')" (cdkDropListDropped)="drop($event)">
         <div class="categorie">
           <h2>To do</h2>
@@ -44,6 +44,8 @@
           </app-task-card>
         </div>
       </div>
+    </div>
+    <div class="second-row">
       <!-- In Bearbeitung -->
       <div id="IN_PROGRESS" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('IN_PROGRESS')" (cdkDropListDropped)="drop($event)">
         <div class="categorie">
@@ -71,6 +73,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 <ng-template #noTasksTemplate>

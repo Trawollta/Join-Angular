@@ -1,64 +1,68 @@
+button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9em;
+  font-weight: 700;
+  width: fit-content;
+  border-radius: 30px;
+  padding: 8px 20px;
+  cursor: pointer;
+  border: none;
+}
 
-
-// button {
-//     @include dFlex();
-//     gap: 10px;
-//     font-size: 0.9em;
-//     font-weight: 700;
-//     width: fit-content;
-//     border-radius: 30px;
-//     padding: 8px 20px;
-//     cursor: pointer;
-//     border: none;
-// }
+button img {
+  width: 20px;
+  height: 20px;
+}
 
 .task-prio {
-    width: 100%;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    padding: 16px;
-    background-color: white;
-    height: fit-content;
-    box-sizing: border-box;
-    cursor: pointer;
-    border: solid 1px #2a3647;
-    color: #2a3647;
-    gap: 8px;
-    box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.2);
-  
-    &.low {
-      background-color: white; /* Standard-Hintergrundfarbe für low */
-      color: #2a3647;
-    }
-  
-    &.medium {
-      background-color: white; /* Standard-Hintergrundfarbe für medium */
-      color: #2a3647;
-    }
-  
-    &.urgent {
-      background-color: white; /* Standard-Hintergrundfarbe für urgent */
-      color: #2a3647;
-    }
-  
-    &.active.low {
-      background-color: green; /* Hintergrundfarbe für aktiven low Button */
-      color: white;
-    }
-  
-    &.active.medium {
-      background-color: yellow; /* Hintergrundfarbe für aktiven medium Button */
-      color: black;
-    }
-  
-    &.active.urgent {
-      background-color: red; /* Hintergrundfarbe für aktiven urgent Button */
-      color: white;
-    }
-  }
+  width: 100%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: white;
+  height: fit-content;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: solid 1px #2a3647;
+  color: #2a3647;
+  gap: 8px;
+  box-shadow: 0 1px 10px 3px rgba(0, 0, 0, 0.2);
+}
+
+.task-prio.low {
+  background-color: white;
+  color: #2a3647;
+}
+
+.task-prio.medium {
+  background-color: white;
+  color: #2a3647;
+}
+
+.task-prio.urgent {
+  background-color: white;
+  color: #2a3647;
+}
+
+.task-prio.active.low {
+  background-color: green;
+  color: white;
+}
+
+.task-prio.active.medium {
+  background-color: yellow;
+  color: black;
+}
+
+.task-prio.active.urgent {
+  background-color: red;
+  color: white;
+}
   
   
   
