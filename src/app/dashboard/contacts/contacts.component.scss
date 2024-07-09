@@ -91,69 +91,92 @@ h2 {
 
 .user-details {
   flex-grow: 1;
-  background-color: #fff;
+  background-color: #F6F7F8;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left; 
 }
 
 .details-headline {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; 
   margin-bottom: 20px;
 }
 
 .details-headline h1 {
-  margin: 0;
-  font-size: 24px;
-  color: #333;
-}
-
-.details-headline .border-line {
-  width: 50px;
-  height: 3px;
-  background-color: #007CEE;
-  margin: 10px 0;
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .details-headline span {
-  color: #666;
+  font-size: 18px;
+  color: #888;
+  margin-top: -10px;
 }
 
 .name-details {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  gap: 20px;
 }
 
-.name-details .user-border-big {
+.user-border-big {
+  border: solid 4px white;
+  box-shadow: 0 0 4px lightslategray;
+  width: 120px;
+  height: 120px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #00aaff;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  font-size: 60px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
-  border: 2px solid #29ABE2;
-  border-radius: 32px;
-  font-size: 24px;
-  margin-right: 10px;
+  align-items: center;
 }
 
-.name-details span {
+.user-name {
   font-size: 24px;
   color: #333;
+  font-weight: bold;
 }
 
-.user-details p {
+.contact-information {
+  width: 100%;
+}
+
+.contact-information h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.contact-information p {
   margin: 5px 0;
   color: #333;
 }
 
-.user-details a {
+.contact-information a {
   text-decoration: none;
   color: #007CEE;
 }
 
-.user-details a:hover {
+.contact-information a:hover {
   text-decoration: underline;
+}
+
+.selected {
+  background-color: #2a3647; 
+}
+
+.selected .contact-name {
+  color: #fff; 
 }
