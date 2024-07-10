@@ -1,11 +1,14 @@
 .overview {
-  height: 60svh;
+  height: 100vh; /* Höhe auf 100% der Ansichtshöhe setzen */
+  display: flex;
+  flex-direction: row;
 }
 
 /* Grundlayout */
 .content {
   display: flex;
   flex-direction: row;
+  height: 100vh; /* Höhe auf 100% der Ansichtshöhe setzen */
 }
 
 .sidebar {
@@ -17,7 +20,6 @@
   }
 }
 
-
 .main {
   flex: 1;
   display: flex;
@@ -26,7 +28,6 @@
 
 .header {
   width: 100%;
-  // flex: 0 0 auto;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -39,22 +40,27 @@
 .main-content {
   flex: 1;
   overflow-y: auto;
-  height: 72vh;
+  @media (min-width: 899px) {
+    height: calc(100vh - 0vh); /* Hier sicherstellen, dass die Höhe korrekt berechnet wird */
+    width: calc(100vw - 250px); /* Breite anpassen */
+  }
 }
 
 .navbar {
-  display: none; /* Standardmäßig ausblenden */
+  display: block;
+  height: 10vh; 
+  position: fixed; 
+  bottom: 0;
+  width: 100%;
+  @media (min-width: 899px) {
+    display: none;
+  }
 }
 
-/* Layout für mobile Ansichten */
 @media (max-width: 699px) {
   .content {
     flex-direction: column;
   }
-
-  // .sidebar {
-  //   display: none; 
-  // }
 
   .header {
     width: 100%;

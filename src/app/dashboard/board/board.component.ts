@@ -17,6 +17,8 @@ import { Router} from '@angular/router';
 })
 export class BoardComponent implements OnInit {
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+  searchQuery: string = '';
 
   constructor(private addTaskService: AddTaskService, private router: Router) {}
 
@@ -25,18 +27,29 @@ export class BoardComponent implements OnInit {
   }
 
   getTasksByStatus(status: 'TO_DO' | 'AWAIT_FEEDBACK' | 'IN_PROGRESS' | 'DONE'): Task[] {
-    return this.tasks.filter(task => task.status === status);
+    return this.filteredTasks.filter(task => task.status === status);
   }
 
   loadTasks(): void {
     this.addTaskService.getTasks().subscribe({
       next: (tasks) => {
         this.tasks = tasks;
+        this.filteredTasks = tasks; // Initialize filteredTasks
       },
       error: (error) => {
         console.error('Fehler beim Laden der Tasks', error);
       }
     });
+  }
+
+  filterTasks(): void {
+    if (this.searchQuery.trim()) {
+      this.filteredTasks = this.tasks.filter(task =>
+        task.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredTasks = this.tasks;
+    }
   }
 
   onDeleteTask(taskId: number): void {
