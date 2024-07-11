@@ -20,6 +20,7 @@ export class SignUpComponent {
   confirmPassword = '';
   firstname = '';
   lastname = '';
+  color= '';
   email = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -36,8 +37,10 @@ export class SignUpComponent {
         password: this.password,
         first_name: this.firstname,
         last_name: this.lastname,
+        color: this.color,
         email: this.email
       };
+      console.log('userData:', userData)
 
       let response = await this.authService.register(userData);
 

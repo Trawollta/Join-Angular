@@ -21,6 +21,7 @@ export class EditContactsDialogComponent implements OnInit {
   selectedUser: Contact | null = null;
   isEditDialogOpen = true;
   dropdownOpen = false;
+  isEditMode = false;
 
   constructor(private addTaskService: AddTaskService, private contactsService: ContactsService) { }
 
@@ -45,6 +46,7 @@ export class EditContactsDialogComponent implements OnInit {
 
   closeOverlay() {
     this.isEditDialogOpen = false;
+    this.isEditMode = false;
   }
 
   saveTask() {
@@ -59,6 +61,7 @@ export class EditContactsDialogComponent implements OnInit {
           ...this.task, 
           assigned_to: updatedTask.assigned_to.map((id: number) => this.availableUsers.find(user => user.id === id)!)
         };
+        this.isEditMode = false;
         this.closeOverlay();
       }
     );

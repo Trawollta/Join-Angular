@@ -16,8 +16,8 @@ export class ContactsComponent implements OnInit {
   sortedContacts: { [key: string]: Contact[] } = {};
   contactColors: { [key: string]: string } = {};
   displayedAlphabet: string[] = [];  
-  selectedContact: Contact | null = null; // Hinzugefügt
-  usedColors: Set<string> = new Set(); // Hinzugefügt
+  selectedContact: Contact | null = null; 
+  usedColors: Set<string> = new Set();
 
   constructor(private contactsService: ContactsService) {}
 
