@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Contact } from '../../models/contacts';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/button/button.component';
@@ -18,11 +18,20 @@ export class ContactsComponent implements OnInit {
   displayedAlphabet: string[] = [];  
   selectedContact: Contact | null = null; 
   usedColors: Set<string> = new Set();
+  screenWidth: number;
 
-  constructor(private contactsService: ContactsService) {}
+  constructor(private contactsService: ContactsService) {
+    this.screenWidth = window.innerWidth;
+  }
 
   ngOnInit(): void {
     this.loadContacts();
+    this.onResize(); // Initiale Fensterbreite erfassen
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    this.screenWidth = window.innerWidth;
   }
 
   loadContacts() {
@@ -94,6 +103,10 @@ export class ContactsComponent implements OnInit {
   }
 
   selectContact(contact: Contact) {
-    this.selectedContact = contact; // Hinzugefügt
+    this.selectedContact = contact; 
+  }
+
+  deselectContact() {
+    this.selectedContact = null;
   }
 }

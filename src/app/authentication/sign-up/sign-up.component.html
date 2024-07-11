@@ -1,5 +1,5 @@
 <div class="sign-up-area">
-  <div class="login">
+  <div class="login" *ngIf="!registrationSuccess">
     <div class="login-header">
       <div class="loginArrowImg">
         <a [routerLink]="['/login']">
@@ -14,13 +14,19 @@
     
     <form (ngSubmit)="onSubmit()">
       <div class="input-frame">
-        <input type="text" [(ngModel)]="firstname" name="first_name" class="form-control" placeholder="First name" autocomplete="off">
+        <input type="text" [(ngModel)]="firstname" name="first_name" class="form-control" placeholder="First name" autocomplete="off" (input)="drawInitials()">
       </div>
       <div class="input-frame">
-        <input type="text" [(ngModel)]="lastname" name="last_name" class="form-control" placeholder="Last name" autocomplete="off">
+        <input type="text" [(ngModel)]="lastname" name="last_name" class="form-control" placeholder="Last name" autocomplete="off" (input)="drawInitials()">
       </div>
       <div class="input-frame">
-        <input type="color" [(ngModel)]="color" name="color" class="form-control" autocomplete="off">
+        <input type="color" [(ngModel)]="color" name="color" class="form-control" autocomplete="off" (input)="updateColor($event)">
+        <div class="color-circle">
+          <canvas #canvas width="24" height="24"></canvas>
+        </div>
+      </div>
+      <div class="btn-frame">
+        <!-- <button type="button" class="select-color-btn" (click)="selectBackgroundColor()">Select your Backgroundcolor</button> -->
       </div>
       <div class="input-frame">
         <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="E-Mail" autocomplete="off">
@@ -42,6 +48,11 @@
         </app-button>
       </div>
     </form>
+  </div>
+
+  <div class="success-message" *ngIf="registrationSuccess">
+    <h2>Deine Anmeldung war erfolgreich!</h2>
+    <a [routerLink]="['/login']">Hier klicken, um dich anzumelden</a>
   </div>
   
   <div class="legal-area">

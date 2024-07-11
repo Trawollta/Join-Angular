@@ -3,8 +3,9 @@ export interface User {
     username: string;
     first_name: string;
     last_name: string;
-    // Weitere nützliche Eigenschaften
-  }
+    email: string;
+    color: string;  
+}
 
 
   export interface GuestUser {

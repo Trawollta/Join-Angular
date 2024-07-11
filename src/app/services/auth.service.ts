@@ -32,12 +32,13 @@ export class AuthService {
   async login(credentials: { username: string, password: string }): Promise<void> {
     try {
       const response: any = await lastValueFrom(this.http.post(`${this.apiUrl}login/`, credentials));
+      // console.log(response.user_id);
+      this.getUserService.currentUserId.next(response.user_id);
       const token = response.token;
       if (token) {
         localStorage.setItem('authToken', token);
         this.loggedIn.next(true);
-        console.log(response.user_id);
-        this.getUserService.fetchCurrentUser(); // Benutzerdaten aktualisieren
+        // console.log(response.user_id);
       } else {
         console.error('Kein Token im Login-Antwort erhalten');
       }

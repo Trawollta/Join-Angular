@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonComponent } from '../../shared/button/button.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,16 +13,50 @@ import { ButtonComponent } from '../../shared/button/button.component';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent {
+export class SignUpComponent implements AfterViewInit {
   username = '';
   password = '';
   confirmPassword = '';
   firstname = '';
   lastname = '';
-  color= '';
+  color = '';
   email = '';
+  registrationSuccess = false;
+
+  @ViewChild('canvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    this.drawInitials();
+  }
+
+  updateColor(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.color = inputElement.value;
+    this.drawInitials();
+  }
+
+  selectBackgroundColor(): void {
+    document.body.style.backgroundColor = this.color;
+  }
+
+  drawInitials(): void {
+    if (this.canvas) {
+      const context = this.canvas.nativeElement.getContext('2d');
+      if (context) {
+        context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+        context.fillStyle = this.color;
+        context.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+        context.fillStyle = '#ffffff';
+        context.font = '12px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        const initials = `${this.firstname.charAt(0).toUpperCase()}${this.lastname.charAt(0).toUpperCase()}`;
+        context.fillText(initials, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2);
+      }
+    }
+  }
 
   async onSubmit() {
     if (this.password !== this.confirmPassword) {
@@ -40,11 +73,11 @@ export class SignUpComponent {
         color: this.color,
         email: this.email
       };
-      console.log('userData:', userData)
+      console.log('userData:', userData);
 
       let response = await this.authService.register(userData);
 
-      this.router.navigateByUrl('/login');
+      this.registrationSuccess = true;
     } catch (e) {
       if (e instanceof HttpErrorResponse) {
         console.error('Registrierung fehlgeschlagen mit Status:', e.status);

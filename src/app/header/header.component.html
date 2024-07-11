@@ -2,7 +2,7 @@
   <div>
     <img class="logo" src="assets/img/logo_main.svg" alt="Firmenlogo">
   </div>
-  <div *ngIf="isLoggedIn" class="user-profile-initials" (click)="toggleOverlay()">
+  <div *ngIf="isLoggedIn" class="user-profile-initials" [ngStyle]="{'background-color': userColor}" (click)="toggleOverlay()">
     {{ userInitials }}
   </div>
 </div>

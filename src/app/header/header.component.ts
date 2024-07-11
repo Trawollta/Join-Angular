@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   userInitials: string = '';
   isOverlayVisible: boolean = false;
+  userColor: string = '';
   userId: number = 0;
 
   constructor(private getUserService: GetUserService, private router: Router) {}
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
       (user) => {
         if (user) {
           this.userInitials = this.getInitials(user.first_name, user.last_name);
+          this.userColor = user.color; // Hier setzen wir die Farbe
           this.isLoggedIn = true; // Hier setzen wir isLoggedIn auf true
         } else {
           this.isLoggedIn = false;

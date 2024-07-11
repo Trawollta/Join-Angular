@@ -1,5 +1,5 @@
 <div class="main-container">
-  <div class="contactlist">
+  <div class="contactlist" *ngIf="!selectedContact || screenWidth >= 900">
     <div class="list">
       <div *ngFor="let letter of displayedAlphabet">
         <h2>{{ letter }}</h2>
@@ -21,12 +21,12 @@
 
   <div class="user-details" *ngIf="selectedContact">
     <div class="details-headline">
+      <button class="back-button" (click)="deselectContact()" *ngIf="screenWidth < 700">← Zurück</button>
       <h1>Contacts <span>Better with a team</span></h1>
     </div>
     <div class="name-details">
       <div class="user-border-big"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div>
       <span class="user-name">{{ selectedContact.first_name }} {{ selectedContact.last_name }}</span>
-     
     </div>
     <div class="contact-information">
       <h3>Contact Information</h3>

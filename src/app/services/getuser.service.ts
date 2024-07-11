@@ -7,7 +7,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class GetUserService {
-  private apiUrl = 'http://localhost:8000/api/auth/current_user/';
+  private apiUrl = 'http://localhost:8000/api/auth/currentUser/';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -26,7 +26,8 @@ export class GetUserService {
   }
 
   fetchCurrentUser(): void {
-    this.http.get<User>(this.apiUrl, { headers: this.getHeaders() }).subscribe(
+    console.log(this.currentUserId.value);
+    this.http.get<User>(this.apiUrl+this.currentUserId.value+'/', { headers: this.getHeaders() }).subscribe(
       user => this.currentUserSubject.next(user),
       error => console.error('Fehler beim Abrufen des Benutzers:', error)
     );

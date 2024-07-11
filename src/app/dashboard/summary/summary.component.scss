@@ -4,9 +4,27 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+h1 {
+  font-size: 20px;
   @media (min-width: 700px) {
-    padding-top: 50px;
+    font-size: 35px;
   }
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  display: flex;.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 h1 {
@@ -40,11 +58,11 @@ h1 {
 }
 
 .overview {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(1, 3fr);
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  gap: 10px; /* Geändert */
+  gap: 20px;
   @media (min-width: 700px) {
     width: 560px;
     gap: 30px;
@@ -58,7 +76,7 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 10px;
-  width: 100%; /* Geändert */
+  width: 100%;
   @media (min-width: 700px) {
     display: flex;
     justify-content: center;
@@ -95,7 +113,7 @@ h1 {
 }
 
 .box-size-first-row, .box-size-third-row, .box-size-second-row {
-  flex-grow: 1; /* Hinzugefügt */
+  flex-grow: 1;
   height: 84px;
   @media (min-width: 700px) {
     height: 130px;
@@ -143,34 +161,142 @@ h1 {
   }
 }
 
-/* Mobile Ansicht anpassen */
-@media screen and (max-width: 768px) {
-  .overview {
-    gap: 20px;
-  }
-
-  .first-row, .second-row, .third-row {
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .box {
-    width: calc(50% - 10px); /* Zwei Boxen pro Zeile */
-    max-width: none;
-    margin-bottom: 20px;
-  }
-
-  .box-size-first-row, .box-size-third-row, .box-size-second-row {
-    width: 100%;
-  }
-
-  .headline {
-    margin-bottom: 15px;
-  }
-
-  .container {
-    padding: 0 20px;
+@media (min-width: 700px) {
+  .summary {
+    padding-top: 50px;
   }
 }
+
+@media (min-width: 900px) {
+  .summary {
+    display: none;
+  }
+}
+
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32%;
+  @media (min-width: 700px) {
+    width: 100%;
+  }
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(1, 3fr);
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  @media (min-width: 700px) {
+    width: 560px;
+    gap: 30px;
+    margin-right: 70px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.first-row, .second-row, .third-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  @media (min-width: 700px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 17px;
+  border-radius: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  transition: all 225ms ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  width: calc(100% / 3 - 20px);
+  max-width: 300px;
+  @media (min-width: 700px) {
+    background-color: white;
+    font-size: 20px;
+    border-radius: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    cursor: pointer;
+    transition: all 225ms ease-in-out;
+    &:hover {
+      transition: all 225ms ease-in-out;
+      background-color: #2A3647;
+      color: white;
+    }
+  }
+}
+
+.box-size-first-row, .box-size-third-row, .box-size-second-row {
+  flex-grow: 1;
+  height: 84px;
+  @media (min-width: 700px) {
+    height: 130px;
+  }
+}
+
+.ammount {
+  font-size: 30px;
+  font-weight: 600;
+  @media (min-width: 700px) {
+    font-size: 64px;
+  }
+}
+
+.image-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #2A3647;
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    span:nth-child(1) {
+      font-size: 47px;
+      font-weight: 500;
+    }
+
+    span:nth-child(2) {
+      font-size: 64px;
+      font-weight: 700;
+      color: #29ABE2;
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .summary {
+    padding-top: 50px;
+  }
+}
+
+

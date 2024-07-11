@@ -1,22 +1,24 @@
 .overview {
-  height: 100vh; /* Höhe auf 100% der Ansichtshöhe setzen */
-  display: flex;
+  height: 100vh;
+  // display: flex;
   flex-direction: row;
 }
 
-/* Grundlayout */
 .content {
   display: flex;
   flex-direction: row;
-  height: 100vh; /* Höhe auf 100% der Ansichtshöhe setzen */
+  height: 100vh; 
 }
 
 .sidebar {
-  display: none; /* Standardmäßig ausblenden */
+  display: none;
   @media (min-width: 900px) {
-    display: block; /* Ab 900px anzeigen */
+    display: block;
     width: 250px;
     height: 100vh;
+    position: fixed; /* Position fixieren */
+    top: 0;
+    left: 0;
   }
 }
 
@@ -24,6 +26,10 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-left: 0; /* Standardwert */
+  @media (min-width: 900px) {
+    margin-left: 250px; /* Platz für die Sidebar lassen */
+  }
 }
 
 .header {
@@ -31,18 +37,20 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  @media (max-width: 699px) {
-    width: 100%;
-    height: 10vh;
-  }
+  height: 10vh;
 }
 
 .main-content {
   flex: 1;
   overflow-y: auto;
-  @media (min-width: 899px) {
-    height: calc(100vh - 0vh); /* Hier sicherstellen, dass die Höhe korrekt berechnet wird */
-    width: calc(100vw - 250px); /* Breite anpassen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 10vh); /* Höhe des Headers berücksichtigen */
+  @media (min-width: 900px) {
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
@@ -52,12 +60,12 @@
   position: fixed; 
   bottom: 0;
   width: 100%;
-  @media (min-width: 899px) {
+  @media (min-width: 900px) {
     display: none;
   }
 }
 
-@media (max-width: 699px) {
+@media (min-width: 700px) {
   .content {
     flex-direction: column;
   }
@@ -69,14 +77,6 @@
 
   .main-content {
     flex: 1;
-    height: calc(100vh - 20vh); 
-  }
-
-  .navbar {
-    display: block;
-    height: 10vh; 
-    position: fixed; 
-    bottom: 0;
-    width: 100%;
+    height: calc(100vh - 10vh);
   }
 }

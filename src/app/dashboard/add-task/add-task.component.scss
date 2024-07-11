@@ -14,7 +14,7 @@ body, html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-y: auto; 
+  // overflow-y: auto; 
   height: 100vh; 
 }
 
@@ -54,20 +54,45 @@ body, html {
   }
 }
 
+@media screen and (max-width: 1199px) {
+  .task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Zentriert die Inhalte */
+    width: 100%;
+  }
+
+  .left, .right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentriert die Inhalte */
+    gap: 20px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .task-prio-container {
+    // flex-direction: column;
+    align-items: center; /* Zentriert die Inhalte */
+    gap: 10px;
+  }
+
+  .status-select, .user-select {
+    width: 100%;
+  }
+
+  .assigned-btn {
+    width: 100%;
+  }
+}
+
 .first-row {
   display: flex;
   justify-content: space-between;
-}
-
-.right, .left {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  @media screen and (min-width: 1200px) {
-    width: 45%;
-  }
 }
 
 .taskHeader {
@@ -89,25 +114,10 @@ body, html {
   }
 }
 
-.task-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  @media screen and (min-width: 1200px) {
-    position: relative;
-    flex-direction: row;
-    justify-content: center; /* Zentriert left und right */
-    box-sizing: border-box;
-    font-size: 20px;
-  }
-}
-
 .form-row {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Zentriert die Inhalte */
   width: 100%;
   margin-bottom: 20px;
 }
@@ -143,7 +153,7 @@ textarea {
   min-height: 100px;
   max-height: 120px;
   padding: 18px 16px;
-  width: 100%;
+  width: 90%;
   @media screen and (min-width: 1200px) {
     width: 400px;
   }
@@ -154,16 +164,12 @@ textarea {
   min-height: 25.5px;
   background-color: white;
   padding: 12px 16px;
-  width: 450px;
+  width: 90%;
   border-radius: 10px;
   border: solid 1px #d1d1d1;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  @media screen and (min-width: 1200px){
-    width: 400px;
-    
-  }
 }
 
 .status-select:focus, .user-select:focus {
@@ -173,11 +179,13 @@ textarea {
 
 .task-prio-container {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+  align-items: center; /* Zentriert die Inhalte */
   margin-bottom: 20px;
   gap: 10px;
   @media screen and (min-width: 1200px) {
     flex-direction: row;
+    align-items: flex-start;
     gap: 50px;
   }
 }
@@ -210,7 +218,7 @@ textarea {
   background-color: white;
   border: solid 1px #d1d1d1;
   border-radius: 10px;
-  width: 450px;
+  width: 90%;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -227,7 +235,7 @@ textarea {
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
-  width: 95%;
+  width: 100%;
 }
 
 .dropdown-content label {
