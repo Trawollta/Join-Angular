@@ -3,6 +3,7 @@ import { Contact } from '../../models/contacts';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContactsService } from '../../services/contacts.service';
+import { GetUserService } from '../../services/getuser.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,13 +21,13 @@ export class ContactsComponent implements OnInit {
   usedColors: Set<string> = new Set();
   screenWidth: number;
 
-  constructor(private contactsService: ContactsService) {
+  constructor(private contactsService: ContactsService, getUserService: GetUserService) {
     this.screenWidth = window.innerWidth;
   }
 
   ngOnInit(): void {
     this.loadContacts();
-    this.onResize(); // Initiale Fensterbreite erfassen
+    this.onResize();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -72,7 +73,6 @@ export class ContactsComponent implements OnInit {
   }
 
   getSortedContactsFromList(contacts: Contact[]): { [key: string]: Contact[] } {
-    console.log('Kontakte vor dem Sortieren:', contacts);
     const sortedContacts: { [key: string]: Contact[] } = {};
 
     contacts.sort((a, b) => {

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -61,6 +61,10 @@ export class BoardComponent implements OnInit {
         console.error('Fehler beim Löschen der Task', error);
       }
     });
+  }
+
+  onEditTask(task: Task): void {
+    this.loadTasks(); // Refresh the task list after editing
   }
 
   drop(event: CdkDragDrop<Task[]>): void {

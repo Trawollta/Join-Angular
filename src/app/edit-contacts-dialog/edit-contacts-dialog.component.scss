@@ -14,7 +14,7 @@
 .overlay-content {
   position: relative;
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   width: 80%;
   height: 80vh;
@@ -75,28 +75,35 @@ select {
 
 .users {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin-top: 10px;
 }
 
 .user-border {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: auto;
+  padding: 5px;
   border: 3px solid #29abe2;
-  outline: 2px solid white;
-  outline-offset: -1px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 5px;
   font-size: 12px;
-  margin-right: -7px;
   font-weight: bold;
   color: #2a3647;
-  text-align: center;
+  margin-bottom: 5px;
   position: relative;
-  margin: 5px;
+}
+
+.initials {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #29abe2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
 }
 
 .remove-button {
@@ -106,8 +113,8 @@ select {
   color: #f00;
   cursor: pointer;
   position: absolute;
-  top: -5px;
-  right: -20px;
+  top: 5px;
+  right: 5px;
 }
 
 .assigned-users-dropdown {
@@ -171,10 +178,7 @@ select {
 }
 
 .actions button {
-  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
 }
-

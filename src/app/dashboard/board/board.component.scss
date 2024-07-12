@@ -9,6 +9,7 @@ body, html {
   flex: 1;
   background-color: #F6F7F8;
   justify-content: center;
+  overflow-y: scroll;
   @media screen and (min-width: 700px) {
     padding: 100px;
   }

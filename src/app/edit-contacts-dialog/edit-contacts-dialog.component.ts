@@ -47,6 +47,7 @@ export class EditContactsDialogComponent implements OnInit {
   closeOverlay() {
     this.isEditDialogOpen = false;
     this.isEditMode = false;
+    this.close.emit(); // Emit the close event to notify parent component
   }
 
   saveTask() {

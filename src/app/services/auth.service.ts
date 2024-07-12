@@ -16,10 +16,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router, private getUserService: GetUserService) {
     
-    const currentUserString = localStorage.getItem('currentUser');
+    const currentUserString = localStorage.getItem('currentUser_id');
     let currentUser: User | null = null as User | null;
     if (currentUserString) {
       try {
+        this.getUserService.currentUserId.next(Number(currentUserString));
         currentUser = JSON.parse(currentUserString);
       } catch (error) {
         console.error('Fehler beim Parsen des aktuellen Benutzers:', error);
@@ -32,8 +33,8 @@ export class AuthService {
   async login(credentials: { username: string, password: string }): Promise<void> {
     try {
       const response: any = await lastValueFrom(this.http.post(`${this.apiUrl}login/`, credentials));
-      // console.log(response.user_id);
       this.getUserService.currentUserId.next(response.user_id);
+      localStorage.setItem('currentUser_id', JSON.stringify(response.user_id));
       const token = response.token;
       if (token) {
         localStorage.setItem('authToken', token);

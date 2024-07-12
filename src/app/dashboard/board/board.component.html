@@ -1,81 +1,75 @@
 <div class="main-container">
   <div *ngIf="tasks.length; else noTasksTemplate">
     <div class="boardbody">
-    <div class="board">
-      <div>
-        <h1>Board</h1>
+      <div class="board">
+        <div>
+          <h1>Board</h1>
+        </div>
+        <div class="searchbar">
+          <input type="text" placeholder="Find task" [(ngModel)]="searchQuery" (input)="filterTasks()">
+          <div class="divider"></div>
+          <img src="./assets/img/search.svg" alt="">
+        </div>
       </div>
-      <div class="searchbar">
-        <input type="text" placeholder="Find task" [(ngModel)]="searchQuery" (input)="filterTasks()">
-        <div class="divider"></div>
-        <img src="./assets/img/search.svg" alt="">
-      </div>
-    </div>
     
-    <div class="add-button">
-      <app-button [caption]="'Add Task'" [classes]="'add-task'" (click)="navigateToAddTask()" imgPath="assets/img/add.svg"></app-button>
-    </div>
+      <div class="add-button">
+        <app-button [caption]="'Add Task'" [classes]="'add-task'" (click)="navigateToAddTask()" imgPath="assets/img/add.svg"></app-button>
+      </div>
 
-    <div class="taskboard">
-       <div class="first-row">
-      <div id="TO_DO" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('TO_DO')" (cdkDropListDropped)="drop($event)">
-        <div class="categorie">
-          <h2>To do</h2>
-          <div class="panelheadbutton">
-            <img src="assets/img/Capa1.svg" alt="">
-          </div>
-        </div>
+      <div class="taskboard">
+        <div class="first-row">
+          <div id="TO_DO" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('TO_DO')" (cdkDropListDropped)="drop($event)">
+            <div class="categorie">
+              <h2>To do</h2>
+              <div class="panelheadbutton">
+                <img src="assets/img/Capa1.svg" alt="">
+              </div>
+            </div>
 
-        <div class="taskcard-container">
-          <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag>
-          </app-task-card>
-        </div>
-      </div>
-      <!-- Warte auf Rückmeldung -->
-      <div id="AWAIT_FEEDBACK" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('AWAIT_FEEDBACK')" (cdkDropListDropped)="drop($event)">
-        <div class="categorie">
-          <h2>Waiting for Feedback</h2>
-          <div class="panelheadbutton">
-            <img src="assets/img/Capa1.svg" alt="">
+            <div class="taskcard-container">
+              <app-task-card *ngFor="let task of getTasksByStatus('TO_DO')" [task]="task" (delete)="onDeleteTask($event)" (edit)="onEditTask($event)" cdkDrag></app-task-card>
+            </div>
+          </div>
+          <div id="AWAIT_FEEDBACK" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('AWAIT_FEEDBACK')" (cdkDropListDropped)="drop($event)">
+            <div class="categorie">
+              <h2>Waiting for Feedback</h2>
+              <div class="panelheadbutton">
+                <img src="assets/img/Capa1.svg" alt="">
+              </div>
+            </div>
+            <div class="taskcard-container">
+              <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task" (delete)="onDeleteTask($event)" (edit)="onEditTask($event)" cdkDrag></app-task-card>
+            </div>
           </div>
         </div>
-        <div class="taskcard-container">
-          <app-task-card *ngFor="let task of getTasksByStatus('AWAIT_FEEDBACK')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag>
-          </app-task-card>
-        </div>
-      </div>
-    </div>
-    <div class="second-row">
-      <!-- In Bearbeitung -->
-      <div id="IN_PROGRESS" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('IN_PROGRESS')" (cdkDropListDropped)="drop($event)">
-        <div class="categorie">
-          <h2>In progress</h2>
-          <div class="panelheadbutton">
-            <img src="assets/img/Capa1.svg" alt="">
+        <div class="second-row">
+          <div id="IN_PROGRESS" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('IN_PROGRESS')" (cdkDropListDropped)="drop($event)">
+            <div class="categorie">
+              <h2>In progress</h2>
+              <div class="panelheadbutton">
+                <img src="assets/img/Capa1.svg" alt="">
+              </div>
+            </div>
+            <div class="taskcard-container">
+              <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task" (delete)="onDeleteTask($event)" (edit)="onEditTask($event)" cdkDrag></app-task-card>
+            </div>
           </div>
-        </div>
-        <div class="taskcard-container">
-          <app-task-card *ngFor="let task of getTasksByStatus('IN_PROGRESS')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag>
-          </app-task-card>
-        </div>
-      </div>
-      <!-- Erledigt -->
-      <div id="DONE" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('DONE')" (cdkDropListDropped)="drop($event)">
-        <div class="categorie">
-          <h2>Done</h2>
-          <div class="panelheadbutton">
-            <img src="assets/img/Capa1.svg" alt="">
+          <div id="DONE" class="column" cdkDropList [cdkDropListData]="getTasksByStatus('DONE')" (cdkDropListDropped)="drop($event)">
+            <div class="categorie">
+              <h2>Done</h2>
+              <div class="panelheadbutton">
+                <img src="assets/img/Capa1.svg" alt="">
+              </div>
+            </div>
+            <div class="taskcard-container">
+              <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task" (delete)="onDeleteTask($event)" (edit)="onEditTask($event)" cdkDrag></app-task-card>
+            </div>
           </div>
-        </div>
-        <div class="taskcard-container">
-          <app-task-card *ngFor="let task of getTasksByStatus('DONE')" [task]="task" (delete)="onDeleteTask($event)" cdkDrag>
-          </app-task-card>
         </div>
       </div>
     </div>
   </div>
-  </div>
+  <ng-template #noTasksTemplate>
+    <p>Keine Tasks gefunden.</p>
+  </ng-template>
 </div>
-<ng-template #noTasksTemplate>
-  <p>Keine Tasks gefunden.</p>
-</ng-template>
