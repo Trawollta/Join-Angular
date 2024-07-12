@@ -12,6 +12,18 @@ body, html {
   background-color: #f6f7f8;
 }
 
+.headline-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  border: 1px solid red;
+
+}
+
+.invisible {
+opacity: 0;
+}
 .loginArrowImg {
   left: -43%;
   height: 32px;

@@ -1,13 +1,16 @@
 <div class="sign-up-area">
   <div class="login" *ngIf="!registrationSuccess">
     <div class="login-header">
-      <div class="loginArrowImg">
+      <!-- <div class="loginArrowImg">
+      </div> -->
+      <div class="headline-wrapper">
         <a [routerLink]="['/login']">
           <img class="arrowback" src="assets/img/arrow-left-line.svg" alt="arrowback">
         </a>
-      </div>
-      <div>
         <h1>Sign up</h1>
+        <a class="invisible">
+          <img class="arrowback" src="assets/img/arrow-left-line.svg" alt="arrowback">
+        </a>
       </div>
     </div>
     <hr>

@@ -5,6 +5,7 @@ export class Contact {
     last_name: string;
     number: string;
     email: string;
+    color: string; // Neue Eigenschaft
 
     constructor(obj?: any) {
         this.id = obj ? obj.id : 0;
@@ -13,5 +14,6 @@ export class Contact {
         this.last_name = obj ? obj.last_name : ''
         this.number = obj ? obj.number : '';
         this.email = obj ? obj.email : '';
+        this.color = obj ? obj.color : ''; // Initialisierung der neuen Eigenschaft
     }
 }

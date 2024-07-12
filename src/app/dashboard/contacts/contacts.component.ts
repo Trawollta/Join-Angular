@@ -3,7 +3,6 @@ import { Contact } from '../../models/contacts';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ContactsService } from '../../services/contacts.service';
-import { GetUserService } from '../../services/getuser.service';
 
 @Component({
   selector: 'app-contacts',
@@ -15,13 +14,11 @@ import { GetUserService } from '../../services/getuser.service';
 export class ContactsComponent implements OnInit {
   contactsList: Contact[] = [];
   sortedContacts: { [key: string]: Contact[] } = {};
-  contactColors: { [key: string]: string } = {};
   displayedAlphabet: string[] = [];  
   selectedContact: Contact | null = null; 
-  usedColors: Set<string> = new Set();
   screenWidth: number;
 
-  constructor(private contactsService: ContactsService, getUserService: GetUserService) {
+  constructor(private contactsService: ContactsService) {
     this.screenWidth = window.innerWidth;
   }
 
@@ -42,34 +39,14 @@ export class ContactsComponent implements OnInit {
           console.error('Alle Kontakte müssen einen Vornamen haben.');
         }
         this.contactsList = contacts;
+        this.contactsList.forEach(contact => {
+          console.log(`Kontakt: ${contact.first_name}, Farbe: ${contact.color}`); // Debug-Ausgabe
+        });
         this.sortedContacts = this.getSortedContactsFromList(contacts);
-        this.loadContactColors(contacts);
         this.generateAlphabet(); 
       },
       error: (err) => console.error('Fehler beim Laden der Kontakte', err)
     });
-  }
-
-  loadContactColors(contacts: Contact[]) {
-    contacts.forEach(contact => {
-      const savedColor = localStorage.getItem(contact.first_name);
-      if (savedColor) {
-        this.contactColors[contact.first_name] = savedColor;
-        this.usedColors.add(savedColor);
-      } else {
-        let color;
-        do {
-          color = this.generateRandomColor();
-        } while (this.usedColors.has(color));
-        this.usedColors.add(color);
-        this.contactColors[contact.first_name] = color;
-        localStorage.setItem(contact.first_name, color);
-      }
-    });
-  }
-
-  generateRandomColor(): string {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   }
 
   getSortedContactsFromList(contacts: Contact[]): { [key: string]: Contact[] } {

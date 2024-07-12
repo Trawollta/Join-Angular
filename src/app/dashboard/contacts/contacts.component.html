@@ -6,7 +6,7 @@
         <div class="divider"></div>
         <div *ngFor="let contact of sortedContacts[letter]">
           <div class="contact-field" [ngClass]="{'selected': selectedContact === contact}" (click)="selectContact(contact)">
-            <div class="contact-circle" [style.background-color]="contactColors[contact.first_name]">
+            <div class="contact-circle" [style.background-color]="contact.color"> <!-- Verwende die color-Eigenschaft -->
               {{ getInitials(contact.first_name, contact.last_name) }}
             </div>
             <div class="contact-info">
@@ -25,7 +25,7 @@
       <h1>Contacts <span>Better with a team</span></h1>
     </div>
     <div class="name-details">
-      <div class="user-border-big"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div>
+      <div class="user-border-big" [style.background-color]="selectedContact.color"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div> <!-- Hinzufügen der Farbe für die ausgewählten Details -->
       <span class="user-name">{{ selectedContact.first_name }} {{ selectedContact.last_name }}</span>
     </div>
     <div class="contact-information">
