@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class GetUserService {
 
   fetchCurrentUser(): void {
     console.log(this.currentUserId.value);
-    this.http.get<User>(this.apiUrl+this.currentUserId.value+'/', { headers: this.getHeaders() }).subscribe(
+    this.http.get<User>(this.apiUrl + this.currentUserId.value + '/', { headers: this.getHeaders() }).subscribe(
       user => this.currentUserSubject.next(user),
       error => console.error('Fehler beim Abrufen des Benutzers:', error)
     );
@@ -35,5 +35,17 @@ export class GetUserService {
 
   getCurrentUserObservable(): Observable<User | null> {
     return this.currentUser$;
+  }
+
+  async updateUser(user: User): Promise<User> {
+    const headers = this.getHeaders();
+    const url = `${this.apiUrl}${user.id}/`;
+    return await lastValueFrom(this.http.patch<User>(url, user, { headers }));
+  }
+
+  async deleteUser(userId: number): Promise<void> {
+    const headers = this.getHeaders();
+    const url = `${this.apiUrl}${userId}/`;
+    await lastValueFrom(this.http.delete(url, { headers }));
   }
 }

@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Task } from '../../../models/tasks';
-import { AddTaskService } from '../../../services/add-tasks.service';
+import { Task, User } from '../../../models/tasks';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Contact } from '../../../models/contacts';
 import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-contacts-dialog.component';
 
 @Component({
@@ -14,27 +12,15 @@ import { EditContactsDialogComponent } from '../../../edit-contacts-dialog/edit-
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements OnInit {
-  tasks: Task[] = [];
-  assignedUsers: Contact[] = [];
+  assignedUsers: User[] = [];
   showOverlay = false;
 
   @Input() task!: Task;
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Task>();
 
-  constructor(private addTaskService: AddTaskService) { }
-
   ngOnInit(): void {
-    this.loadAssignedUsers();
-  }
-
-  loadAssignedUsers(): void {
-    if (this.task && this.task.assigned_to) {
-      this.assignedUsers = this.task.assigned_to.map(user => new Contact(user));
-    } else {
-      console.error('Kein assigned_to-Array im Task-Objekt gefunden');
-      this.assignedUsers = [];
-    }
+    this.assignedUsers = this.task.assigned_to;
   }
 
   getInitials(firstName: string, lastName: string): string {
@@ -49,6 +35,7 @@ export class TaskCardComponent implements OnInit {
   }
 
   closeOverlay() {
+    console.log('close overlay');
     this.showOverlay = false;
   }
 }

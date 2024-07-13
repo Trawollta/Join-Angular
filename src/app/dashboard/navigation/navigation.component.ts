@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,6 +8,20 @@ import { RouterLink } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
+  screenWidth: number;
 
+  constructor() {
+    this.screenWidth = window.innerWidth;
+  }
+
+  ngOnInit(): void {
+    this.onResize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    this.screenWidth = window.innerWidth;
+  }
 }
+ 

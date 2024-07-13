@@ -1,0 +1,19 @@
+<div class="edit-profile-overlay">
+  <div class="edit-profile-content">
+    <h2>Profil bearbeiten</h2>
+    <form *ngIf="selectedContact">
+      <label for="first_name">Vorname:</label>
+      <input type="text" id="first_name" [(ngModel)]="selectedContact.first_name" name="first_name">
+
+      <label for="last_name">Nachname:</label>
+      <input type="text" id="last_name" [(ngModel)]="selectedContact.last_name" name="last_name">
+
+      <label for="color">Farbe:</label>
+      <input type="color" id="color" [(ngModel)]="selectedContact.color" name="color">
+
+      <button type="button" (click)="saveChanges()">Speichern</button>
+      <button type="button" (click)="closeDialog()">Abbrechen</button>
+      <button type="button" (click)="deleteUser()">Löschen</button>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-<div class="overlay" *ngIf="isEditDialogOpen">
+<div class="overlay" *ngIf="isEditDialogOpen" (click)="closeOverlay($event)">
   <div class="overlay-content">
-    <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay()">
+    <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay($event)">
 
     <div>
       <input [(ngModel)]="task.title" placeholder="Titel" class="input-title" name="title" [readonly]="!isEditMode">
@@ -28,7 +28,7 @@
       <span>Zugewiesen an:</span>
       <div class="users">
         <div *ngFor="let user of task.assigned_to; let i = index" class="user-border">
-          <span class="initials">{{ getInitials(user.first_name, user.last_name) }}</span>
+          <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
           <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
           <button *ngIf="isEditMode" class="remove-button" (click)="removeAssignedUser(i)">X</button>
         </div>
@@ -41,7 +41,7 @@
           <div *ngFor="let user of availableUsers" class="user-item">
             <label>
               <input type="checkbox" [checked]="isSelected(user)" (change)="onCheckboxChange($event, user)">
-              <span class="initials">{{ getInitials(user.first_name, user.last_name) }}</span>
+              <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
               {{ user.first_name }} {{ user.last_name }}
             </label>
           </div>
@@ -54,7 +54,7 @@
         <img src="assets/img/edit.svg" alt="Bearbeiten-Icon" class="action-icon">
       </button>
       <button (click)="saveTask()" [disabled]="!isEditMode">
-        <img src="assets/img/save.svg" alt="Speichern-Icon" class="action-icon">
+        <img src="assets/img/check.png" alt="Speichern-Icon" class="action-icon">
         Speichern
       </button>
       <button (click)="deleteTask()">

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { GetUserService } from '../services/getuser.service';
 import { User } from '../models/user';
+import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component'; // Importiere die Komponente
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EditProfileDialogComponent], // Füge die Komponente hier hinzu
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -15,16 +16,20 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   userInitials: string = '';
   isOverlayVisible: boolean = false;
+  isEditProfileVisible: boolean = false;
   userColor: string = '';
   userId: number = 0;
+  currentUser: User | null = null;
 
   constructor(private getUserService: GetUserService, private router: Router) {}
 
   ngOnInit() {
     this.getUserService.currentUserId.subscribe((userId) => {
       this.userId = userId;
+      if (userId) {
+        this.fetchCurrentUser();
+      }
     });
-    this.fetchCurrentUser();
   }
 
   fetchCurrentUser() {
@@ -32,6 +37,7 @@ export class HeaderComponent implements OnInit {
     this.getUserService.getCurrentUserObservable().subscribe(
       (user) => {
         if (user) {
+          this.currentUser = user;
           this.userInitials = this.getInitials(user.first_name, user.last_name);
           this.userColor = user.color; // Hier setzen wir die Farbe
           this.isLoggedIn = true; // Hier setzen wir isLoggedIn auf true
@@ -55,6 +61,15 @@ export class HeaderComponent implements OnInit {
 
   toggleOverlay() {
     this.isOverlayVisible = !this.isOverlayVisible;
+  }
+
+  openEditProfile() {
+    this.isEditProfileVisible = true;
+    this.toggleOverlay();
+  }
+
+  closeEditProfile() {
+    this.isEditProfileVisible = false;
   }
 
   logout() {

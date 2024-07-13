@@ -293,3 +293,16 @@ label {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
+
+
+.initials {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  color: white; /* Farbe der Initialen */
+  font-weight: bold;
+  margin-right: 8px;
+}

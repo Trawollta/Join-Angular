@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { GetUserService } from './getuser.service'; // Korrigierter Dienstname
 
-import { GetuserService } from './getuser.service';
-
-describe('GetuserService', () => {
-  let service: GetuserService;
+describe('GetUserService', () => { // Korrigierter Dienstname
+  let service: GetUserService; // Korrigierter Dienstname
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GetuserService);
+    service = TestBed.inject(GetUserService); // Korrigierter Dienstname
   });
 
   it('should be created', () => {

@@ -6,27 +6,15 @@ export interface Task {
   created_at: Date;
   status: 'TO_DO' | 'AWAIT_FEEDBACK' | 'IN_PROGRESS' | 'DONE';
   project_lead: number | null;
-  created_by: { id: number; username: string; first_name: string; last_name: string };
-  assigned_to: assigned_to[];
+  created_by: User;
+  assigned_to: User[];
 }
 
-interface assigned_to {
+export interface User {
+  id: number;
+  username: string;
   first_name: string;
-  last_name:string;
-  email:string;
-  id:number
-  // username: string;
+  last_name: string;
+  email: string;
+  color: string;  
 }
-
-
-// export interface UpdatedTask {
-//   id: number;
-//   title: string;
-//   description: string;
-//   priority: 'Low' | 'Medium' | 'Urgent';
-//   created_at: Date;
-//   status: 'TO_DO' | 'AWAIT_FEEDBACK' | 'IN_PROGRESS' | 'DONE';
-//   project_lead: number | null;
-//   created_by: { id: number; username: string; first_name: string; last_name: string };
-//   assigned_to: number[]; // Nur die IDs der Benutzer
-// }

@@ -5,11 +5,12 @@ export interface User {
     last_name: string;
     email: string;
     color: string;  
+    id: number;
 }
 
 
-  export interface GuestUser {
-    id: null;
-    username: string;
+  // export interface GuestUser {
+  //   id: null;
+  //   username: string;
     
-  }
+  // }

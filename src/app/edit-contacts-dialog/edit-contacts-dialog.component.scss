@@ -171,6 +171,13 @@ select {
   font-weight: bold;
 }
 
+.user-border {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  width: 140px;
+}
+
 .actions {
   display: flex;
   justify-content: space-between;

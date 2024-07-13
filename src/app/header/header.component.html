@@ -1,3 +1,4 @@
+<!-- Header HTML -->
 <div class="header">
   <div>
     <img class="logo" src="assets/img/logo_main.svg" alt="Firmenlogo">
@@ -11,6 +12,10 @@
 <div class="overlay" *ngIf="isOverlayVisible && isLoggedIn">
   <div class="overlay-content">
     <span (click)="logout()">Logout</span>
-    <span (click)="toggleOverlay()">Schließen</span>
+    <span (click)="toggleOverlay()">Close</span>
+    <span (click)="openEditProfile()">Edit profile</span>
   </div>
 </div>
+
+<!-- Profil Bearbeiten Dialog -->
+<app-edit-profile-dialog *ngIf="isEditProfileVisible" [userId]="userId" (close)="closeEditProfile()"></app-edit-profile-dialog>

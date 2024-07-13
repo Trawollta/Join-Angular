@@ -13,8 +13,6 @@
           <label for="description">Description:</label>
           <textarea formControlName="description" required class="description-input" placeholder="Enter a description"></textarea>
         </div>
-    
-      
         <div class="form-row">
           <label for="status">Status:</label>
           <select formControlName="status" required class="status-select">
@@ -23,11 +21,10 @@
             <option value="IN_PROGRESS">In Bearbeitung</option>
             <option value="DONE">Erledigt</option>
           </select>
-          
         </div>
       </div>
-        <div class="divider"></div>
-        <div class="right">
+      <div class="divider"></div>
+      <div class="right">
         <div class="form-row">
           <label for="">Assigned to:</label>
           <div class="assigned-btn" (click)="toggleDropdown()">
@@ -37,7 +34,7 @@
             <div *ngFor="let user of contacts$ | async" class="user-item">
               <label>
                 <input type="checkbox" (change)="onCheckboxChange($event, user)">
-                <span class="initials">{{ getInitials(user.first_name, user.last_name) }}</span>
+                <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
                 <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
               </label>
             </div>
@@ -67,17 +64,14 @@
             imgPath="assets/img/Prio_alta.png">
           </app-button>
         </div>
-     
-    
-    <div class="modal-footer">
-      <div class="add-btn">
-        <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add Task'"imgPath="assets/img/check.png"></app-button>
+        <div class="modal-footer">
+          <div class="add-btn">
+            <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add Task'" imgPath="assets/img/check.png"></app-button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
   </form>
-
   <div class="task-created" *ngIf="taskCreated" @slideInOut>
     Task wurde erfolgreich erstellt!
   </div>

@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  width: 100%;
+  // width: 100%;
 }
 
 .main-container {
@@ -10,9 +10,10 @@ body, html {
   background-color: #F6F7F8;
   justify-content: center;
   overflow-y: scroll;
+  width: 100%;
   @media screen and (min-width: 700px) {
-    padding: 100px;
-  }
+
+}
 }
 
 .categorie {
@@ -27,8 +28,8 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
-  max-width: 1208px;
+  // width: 100%;
+  // max-width: 1208px;
   padding-bottom: 24px;
   min-height: 688px;
 }

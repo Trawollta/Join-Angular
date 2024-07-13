@@ -2,8 +2,21 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    height: fit-content;
     background-color: #2A3647;
+    @media screen and (min-width: 899px) {
+        flex-direction: column;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.logo-section {
+    display: none;
+    @media screen and (min-width: 899px) {
+        display: block;
+        margin-bottom: 20px;
+    }
 }
 
 .menu-btn {
@@ -14,17 +27,29 @@
     padding: 10px 5px;
     margin-top: 3px;
     color: white;
+    cursor: pointer;
+    @media screen and (min-width: 899px) {
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
 }
 
 .menu-icon-summary {
     display: flex;
     justify-content: center;
-    width: 100%;  
+    width: 100%;
+    @media screen and (min-width: 899px) {
+        width: auto;
+        margin-right: 10px;
+    }
 }
-
 
 .menu-btn span {
     text-align: center;
     width: 100%;
-    display: block; 
+    display: block;
+    @media screen and (min-width: 899px) {
+        text-align: left;
+    }
 }

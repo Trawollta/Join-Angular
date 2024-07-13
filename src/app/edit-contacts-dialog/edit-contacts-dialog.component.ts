@@ -44,7 +44,11 @@ export class EditContactsDialogComponent implements OnInit {
     return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
-  closeOverlay() {
+  closeOverlay(event: Event) {
+    // Verhindert das Schließen, wenn innerhalb des Dialogs geklickt wird
+    if ((event.target as HTMLElement).closest('.overlay-content')) {
+      return;
+    }
     this.isEditDialogOpen = false;
     this.isEditMode = false;
     this.close.emit(); // Emit the close event to notify parent component
@@ -63,7 +67,7 @@ export class EditContactsDialogComponent implements OnInit {
           assigned_to: updatedTask.assigned_to.map((id: number) => this.availableUsers.find(user => user.id === id)!)
         };
         this.isEditMode = false;
-        this.closeOverlay();
+        this.closeOverlay(new Event(''));
       }
     );
   }
@@ -72,7 +76,7 @@ export class EditContactsDialogComponent implements OnInit {
     if (confirm('Möchten Sie diese Aufgabe wirklich löschen?')) {
       this.addTaskService.deleteTask(this.task.id).subscribe(
         () => {
-          this.closeOverlay();
+          this.closeOverlay(new Event(''));
         }
       );
     }

@@ -13,14 +13,14 @@
       </div>
       <div>
         <span>Erstellt von:</span>
-        <div class="user-border">
+        <div class="user-border" [ngStyle]="{'background-color': task.created_by.color}">
           {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
         </div>
       </div>
       <div>
         <span>Zugewiesen an:</span>
         <div class="users">
-          <div *ngFor="let user of assignedUsers" class="user-border">
+          <div *ngFor="let user of assignedUsers" class="user-border" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">
             {{ getInitials(user.first_name, user.last_name) }}
           </div>
         </div>

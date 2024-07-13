@@ -1,4 +1,4 @@
-<div class="main-container">
+<section class="main-container">
   <div class="contactlist" *ngIf="!selectedContact || screenWidth >= 900">
     <div class="list">
       <div *ngFor="let letter of displayedAlphabet">
@@ -36,8 +36,8 @@
       <!-- <p>{{ selectedContact.phone }}</p> -->
     </div>
   </div>
-</div>
 
 <ng-template #noTasksTemplate>
   <p>Keine Tasks gefunden.</p>
 </ng-template>
+</section>
