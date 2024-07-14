@@ -3,11 +3,6 @@ body, html {
   margin: 0;
 }
 
-login-header {
-  width: 100%;
-
-}
-
 .sign-up-area {
   display: flex;
   flex-direction: column;
@@ -17,19 +12,20 @@ login-header {
   background-color: #f6f7f8;
 }
 
-.headline-wrapper{
+.headline-wrapper {
   display: flex;
   align-items: center;
   gap: 4px;
   background: linear-gradient(#29ABE2, #29ABE2) bottom no-repeat;
   background-size: 47% 3px;
-  font-size: 26px;
-
+  font-size: 14px;
+  margin-top: 20px;
 }
 
 .invisible {
-opacity: 0;
+  opacity: 0;
 }
+
 .loginArrowImg {
   left: -43%;
   height: 32px;
@@ -37,7 +33,7 @@ opacity: 0;
 }
 
 .login {
-  margin-top:30px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +42,9 @@ opacity: 0;
   border-radius: 30px;
   padding: 0px 20px 41px 20px;
   background: var(--white);
-  height: 84vh;
+  height: 91vh;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.25);
+  overflow: auto;
 }
 
 .login hr {
@@ -64,11 +61,16 @@ opacity: 0;
   border: 1px solid var(--border);
   width: 80%;
   height: 48px;
-  margin-bottom: 5px;
+  margin-bottom: 15px; /* Erhöht den Abstand zwischen den Feldern */
   padding: 0 10px;
-  @media screen and (min-width: 700px) {
-    width: 70%;
-  }
+}
+
+.input-frame.valid input {
+  border-color: green;
+}
+
+.input-frame.invalid input {
+  border-color: red;
 }
 
 .input-frame input {
@@ -77,22 +79,52 @@ opacity: 0;
   border: 1px solid #D1D1D1;
   border-radius: 10px;
   outline: none;
-  height: 24px;
+  height: 13px;
+  width: 100%;
+}
+
+.color-picker-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 80%;
+  margin-bottom: 15px;
+}
+
+.color-picker {
+  display: none;
+}
+
+.color-picker-button {
+  background-color: #29ABE2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 12px;
   cursor: pointer;
-  @media screen and (min-width: 700px) {
-    width: 80%;
-  }
+  transition: background-color 0.3s;
+  width: 130px
+}
+
+.color-picker-button:hover {
+  background-color: #238bbf;
 }
 
 .color-circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
   border: 1px solid #D1D1D1;
-  margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.color-picker-frame .color-circle {
+  margin-left: 20px;
 }
 
 .btn-frame {
@@ -124,6 +156,14 @@ opacity: 0;
   border-radius: 10px;
   width: 70%;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+  color: red;
+  font-size: 10px;
 }
 
 .legal-area {

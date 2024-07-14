@@ -1,65 +1,75 @@
-<div class="overlay" *ngIf="isEditDialogOpen" (click)="closeOverlay($event)">
-  <div class="overlay-content">
-    <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay($event)">
+<div class="overlay" *ngIf="isEditDialogOpen" (click)="onOverlayClick($event)">
+  <div class="overlay-content" (click)="$event.stopPropagation()">
+    <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay()">
 
-    <div>
-      <input [(ngModel)]="task.title" placeholder="Titel" class="input-title" name="title" [readonly]="!isEditMode">
-    </div>
-    <div>
-      <input [(ngModel)]="task.description" placeholder="Beschreibung" class="input-description" name="description" [readonly]="!isEditMode">
-    </div>
-    <div>
-      <select [(ngModel)]="task.status" class="input-status" name="status" [disabled]="!isEditMode">
-        <option value="TO_DO">Offen</option>
-        <option value="AWAIT_FEEDBACK">Wartet auf Feedback</option>
-        <option value="IN_PROGRESS">In Bearbeitung</option>
-        <option value="DONE">Abgeschlossen</option>
-      </select>
-    </div>
-    <div>
-      <select [(ngModel)]="task.priority" class="input-priority" name="priority" [disabled]="!isEditMode">
-        <option value="Urgent">Dringend</option>
-        <option value="Medium">Mittel</option>
-        <option value="Low">Niedrig</option>
-      </select>
-    </div>
-
-    <div>
-      <span>Zugewiesen an:</span>
-      <div class="users">
-        <div *ngFor="let user of task.assigned_to; let i = index" class="user-border">
-          <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
-          <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
-          <button *ngIf="isEditMode" class="remove-button" (click)="removeAssignedUser(i)">X</button>
-        </div>
+    <ng-container *ngIf="!showDeleteConfirmation; else deleteConfirmation">
+      <div>
+        <input [(ngModel)]="task.title" placeholder="Titel" class="input-title" name="title" [readonly]="!isEditMode">
       </div>
-      <div class="assigned-users-dropdown" *ngIf="isEditMode">
-        <div class="assigned-btn" (click)="toggleDropdown()">
-          <span>Benutzer auswählen</span>
+      <div>
+        <input [(ngModel)]="task.description" placeholder="Beschreibung" class="input-description" name="description" [readonly]="!isEditMode">
+      </div>
+      <div>
+        <select [(ngModel)]="task.status" class="input-status" name="status" [disabled]="!isEditMode">
+          <option value="TO_DO">Offen</option>
+          <option value="AWAIT_FEEDBACK">Wartet auf Feedback</option>
+          <option value="IN_PROGRESS">In Bearbeitung</option>
+          <option value="DONE">Abgeschlossen</option>
+        </select>
+      </div>
+      <div>
+        <select [(ngModel)]="task.priority" class="input-priority" name="priority" [disabled]="!isEditMode">
+          <option value="Urgent">Dringend</option>
+          <option value="Medium">Mittel</option>
+          <option value="Low">Niedrig</option>
+        </select>
+      </div>
+
+      <div>
+        <span>Zugewiesen an:</span>
+        <div class="users">
+          <div *ngFor="let user of task.assigned_to; let i = index" class="user-border">
+            <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
+            <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
+            <button *ngIf="isEditMode" class="remove-button" (click)="removeAssignedUser(i)">X</button>
+          </div>
         </div>
-        <div *ngIf="dropdownOpen" class="dropdown-content">
-          <div *ngFor="let user of availableUsers" class="user-item">
-            <label>
-              <input type="checkbox" [checked]="isSelected(user)" (change)="onCheckboxChange($event, user)">
-              <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
-              {{ user.first_name }} {{ user.last_name }}
-            </label>
+        <div class="assigned-users-dropdown" *ngIf="isEditMode">
+          <div class="assigned-btn" (click)="toggleDropdown()">
+            <span>Benutzer auswählen</span>
+          </div>
+          <div *ngIf="dropdownOpen" class="dropdown-content">
+            <div *ngFor="let user of availableUsers" class="user-item">
+              <label>
+                <input type="checkbox" [checked]="isSelected(user)" (change)="onCheckboxChange($event, user)">
+                <span class="initials" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">{{ getInitials(user.first_name, user.last_name) }}</span>
+                {{ user.first_name }} {{ user.last_name }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="actions">
-      <button (click)="isEditMode = true">
-        <img src="assets/img/edit.svg" alt="Bearbeiten-Icon" class="action-icon">
-      </button>
-      <button (click)="saveTask()" [disabled]="!isEditMode">
-        <img src="assets/img/check.png" alt="Speichern-Icon" class="action-icon">
-        Speichern
-      </button>
-      <button (click)="deleteTask()">
-        <img src="assets/img/delete.svg" alt="Löschen-Icon" class="action-icon">
-      </button>
-    </div>
+      <div class="actions">
+        <button (click)="isEditMode = true">
+          <img src="assets/img/edit.svg" alt="Bearbeiten-Icon" class="action-icon">
+        </button>
+        <button (click)="saveTask()" [disabled]="!isEditMode">
+          <img src="assets/img/check.png" alt="Speichern-Icon" class="action-icon">
+          Speichern
+        </button>
+        <button (click)="confirmDelete()">
+          <img src="assets/img/delete.svg" alt="Löschen-Icon" class="action-icon">
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #deleteConfirmation>
+      <div class="delete-confirmation">
+        <p>Willst du wirklich löschen?</p>
+        <button (click)="deleteTask()">Ja</button>
+        <button (click)="cancelDelete()">Nein</button>
+      </div>
+    </ng-template>
   </div>
 </div>

@@ -17,11 +17,13 @@ export class EditContactsDialogComponent implements OnInit {
 
   @Input() task!: Task;
   @Output() close = new EventEmitter<void>();
+  @Output() deleted = new EventEmitter<void>();
   availableUsers: Contact[] = [];
   selectedUser: Contact | null = null;
   isEditDialogOpen = true;
   dropdownOpen = false;
   isEditMode = false;
+  showDeleteConfirmation = false;
 
   constructor(private addTaskService: AddTaskService, private contactsService: ContactsService) { }
 
@@ -44,11 +46,15 @@ export class EditContactsDialogComponent implements OnInit {
     return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
-  closeOverlay(event: Event) {
-    // Verhindert das Schließen, wenn innerhalb des Dialogs geklickt wird
+  onOverlayClick(event: Event) {
     if ((event.target as HTMLElement).closest('.overlay-content')) {
       return;
     }
+    this.closeOverlay();
+  }
+
+  closeOverlay() {
+    console.log('Overlay is closing');
     this.isEditDialogOpen = false;
     this.isEditMode = false;
     this.close.emit(); // Emit the close event to notify parent component
@@ -67,19 +73,32 @@ export class EditContactsDialogComponent implements OnInit {
           assigned_to: updatedTask.assigned_to.map((id: number) => this.availableUsers.find(user => user.id === id)!)
         };
         this.isEditMode = false;
-        this.closeOverlay(new Event(''));
+        this.closeOverlay();
+      },
+      error => {
+        console.error('Error saving task:', error);
       }
     );
   }
 
+  confirmDelete() {
+    this.showDeleteConfirmation = true;
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirmation = false;
+  }
+
   deleteTask() {
-    if (confirm('Möchten Sie diese Aufgabe wirklich löschen?')) {
-      this.addTaskService.deleteTask(this.task.id).subscribe(
-        () => {
-          this.closeOverlay(new Event(''));
-        }
-      );
-    }
+    this.addTaskService.deleteTask(this.task.id).subscribe(
+      () => {
+        this.deleted.emit();
+        this.closeOverlay(); 
+      },
+      error => {
+        console.error('Error deleting task:', error);
+      }
+    );
   }
 
   toggleDropdown() {

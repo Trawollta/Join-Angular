@@ -23,7 +23,7 @@ export class AddTaskService {
   }
 
   deleteTask(taskId: number): Observable<any> {
-    const url = `${this.apiUrl}deleteTask/?task_id=${taskId}`;
+    const url = `${this.apiUrl}deleteTask/${taskId}/`;
     return this.http.delete(url);
   }
 

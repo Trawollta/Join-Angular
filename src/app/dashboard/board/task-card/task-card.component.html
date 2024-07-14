@@ -1,4 +1,4 @@
-<div class="taskcard" (click)="openOverlay()">
+<div class="taskcard" (click)="openOverlay($event)">
   <ng-container *ngIf="!showOverlay; else editMode">
     <h3>{{ task.title }}</h3>
     <p class="description">{{ task.description }}</p>
@@ -29,6 +29,6 @@
   </ng-container>
   
   <ng-template #editMode>
-    <app-edit-contacts-dialog [task]="task" (close)="closeOverlay()"></app-edit-contacts-dialog>
+    <app-edit-contacts-dialog [task]="task" (close)="handleClose()" (deleted)="handleDelete()"></app-edit-contacts-dialog>
   </ng-template>
 </div>

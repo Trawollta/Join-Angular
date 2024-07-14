@@ -1,8 +1,6 @@
 <div class="sign-up-area">
   <div class="login" *ngIf="!registrationSuccess">
     <div class="login-header">
-      <!-- <div class="loginArrowImg">
-      </div> -->
       <div class="headline-wrapper">
         <a [routerLink]="['/login']">
           <img class="arrowback" src="assets/img/arrow-left-line.svg" alt="arrowback">
@@ -15,33 +13,39 @@
     </div>
     <hr>
     
-    <form (ngSubmit)="onSubmit()">
-      <div class="input-frame">
-        <input type="text" [(ngModel)]="firstname" name="first_name" class="form-control" placeholder="First name" autocomplete="off" (input)="drawInitials()">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('firstname')?.valid && (signUpForm.get('firstname')?.dirty || signUpForm.get('firstname')?.touched), 'invalid': signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.dirty || signUpForm.get('firstname')?.touched)}">
+        <input type="text" formControlName="firstname" class="form-control" placeholder="First name" autocomplete="off" (input)="drawInitials()">
       </div>
-      <div class="input-frame">
-        <input type="text" [(ngModel)]="lastname" name="last_name" class="form-control" placeholder="Last name" autocomplete="off" (input)="drawInitials()">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('lastname')?.valid && (signUpForm.get('lastname')?.dirty || signUpForm.get('lastname')?.touched), 'invalid': signUpForm.get('lastname')?.invalid && (signUpForm.get('lastname')?.dirty || signUpForm.get('lastname')?.touched)}">
+        <input type="text" formControlName="lastname" class="form-control" placeholder="Last name" autocomplete="off" (input)="drawInitials()">
       </div>
-      <div class="input-frame">
-        <input type="color" [(ngModel)]="color" name="color" class="form-control" autocomplete="off" (input)="updateColor($event)">
+      <div class="input-frame color-picker-frame" [ngClass]="{'valid': signUpForm.get('color')?.valid && (signUpForm.get('color')?.dirty || signUpForm.get('color')?.touched), 'invalid': signUpForm.get('color')?.invalid && (signUpForm.get('color')?.dirty || signUpForm.get('color')?.touched)}">
+        <input type="color" formControlName="color" class="color-picker" autocomplete="off" #colorInput (input)="updateColor($event)" style="display:none;">
+        <button type="button" class="color-picker-button" (click)="colorInput.click()">
+          Farbe wählen
+        </button>
         <div class="color-circle">
-          <canvas #canvas width="24" height="24"></canvas>
+          <canvas #canvas width="150" height="150"></canvas>
         </div>
       </div>
-      <div class="btn-frame">
-        <!-- <button type="button" class="select-color-btn" (click)="selectBackgroundColor()">Select your Backgroundcolor</button> -->
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('email')?.valid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched), 'invalid': signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)}">
+        <input type="email" formControlName="email" class="form-control" placeholder="E-Mail" autocomplete="off">
       </div>
-      <div class="input-frame">
-        <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="E-Mail" autocomplete="off">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('username')?.valid && (signUpForm.get('username')?.dirty || signUpForm.get('username')?.touched), 'invalid': signUpForm.get('username')?.invalid && (signUpForm.get('username')?.dirty || signUpForm.get('username')?.touched)}">
+        <input type="text" formControlName="username" class="form-control" placeholder="Username" autocomplete="off">
       </div>
-      <div class="input-frame">
-        <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Username" autocomplete="off">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('password')?.valid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched), 'invalid': signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)}">
+        <input type="password" formControlName="password" class="form-control" placeholder="Password" autocomplete="off">
       </div>
-      <div class="input-frame">
-        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
+      <div *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)" class="error-message">
+        <small *ngIf="signUpForm.get('password')?.errors?.['invalidPassword']">Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.</small>
       </div>
-      <div class="input-frame">
-        <input type="password" [(ngModel)]="confirmPassword" name="confirm_password" class="form-control" placeholder="Confirm Password" autocomplete="off">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('confirmPassword')?.valid && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched), 'invalid': signUpForm.get('confirmPassword')?.invalid && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)}">
+        <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm Password" autocomplete="off">
+        <div *ngIf="signUpForm.errors?.['mismatch'] && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)" class="error-message">
+          <small>Die Passwörter stimmen nicht überein.</small>
+        </div>
       </div>
       <div class="btn-frame">
         <app-button 

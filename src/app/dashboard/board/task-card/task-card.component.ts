@@ -18,6 +18,7 @@ export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
   @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Task>();
+  @Output() close = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.assignedUsers = this.task.assigned_to;
@@ -30,12 +31,33 @@ export class TaskCardComponent implements OnInit {
     return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
-  openOverlay() {
+  openOverlay(event: Event) {
+    debugger;
+    console.log('Opening overlay');
+    event.stopPropagation(); 
     this.showOverlay = true;
   }
 
-  closeOverlay() {
-    console.log('close overlay');
+  closeOverlay(event?: Event) {
+    console.log('Closing overlay');
+    if (event) {
+      event.stopPropagation();
+    }
     this.showOverlay = false;
+    this.close.emit();
+  }
+
+  handleClose(event?: Event) {
+    console.log('Handling close event');
+    this.closeOverlay(event);
+  }
+
+  handleDelete(event?: Event) {
+    console.log('Handling delete event');
+    if (event) {
+      event.stopPropagation();
+    }
+    this.delete.emit(this.task.id);
+    this.closeOverlay(event);
   }
 }
