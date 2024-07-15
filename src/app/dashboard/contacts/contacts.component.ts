@@ -39,9 +39,6 @@ export class ContactsComponent implements OnInit {
           console.error('Alle Kontakte müssen einen Vornamen haben.');
         }
         this.contactsList = contacts;
-        this.contactsList.forEach(contact => {
-          console.log(`Kontakt: ${contact.first_name}, Farbe: ${contact.color}`); // Debug-Ausgabe
-        });
         this.sortedContacts = this.getSortedContactsFromList(contacts);
         this.generateAlphabet(); 
       },

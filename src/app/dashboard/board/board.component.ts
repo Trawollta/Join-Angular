@@ -53,18 +53,15 @@ export class BoardComponent implements OnInit {
   }
 
   onDeleteTask(taskId: number): void {
-    this.addTaskService.deleteTask(taskId).subscribe({
-      next: () => {
-        this.loadTasks();
-      },
-      error: (error) => {
-        console.error('Fehler beim Löschen der Task', error);
-      }
-    });
+    // Prüfen, ob die Task bereits gelöscht wurde
+    if (!this.tasks.find(task => task.id === taskId)) {
+      return;
+    }
+    this.loadTasks(); // Nur die Tasks neu laden, ohne zu versuchen, die Task erneut zu löschen
   }
 
   onEditTask(task: Task): void {
-    this.loadTasks(); // Refresh the task list after editing
+    this.loadTasks();
   }
 
   drop(event: CdkDragDrop<Task[]>): void {
@@ -94,6 +91,6 @@ export class BoardComponent implements OnInit {
   }
 
   navigateToAddTask(): void {
-    this.router.navigate(['dashboard/addtask']); // Korrigierter Pfad
+    this.router.navigate(['dashboard/addtask']);
   }
 }

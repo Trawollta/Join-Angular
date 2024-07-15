@@ -26,7 +26,6 @@ export class GetUserService {
   }
 
   fetchCurrentUser(): void {
-    console.log(this.currentUserId.value);
     this.http.get<User>(this.apiUrl + this.currentUserId.value + '/', { headers: this.getHeaders() }).subscribe(
       user => this.currentUserSubject.next(user),
       error => console.error('Fehler beim Abrufen des Benutzers:', error)

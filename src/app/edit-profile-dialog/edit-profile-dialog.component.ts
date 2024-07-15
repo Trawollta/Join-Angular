@@ -37,6 +37,7 @@ export class EditProfileDialogComponent implements OnInit {
       try {
         await this.getUserService.updateUser(this.selectedContact);
         this.close.emit();
+        window.location.reload(); // Seite nach dem Speichern neu laden
       } catch (error) {
         console.error('Fehler beim Speichern der Änderungen:', error);
       }

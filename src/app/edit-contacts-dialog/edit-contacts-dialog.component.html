@@ -12,9 +12,9 @@
       <div>
         <select [(ngModel)]="task.status" class="input-status" name="status" [disabled]="!isEditMode">
           <option value="TO_DO">Offen</option>
-          <option value="AWAIT_FEEDBACK">Wartet auf Feedback</option>
-          <option value="IN_PROGRESS">In Bearbeitung</option>
-          <option value="DONE">Abgeschlossen</option>
+          <option value="AWAIT_FEEDBACK">Waiting for Feedback</option>
+          <option value="IN_PROGRESS">In progress</option>
+          <option value="DONE">Done</option>
         </select>
       </div>
       <div>
@@ -36,7 +36,7 @@
         </div>
         <div class="assigned-users-dropdown" *ngIf="isEditMode">
           <div class="assigned-btn" (click)="toggleDropdown()">
-            <span>Benutzer auswählen</span>
+            <span>Add contact</span>
           </div>
           <div *ngIf="dropdownOpen" class="dropdown-content">
             <div *ngFor="let user of availableUsers" class="user-item">

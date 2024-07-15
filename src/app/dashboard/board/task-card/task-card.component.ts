@@ -32,32 +32,28 @@ export class TaskCardComponent implements OnInit {
   }
 
   openOverlay(event: Event) {
-    debugger;
-    console.log('Opening overlay');
-    event.stopPropagation(); 
-    this.showOverlay = true;
+    if (!this.showOverlay) {
+      event.stopPropagation();
+      this.showOverlay = true;
+    }
   }
 
   closeOverlay(event?: Event) {
-    console.log('Closing overlay');
     if (event) {
       event.stopPropagation();
     }
-    this.showOverlay = false;
-    this.close.emit();
+    setTimeout(() => {
+      this.showOverlay = false;
+      this.close.emit();
+    }, 0);
   }
 
-  handleClose(event?: Event) {
-    console.log('Handling close event');
-    this.closeOverlay(event);
+  handleClose() {
+    this.closeOverlay();
   }
 
-  handleDelete(event?: Event) {
-    console.log('Handling delete event');
-    if (event) {
-      event.stopPropagation();
-    }
-    this.delete.emit(this.task.id);
-    this.closeOverlay(event);
+  handleDelete(taskId: number) {
+    this.delete.emit(taskId);
+    this.closeOverlay();
   }
 }

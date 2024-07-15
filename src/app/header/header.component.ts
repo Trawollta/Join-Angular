@@ -8,7 +8,7 @@ import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, EditProfileDialogComponent], // Füge die Komponente hier hinzu
+  imports: [CommonModule, EditProfileDialogComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -39,8 +39,8 @@ export class HeaderComponent implements OnInit {
         if (user) {
           this.currentUser = user;
           this.userInitials = this.getInitials(user.first_name, user.last_name);
-          this.userColor = user.color; // Hier setzen wir die Farbe
-          this.isLoggedIn = true; // Hier setzen wir isLoggedIn auf true
+          this.userColor = user.color;
+          this.isLoggedIn = true;
         } else {
           this.isLoggedIn = false;
         }

@@ -17,7 +17,7 @@ export class EditContactsDialogComponent implements OnInit {
 
   @Input() task!: Task;
   @Output() close = new EventEmitter<void>();
-  @Output() deleted = new EventEmitter<void>();
+  @Output() deleted = new EventEmitter<number>();
   availableUsers: Contact[] = [];
   selectedUser: Contact | null = null;
   isEditDialogOpen = true;
@@ -54,10 +54,9 @@ export class EditContactsDialogComponent implements OnInit {
   }
 
   closeOverlay() {
-    console.log('Overlay is closing');
     this.isEditDialogOpen = false;
     this.isEditMode = false;
-    this.close.emit(); // Emit the close event to notify parent component
+    this.close.emit();
   }
 
   saveTask() {
@@ -92,8 +91,8 @@ export class EditContactsDialogComponent implements OnInit {
   deleteTask() {
     this.addTaskService.deleteTask(this.task.id).subscribe(
       () => {
-        this.deleted.emit();
-        this.closeOverlay(); 
+        this.deleted.emit(this.task.id);
+        this.closeOverlay();
       },
       error => {
         console.error('Error deleting task:', error);

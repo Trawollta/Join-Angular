@@ -39,7 +39,6 @@ export class AuthService {
       if (token) {
         localStorage.setItem('authToken', token);
         this.loggedIn.next(true);
-        // console.log(response.user_id);
       } else {
         console.error('Kein Token im Login-Antwort erhalten');
       }
