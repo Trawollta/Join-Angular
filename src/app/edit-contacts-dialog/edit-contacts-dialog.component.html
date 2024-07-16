@@ -24,6 +24,22 @@
           <option value="Low">Niedrig</option>
         </select>
       </div>
+      <div>
+        <input type="date" [(ngModel)]="task.due_date" name="due_date" class="input-date" [readonly]="!isEditMode">
+      </div>
+      <div>
+        <label for="subtask">Unteraufgaben:</label>
+        <ul>
+          <li *ngFor="let subtask of task.subtasks; let i = index">
+            <input [(ngModel)]="task.subtasks[i]" [readonly]="!isEditMode">
+            <button *ngIf="isEditMode" (click)="removeSubtask(i)">X</button>
+          </li>
+        </ul>
+        <div *ngIf="isEditMode">
+          <input [(ngModel)]="newSubtask" placeholder="Neue Unteraufgabe" (keyup.enter)="addSubtask()">
+          <button (click)="addSubtask()">Hinzufügen</button>
+        </div>
+      </div>
 
       <div>
         <span>Zugewiesen an:</span>
@@ -51,7 +67,7 @@
       </div>
 
       <div class="actions">
-        <button (click)="isEditMode = true">
+        <button (click)="isEditMode = true" [disabled]="isEditMode">
           <img src="assets/img/edit.svg" alt="Bearbeiten-Icon" class="action-icon">
         </button>
         <button (click)="saveTask()" [disabled]="!isEditMode">

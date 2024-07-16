@@ -59,8 +59,9 @@ export class AddTaskComponent implements OnInit {
   taskCreated = false;
   newSubtask = '';
   subtasks: string[] = [];
-  categories: string[] = ['Allgemein', 'Arbeit', 'Persönlich'];
+  categories: string[] = ['General', 'Work', 'Personal'];
   newCategory = '';
+  showCategoryInput = false;
 
   constructor(
     private taskService: AddTaskService,
@@ -77,7 +78,7 @@ export class AddTaskComponent implements OnInit {
       assigned_to: this.fb.array([]),
       subtasks: this.fb.array([]),
       category: ['', Validators.required],
-      dueDate: ['', Validators.required], // Zieldatum Feld im Formular
+      due_date: ['', Validators.required],
     });
   }
 
@@ -136,10 +137,15 @@ export class AddTaskComponent implements OnInit {
     this.subtasksArray.removeAt(index);
   }
 
+  toggleCategoryInput() {
+    this.showCategoryInput = !this.showCategoryInput;
+  }
+
   addCategory() {
     if (this.newCategory.trim()) {
       this.categories.push(this.newCategory);
       this.newCategory = '';
+      this.showCategoryInput = false;
     }
   }
 
@@ -158,9 +164,9 @@ export class AddTaskComponent implements OnInit {
         }, 4000);
       } catch (e) {
         if (e instanceof Error) {
-          alert('Fehler beim Hinzufügen der Aufgabe: ' + e.message);
+          alert('Error adding task: ' + e.message);
         } else {
-          alert('Ein unbekannter Fehler ist aufgetreten');
+          alert('An unknown error occurred');
         }
       }
     }

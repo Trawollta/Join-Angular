@@ -24,6 +24,7 @@ export class EditContactsDialogComponent implements OnInit {
   dropdownOpen = false;
   isEditMode = false;
   showDeleteConfirmation = false;
+  newSubtask = '';
 
   constructor(private addTaskService: AddTaskService, private contactsService: ContactsService) { }
 
@@ -62,7 +63,8 @@ export class EditContactsDialogComponent implements OnInit {
   saveTask() {
     const updatedTask = {
       ...this.task,
-      assigned_to: this.task.assigned_to.map(user => user.id)
+      assigned_to: this.task.assigned_to.map(user => user.id),
+      due_date: this.task.due_date ? this.formatDate(new Date(this.task.due_date)) : null
     };
 
     this.addTaskService.updateTask(updatedTask as any).subscribe(
@@ -119,16 +121,24 @@ export class EditContactsDialogComponent implements OnInit {
     }
   }
 
-  addAssignedUser() {
-    if (this.selectedUser && this.task) {
-      this.task.assigned_to.push(this.selectedUser);
-      this.selectedUser = null;
+  addSubtask() {
+    if (this.newSubtask.trim()) {
+      this.task.subtasks.push(this.newSubtask);
+      this.newSubtask = '';
     }
+  }
+
+  removeSubtask(index: number) {
+    this.task.subtasks.splice(index, 1);
   }
 
   removeAssignedUser(index: number) {
     if (this.task) {
       this.task.assigned_to.splice(index, 1);
     }
+  }
+
+  private formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
   }
 }
