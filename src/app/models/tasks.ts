@@ -8,6 +8,9 @@ export interface Task {
   project_lead: number | null;
   created_by: User;
   assigned_to: User[];
+  category: string;  
+  due_date: Date | null;
+  subtasks: string[];
 }
 
 export interface User {

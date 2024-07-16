@@ -12,6 +12,14 @@
         <span>{{ task.priority }}</span>
       </div>
       <div>
+        <span>Kategorie:</span>
+        <span>{{ task.category }}</span>
+      </div>
+      <div>
+        <span>Zieldatum:</span>
+        <span>{{ task.due_date | date: 'shortDate' }}</span>
+      </div>
+      <div>
         <span>Erstellt von:</span>
         <div class="user-border" [ngStyle]="{'background-color': task.created_by.color}">
           {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
@@ -24,6 +32,12 @@
             {{ getInitials(user.first_name, user.last_name) }}
           </div>
         </div>
+      </div>
+      <div>
+        <span>Unteraufgaben:</span>
+        <ul>
+          <li *ngFor="let subtask of task.subtasks">{{ subtask }}</li>
+        </ul>
       </div>
     </div>
   </ng-container>

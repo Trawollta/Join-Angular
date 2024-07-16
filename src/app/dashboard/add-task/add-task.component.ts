@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { Task } from '../../models/tasks';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -31,6 +32,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
@@ -55,6 +57,10 @@ export class AddTaskComponent implements OnInit {
   selectedUsers: number[] = [];
   dropdownOpen = false;
   taskCreated = false;
+  newSubtask = '';
+  subtasks: string[] = [];
+  categories: string[] = ['Allgemein', 'Arbeit', 'Persönlich'];
+  newCategory = '';
 
   constructor(
     private taskService: AddTaskService,
@@ -69,6 +75,9 @@ export class AddTaskComponent implements OnInit {
       status: ['', Validators.required],
       priority: [this.currentPriority, Validators.required],
       assigned_to: this.fb.array([]),
+      subtasks: this.fb.array([]),
+      category: ['', Validators.required],
+      dueDate: ['', Validators.required], // Zieldatum Feld im Formular
     });
   }
 
@@ -76,6 +85,10 @@ export class AddTaskComponent implements OnInit {
 
   get assigned_to() {
     return this.taskForm.get('assigned_to') as FormArray;
+  }
+
+  get subtasksArray() {
+    return this.taskForm.get('subtasks') as FormArray;
   }
 
   isSelected(userId: number): boolean {
@@ -110,11 +123,32 @@ export class AddTaskComponent implements OnInit {
     return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   }
 
+  addSubtask() {
+    if (this.newSubtask.trim()) {
+      this.subtasks.push(this.newSubtask);
+      this.subtasksArray.push(new FormControl(this.newSubtask));
+      this.newSubtask = '';
+    }
+  }
+
+  removeSubtask(index: number) {
+    this.subtasks.splice(index, 1);
+    this.subtasksArray.removeAt(index);
+  }
+
+  addCategory() {
+    if (this.newCategory.trim()) {
+      this.categories.push(this.newCategory);
+      this.newCategory = '';
+    }
+  }
+
   async addTask() {
     if (this.taskForm.valid) {
       try {
         const taskData = this.taskForm.value;
         taskData.assigned_to = this.selectedUsers;
+        taskData.subtasks = this.subtasks;
   
         const response = await this.taskService.newTask(taskData).toPromise();
         this.taskCreated = true;
