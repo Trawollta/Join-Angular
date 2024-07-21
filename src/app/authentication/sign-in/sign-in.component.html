@@ -18,6 +18,11 @@
             <input type="checkbox" formControlName="remember" id="remember-me"> <span>Remember me</span>
           </div>
 
+          <!-- Fehlermeldung hinzufügen -->
+          <div *ngIf="loginError" class="error-message">
+            <span>Anmeldedaten sind falsch. Bitte versuche es erneut.</span>
+          </div>
+
           <div class="button-container">
             <div class="login-area">
               <app-button 

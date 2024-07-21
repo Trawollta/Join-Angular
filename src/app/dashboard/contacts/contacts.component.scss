@@ -9,6 +9,23 @@ body, html {
   height: 100vh;
 }
 
+.add-contact-button {
+
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: 700;
+  color: white;
+  background-color: #2a3647;
+  border: #2a3647 1px solid;
+  border-radius: 10px;
+  cursor: pointer;
+  gap: 16px;
+}
+
 .contactlist {
   position: relative;
   box-shadow: none;
@@ -20,8 +37,9 @@ body, html {
   width: fit-content;
   overflow: auto;
   
+  
   @media screen and (min-width: 899px) {
-    width: 36%;
+    width: 94%;
     margin-left: 30px;
     
   }

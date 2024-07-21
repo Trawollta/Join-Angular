@@ -14,11 +14,11 @@
     <hr>
     
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('firstname')?.valid && (signUpForm.get('firstname')?.dirty || signUpForm.get('firstname')?.touched), 'invalid': signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.dirty || signUpForm.get('firstname')?.touched)}">
-        <input type="text" formControlName="firstname" class="form-control" placeholder="First name" autocomplete="off" (input)="drawInitials()">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('first_name')?.valid && (signUpForm.get('first_name')?.dirty || signUpForm.get('first_name')?.touched), 'invalid': signUpForm.get('first_name')?.invalid && (signUpForm.get('first_name')?.dirty || signUpForm.get('first_name')?.touched)}">
+        <input type="text" formControlName="first_name" class="form-control" placeholder="First name" autocomplete="off" (input)="drawInitials()">
       </div>
-      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('lastname')?.valid && (signUpForm.get('lastname')?.dirty || signUpForm.get('lastname')?.touched), 'invalid': signUpForm.get('lastname')?.invalid && (signUpForm.get('lastname')?.dirty || signUpForm.get('lastname')?.touched)}">
-        <input type="text" formControlName="lastname" class="form-control" placeholder="Last name" autocomplete="off" (input)="drawInitials()">
+      <div class="input-frame" [ngClass]="{'valid': signUpForm.get('last_name')?.valid && (signUpForm.get('last_name')?.dirty || signUpForm.get('last_name')?.touched), 'invalid': signUpForm.get('last_name')?.invalid && (signUpForm.get('last_name')?.dirty || signUpForm.get('last_name')?.touched)}">
+        <input type="text" formControlName="last_name" class="form-control" placeholder="Last name" autocomplete="off" (input)="drawInitials()">
       </div>
       <div class="input-frame color-picker-frame" [ngClass]="{'valid': signUpForm.get('color')?.valid && (signUpForm.get('color')?.dirty || signUpForm.get('color')?.touched), 'invalid': signUpForm.get('color')?.invalid && (signUpForm.get('color')?.dirty || signUpForm.get('color')?.touched)}">
         <input type="color" formControlName="color" class="color-picker" autocomplete="off" #colorInput (input)="updateColor($event)" style="display:none;">

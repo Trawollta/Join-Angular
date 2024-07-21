@@ -19,6 +19,8 @@ export class SignInComponent {
     remember: new FormControl(false)
   });
 
+  loginError: boolean = false; 
+
   constructor(private router: Router, private authService: AuthService) {}
 
   async onSubmit() {
@@ -31,8 +33,9 @@ export class SignInComponent {
         await this.authService.login(credentials);
         this.router.navigateByUrl('dashboard/summary');
       } catch (error) {
-        // Fehlerbehandlung hinzufügen, z.B. Anzeige einer Fehlermeldung
+        this.loginError = true; 
       }
     }
   }
 }
+

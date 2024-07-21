@@ -1,14 +1,15 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Contact } from '../../models/contacts';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../shared/button/button.component';
 import { ContactsService } from '../../services/contacts.service';
+import { AddContactsComponent } from '../../add-contacts/add-contacts.component';
+import { EditContactsOverlayComponent } from '../../edit-contacts-overlay/edit-contacts-overlay.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
   templateUrl: './contacts.component.html',
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, AddContactsComponent, EditContactsOverlayComponent],
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
@@ -17,6 +18,8 @@ export class ContactsComponent implements OnInit {
   displayedAlphabet: string[] = [];  
   selectedContact: Contact | null = null; 
   screenWidth: number;
+  showOverlay = false;
+  showEditOverlay = false;
 
   constructor(private contactsService: ContactsService) {
     this.screenWidth = window.innerWidth;
@@ -31,7 +34,6 @@ export class ContactsComponent implements OnInit {
   onResize(event?: Event) {
     this.screenWidth = window.innerWidth;
   }
-
   loadContacts() {
     this.contactsService.getContacts().subscribe({
       next: (contacts) => {
@@ -40,7 +42,7 @@ export class ContactsComponent implements OnInit {
         }
         this.contactsList = contacts;
         this.sortedContacts = this.getSortedContactsFromList(contacts);
-        this.generateAlphabet(); 
+        this.generateAlphabet();
       },
       error: (err) => console.error('Fehler beim Laden der Kontakte', err)
     });
@@ -66,6 +68,7 @@ export class ContactsComponent implements OnInit {
     return sortedContacts;
   }
 
+
   getInitials(firstName: string, lastName: string): string {
     const firstInitial = firstName.charAt(0).toUpperCase();
     const lastInitial = lastName.charAt(0).toUpperCase();
@@ -76,11 +79,64 @@ export class ContactsComponent implements OnInit {
     this.displayedAlphabet = Object.keys(this.sortedContacts).sort();
   }
 
+  
+
   selectContact(contact: Contact) {
     this.selectedContact = contact; 
   }
 
   deselectContact() {
     this.selectedContact = null;
+  }
+
+  openOverlay() {
+    this.showOverlay = true;
+  }
+
+  closeOverlay() {
+    this.showOverlay = false;
+  }
+
+  openEditOverlay() {
+    this.showEditOverlay = true;
+  }
+
+  closeEditOverlay() {
+    this.showEditOverlay = false;
+  }
+
+  addContact(contact: Contact) {
+    this.contactsList.push(contact);
+    this.sortedContacts = this.getSortedContactsFromList(this.contactsList);
+    this.generateAlphabet();
+  }
+
+  updateContact(updatedContact: Contact) {
+    const index = this.contactsList.findIndex(contact => contact.id === updatedContact.id);
+    if (index !== -1) {
+      this.contactsList[index] = updatedContact;
+      this.sortedContacts = this.getSortedContactsFromList(this.contactsList);
+      this.generateAlphabet();
+      if (this.selectedContact?.id === updatedContact.id) {
+        this.selectedContact = updatedContact;
+      }
+    }
+  }
+
+  deleteContact(contact: Contact) {
+    if (confirm(`Möchten Sie den Kontakt ${contact.first_name} ${contact.last_name} wirklich löschen?`)) {
+      this.contactsService.deleteContact(contact.id).subscribe({
+        next: () => {
+          this.contactsList = this.contactsList.filter(c => c.id !== contact.id);
+          this.sortedContacts = this.getSortedContactsFromList(this.contactsList);
+          this.generateAlphabet();
+          this.deselectContact();
+          alert('Kontakt erfolgreich gelöscht');
+        },
+        error: (err) => {
+          console.error('Fehler beim Löschen des Kontakts:', err);
+        }
+      });
+    }
   }
 }

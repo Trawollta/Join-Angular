@@ -15,7 +15,7 @@ export class ContactsService {
     const token = localStorage.getItem('authToken');
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set('Authorization', `Token ${token}`); // 'Token' Präfix hinzufügen
+      headers = headers.set('Authorization', `Token ${token}`);
     }
     return headers;
   }
@@ -24,5 +24,15 @@ export class ContactsService {
     return this.http.get<Contact[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  
+  addContact(contact: Contact): Observable<Contact> {
+    return this.http.post<Contact>(`${this.apiUrl}create/`, contact, { headers: this.getHeaders() });
+  }
+
+  updateContact(contact: Contact): Observable<Contact> {
+    return this.http.put<Contact>(`${this.apiUrl}${contact.id}/`, contact, { headers: this.getHeaders() });
+  }
+
+  deleteContact(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}delete/${id}/`, { headers: this.getHeaders() });
+  }
 }

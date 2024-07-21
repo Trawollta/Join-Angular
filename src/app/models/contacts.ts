@@ -14,6 +14,6 @@ export class Contact {
         this.last_name = obj ? obj.last_name : ''
         this.number = obj ? obj.number : '';
         this.email = obj ? obj.email : '';
-        this.color = obj ? obj.color : ''; // Initialisierung der neuen Eigenschaft
+        this.color = obj ? obj.color : '';
     }
 }

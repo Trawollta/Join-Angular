@@ -1,17 +1,20 @@
 <section class="main-container">
-  <div class="contactlist" *ngIf="!selectedContact || screenWidth >= 900">
-    <div class="list">
-      <div *ngFor="let letter of displayedAlphabet">
-        <h2>{{ letter }}</h2>
-        <div class="divider"></div>
-        <div *ngFor="let contact of sortedContacts[letter]">
-          <div class="contact-field" [ngClass]="{'selected': selectedContact === contact}" (click)="selectContact(contact)">
-            <div class="contact-circle" [style.background-color]="contact.color"> <!-- Verwende die color-Eigenschaft -->
-              {{ getInitials(contact.first_name, contact.last_name) }}
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
-              <div class="contact-mail">{{ contact.email }}</div>
+  <div class="contactlist-container">
+    <button (click)="openOverlay()" class="add-contact-button">Add Contact</button>
+    <div class="contactlist" *ngIf="!selectedContact || screenWidth >= 900">
+      <div class="list">
+        <div *ngFor="let letter of displayedAlphabet">
+          <h2>{{ letter }}</h2>
+          <div class="divider"></div>
+          <div *ngFor="let contact of sortedContacts[letter]">
+            <div class="contact-field" [ngClass]="{'selected': selectedContact === contact}" (click)="selectContact(contact)">
+              <div class="contact-circle" [style.background-color]="contact.color">
+                {{ getInitials(contact.first_name, contact.last_name) }}
+              </div>              
+              <div class="contact-info">
+                <div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
+                <div class="contact-mail">{{ contact.email }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -21,11 +24,11 @@
 
   <div class="user-details" *ngIf="selectedContact">
     <div class="details-headline">
-      <button class="back-button" (click)="deselectContact()" *ngIf="screenWidth < 700">← Zurück</button>
+      <button class="back-button" (click)="deselectContact()" *ngIf="screenWidth < 700">← Back</button>
       <h1>Contacts <span>Better with a team</span></h1>
     </div>
     <div class="name-details">
-      <div class="user-border-big" [style.background-color]="selectedContact.color"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div> <!-- Hinzufügen der Farbe für die ausgewählten Details -->
+      <div class="user-border-big" [style.background-color]="selectedContact.color"> {{ getInitials(selectedContact.first_name, selectedContact.last_name) }}</div>
       <span class="user-name">{{ selectedContact.first_name }} {{ selectedContact.last_name }}</span>
     </div>
     <div class="contact-information">
@@ -33,11 +36,11 @@
       <p><b>Email</b></p>
       <a [href]="'mailto:' + selectedContact.email">{{ selectedContact.email }}</a>
       <p><b>Phone</b></p>
-      <!-- <p>{{ selectedContact.phone }}</p> -->
+      <button (click)="openEditOverlay()">Edit</button>
+      <button (click)="deleteContact(selectedContact)">Delete</button>
     </div>
   </div>
-
-<ng-template #noTasksTemplate>
-  <p>Keine Tasks gefunden.</p>
-</ng-template>
 </section>
+
+<app-add-contacts [showOverlay]="showOverlay" (close)="closeOverlay()" (addContactEvent)="addContact($event)"></app-add-contacts>
+<app-edit-contacts-overlay [contact]="selectedContact" [showOverlay]="showEditOverlay" (close)="closeEditOverlay()" (editContactEvent)="updateContact($event)"></app-edit-contacts-overlay>

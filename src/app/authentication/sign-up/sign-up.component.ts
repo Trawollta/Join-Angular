@@ -25,8 +25,8 @@ export class SignUpComponent implements AfterViewInit {
     private fb: FormBuilder
   ) {
     this.signUpForm = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       color: ['#ffffff', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -63,7 +63,7 @@ export class SignUpComponent implements AfterViewInit {
     if (this.canvas) {
       const context = this.canvas.nativeElement.getContext('2d');
       if (context) {
-        const { firstname, lastname, color } = this.signUpForm.value;
+        const { first_name, last_name, color } = this.signUpForm.value;
         context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
         context.fillStyle = color;
         context.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
@@ -71,7 +71,7 @@ export class SignUpComponent implements AfterViewInit {
         context.font = '12px Arial';
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        const initials = `${firstname.charAt(0).toUpperCase()}${lastname.charAt(0).toUpperCase()}`;
+        const initials = `${first_name.charAt(0).toUpperCase()}${last_name.charAt(0).toUpperCase()}`;
         context.fillText(initials, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2);
       }
     }

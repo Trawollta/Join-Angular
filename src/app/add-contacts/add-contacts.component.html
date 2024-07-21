@@ -1,0 +1,32 @@
+<div class="overlay" *ngIf="showOverlay">
+  <div class="overlay-content">
+    <button (click)="closeOverlay()">Schließen</button>
+    <form [formGroup]="addContactForm" (ngSubmit)="addContact()">
+      <label for="first_name">Vorname:</label>
+      <input id="first_name" formControlName="first_name" type="text" required>
+      <div *ngIf="addContactForm.get('first_name')?.invalid && addContactForm.get('first_name')?.touched">
+        <small class="error-text">Vorname ist erforderlich.</small>
+      </div>
+  
+      <label for="last_name">Nachname:</label>
+      <input id="last_name" formControlName="last_name" type="text" required>
+      <div *ngIf="addContactForm.get('last_name')?.invalid && addContactForm.get('last_name')?.touched">
+        <small class="error-text">Nachname ist erforderlich.</small>
+      </div>
+  
+      <label for="email">E-Mail:</label>
+      <input id="email" formControlName="email" type="email" required>
+      <div *ngIf="addContactForm.get('email')?.invalid && addContactForm.get('email')?.touched">
+        <small class="error-text">Eine gültige E-Mail ist erforderlich.</small>
+      </div>
+  
+      <label for="color">Farbe:</label>
+      <input id="color" formControlName="color" type="color" required>
+      <div *ngIf="addContactForm.get('color')?.invalid && addContactForm.get('color')?.touched">
+        <small class="error-text">Farbe ist erforderlich.</small>
+      </div>
+  
+      <button type="submit">Kontakt hinzufügen</button>
+    </form>
+  </div>
+</div>
