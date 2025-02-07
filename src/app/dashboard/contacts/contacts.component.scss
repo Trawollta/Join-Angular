@@ -4,10 +4,12 @@ body, html {
 }
 
 .main-container {
-  display: flex;
   width: 100%;
   height: 100vh;
 }
+
+
+
 
 .add-contact-button {
 
@@ -26,22 +28,68 @@ body, html {
   gap: 16px;
 }
 
+/* Desktop-Button: Nur sichtbar auf großen Bildschirmen */
+.desktop-button {
+  display: flex;
+}
+
+.mobile-button {
+  display: none;
+}
+
+.floating-add-button {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #2a3647;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.floating-add-button:hover {
+  background-color: #1f2a3b;
+}
+
+/* Mobile-Ansicht: Desktop-Button ausblenden, Floating-Button anzeigen */
+@media screen and (max-width: 899px) {
+  .desktop-button {
+    display: none;
+  }
+
+  .mobile-button {
+    display: flex;
+  }
+}
+
+
 .contactlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
   box-shadow: none;
-  height: 90vh;
+  // height: 100vh;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  width: fit-content;
   overflow: auto;
-  
-  
+
   @media screen and (min-width: 899px) {
     width: 94%;
     margin-left: 30px;
-    
   }
 }
 
@@ -83,12 +131,13 @@ h2 {
 .contact-field {
   display: flex;
   align-items: center;
-  border-radius: 10px;
-  border: 1px solid #e0e0e0;
+  // border-radius: 10px;
+  // border: 1px solid #e0e0e0;
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+  gap: 35px;
 }
 
 .contact-field:hover {
@@ -99,16 +148,17 @@ h2 {
 .contact-info {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 .contact-name {
-  font-weight: bold;
+  font-size: 20px;
   color: #333;
 }
 
 .contact-mail {
   color: #007CEE;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .user-details {

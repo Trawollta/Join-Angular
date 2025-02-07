@@ -7,7 +7,7 @@ import { Contact } from '../models/contacts';
   providedIn: 'root'
 })
 export class ContactsService {
-  private apiUrl = 'http://localhost:8000/api/contacts/'
+  private apiUrl = 'http://localhost:8000/api/contacts/';
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +34,10 @@ export class ContactsService {
 
   deleteContact(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}delete/${id}/`, { headers: this.getHeaders() });
+  }
+
+  // Diese Methode wird benötigt, um für eine gegebene User-ID die vollständigen Daten abzurufen
+  getUserById(userId: number): Observable<Contact> {
+    return this.http.get<Contact>(`${this.apiUrl}${userId}/`, { headers: this.getHeaders() });
   }
 }

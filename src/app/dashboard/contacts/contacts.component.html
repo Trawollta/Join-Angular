@@ -1,6 +1,14 @@
 <section class="main-container">
   <div class="contactlist-container">
-    <button (click)="openOverlay()" class="add-contact-button">Add Contact</button>
+   <!-- Desktop-Version des Buttons -->
+<button class="add-contact-button desktop-button" (click)="openOverlay()">Add Contact</button>
+
+<!-- Floating-Button unten rechts -->
+<button class="floating-add-button" (click)="openOverlay()">
+  <img src="assets/img/person_add.svg" alt="Add Contact">
+</button>
+
+
     <div class="contactlist" *ngIf="!selectedContact || screenWidth >= 900">
       <div class="list">
         <div *ngFor="let letter of displayedAlphabet">

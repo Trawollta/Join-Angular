@@ -10,7 +10,7 @@ import { User } from '../../models/user';
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
@@ -24,6 +24,7 @@ export class SummaryComponent implements OnInit {
   doneCount: number = 0;
   urgentCount: number = 0;
   tasksCount: number = 0;
+  upcomingDeadline: Date | null = null;
 
   constructor(private authService: AuthService, private taskService: AddTaskService, private getUserService: GetUserService) {}
 
@@ -56,7 +57,6 @@ export class SummaryComponent implements OnInit {
 
     return greeting + (this.firstname ? ' ' + this.firstname : '!');
   }
-
   loadTasks() {
     this.taskService.getTasks().subscribe((tasks: Task[]) => {
       this.tasksCount = tasks.length;
@@ -64,9 +64,27 @@ export class SummaryComponent implements OnInit {
       this.inProgressCount = tasks.filter(task => task.status === 'IN_PROGRESS').length;
       this.awaitFeedbackCount = tasks.filter(task => task.status === 'AWAIT_FEEDBACK').length;
       this.doneCount = tasks.filter(task => task.status === 'DONE').length;
+      
+      // ✅ Urgent Tasks berechnen
       this.urgentCount = tasks.filter(task => task.priority === 'Urgent').length;
+  
+      // ✅ Fälligkeitsdatum berechnen
+      this.upcomingDeadline = this.getUpcomingDeadline(tasks);
+  
     }, (error: any) => {
       console.error('Fehler beim Laden der Tasks', error);
     });
   }
+  
+  // ✅ Methode zur Berechnung des nächsten Fälligkeitsdatums
+  getUpcomingDeadline(tasks: Task[]): Date | null {
+    const futureTasks = tasks
+      .filter(task => task.due_date)  // Nur Tasks mit Datum
+      .map(task => new Date(task.due_date!))  // String in Date-Objekt umwandeln
+      .filter(date => date > new Date())  // Nur zukünftige Termine behalten
+      .sort((a, b) => a.getTime() - b.getTime()); // Sortieren nach Datum
+  
+    return futureTasks.length > 0 ? futureTasks[0] : null; // Kleinster Wert zurückgeben
+  }
+  
 }

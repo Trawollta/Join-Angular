@@ -1,34 +1,40 @@
 <div class="navigation-menu">
-    <div class="logo-section">
-        <img src="assets/img/logo-white.svg" alt="Logo" />
-    </div>
-  
-    <div class="buttons">
-    <div class="menu-btn" routerLink="/dashboard/summary">
-      <div class="menu-icon-summary">
-        <img src="assets/img/summary-white.svg" alt="Zusammenfassungs-Icon" />
-      </div>
-      <span>Summary</span>
-    </div>
+  <div class="logo-section">
+      <img src="assets/img/logo-white.svg" alt="Logo" />
+  </div>
 
-    <div class="menu-btn" routerLink="/dashboard/addtask">
-      <div class="menu-icon-summary">
-        <img src="assets/img/addTask-white.svg" alt="Aufgabe hinzufügen-Icon" />
+  <div class="buttons">
+      <div class="menu-btn" routerLink="/dashboard/summary" routerLinkActive="active">
+          <div class="menu-icon">
+              <img src="assets/img/summary-white.svg" alt="Summary Icon" />
+          </div>
+          <span>Summary</span>
       </div>
-      <span>Add Task</span>
-    </div>
 
-    <div class="menu-btn" routerLink="/dashboard/board">
-      <div class="menu-icon-summary">
-        <img src="assets/img/board-white.svg" alt="Board-Icon" />
+      <div class="menu-btn" routerLink="/dashboard/board" routerLinkActive="active">
+          <div class="menu-icon">
+              <img src="assets/img/board-white.svg" alt="Board Icon" />
+          </div>
+          <span>Board</span>
       </div>
-      <span>Board</span>
-    </div>
 
-    <div class="menu-btn" routerLink="/dashboard/contacts">
-      <div class="menu-icon-summary">
-        <img src="assets/img/contacts-white.svg" alt="Kontakte-Icon" />
+      <div class="menu-btn" routerLink="/dashboard/addtask" routerLinkActive="active">
+          <div class="menu-icon">
+              <img src="assets/img/addTask-white.svg" alt="Add Task Icon" />
+          </div>
+          <span>Add Task</span>
       </div>
-      <span>Contacts</span>
-    </div>
+
+      <div class="menu-btn" routerLink="/dashboard/contacts" routerLinkActive="active">
+          <div class="menu-icon">
+              <img src="assets/img/contacts-white.svg" alt="Contacts Icon" />
+          </div>
+          <span>Contacts</span>
+      </div>
+  </div>
+
+  <div class="footer-links">
+      <a routerLink="/privacy-policy">Privacy Policy</a>
+      <a routerLink="/legal-notice">Legal Notice</a>
+  </div>
 </div>

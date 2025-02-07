@@ -1,0 +1,181 @@
+/* 🌑 Overlay-Hintergrund */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* 📝 Overlay-Inhalt */
+  .overlay-content {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 320px;
+    max-width: 100%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* ❌ Schließen-Icon */
+  .close-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  /* 🏷️ Task Kategorie */
+  .task-category {
+    background-color: #007bff;
+    color: white;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 12px;
+    display: inline-block;
+  }
+  
+  /* 📝 Titel */
+  .task-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  /* 📜 Beschreibung */
+  .task-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* 🔗 Task Meta */
+  .task-meta {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  .meta-title {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  /* 🚨 Priority */
+  .priority {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .priority-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+  }
+  
+  /* 🧑‍🤝‍🧑 Assigned Users */
+  .assigned-users {
+    margin-top: 15px;
+  }
+  
+  .user-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+  }
+  
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background-color: #f3f4f6;
+    margin-bottom: 5px;
+  }
+  
+  .user-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* ✅ Subtasks */
+  .subtasks {
+    margin-top: 15px;
+  }
+  
+  .subtask-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .subtask-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .subtask-title {
+    color: #333;
+  }
+  
+  /* ✏️ Löschen / Editieren */
+  .task-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .delete-btn,
+  .edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .delete-btn {
+    color: red;
+  }
+  
+  .edit-btn {
+    color: #007bff;
+  }
+  
+  .delete-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+  
+  .edit-btn:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  

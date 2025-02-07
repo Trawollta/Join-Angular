@@ -73,15 +73,35 @@
         </div>
         <div class="form-row">
           <label for="category">Category:</label>
-          <select formControlName="category" required class="category-select">
-            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-          </select>
-          <button type="button" (click)="toggleCategoryInput()">Add Category</button>
-          <div *ngIf="showCategoryInput">
-            <input type="text" [(ngModel)]="newCategory" [ngModelOptions]="{standalone: true}" placeholder="Enter new category">
-            <button type="button" (click)="addCategory()">Save</button>
+          <div class="category-dropdown" (click)="toggleCategoryDropdown()">
+            <div class="selected-category">
+              <span *ngIf="selectedCategory" 
+                    [ngStyle]="{'background-color': selectedCategory.color}"
+                    class="category-color">
+              </span>
+              {{ selectedCategory ? selectedCategory.name : 'Select a Category' }}
+            </div>
+            <div class="category-list" *ngIf="showCategoryDropdown">
+              <div *ngFor="let category of categories" class="category-item" 
+                   (click)="selectCategory(category)">
+                <span [ngStyle]="{'background-color': category.color}" class="category-color"></span>
+                {{ category.name }}
+              </div>
+            </div>
           </div>
         </div>
+        
+          
+            
+            
+            <div *ngIf="showCategoryInput" class="new-category-input">
+              <input type="text" [(ngModel)]="newCategory" [ngModelOptions]="{standalone: true}" placeholder="Enter new category">
+              <button type="button" (click)="addCategory()">Save</button>
+            </div>
+          </div>
+        </div>
+        
+        
         <div class="form-row">
           <label for="subtask">Subtasks:</label>
           <div class="subtask-input-wrapper">
@@ -98,9 +118,9 @@
           </ul>
         </div>
        
-      </div>
+      <!-- </div> -->
      
-    </div>
+
     <div class="add-btn">
       <app-button [type]="'submit'" [classes]="['add-task']" [caption]="'Add Task'" imgPath="assets/img/check.png"></app-button>
     </div>
@@ -109,4 +129,7 @@
   <div class="task-created" *ngIf="taskCreated" @slideInOut>
     Task was successfully created!
   </div>
+
 </div>
+
+

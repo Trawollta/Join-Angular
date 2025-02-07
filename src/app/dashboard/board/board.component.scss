@@ -9,7 +9,6 @@ body, html {
   flex: 1;
   background-color: #F6F7F8;
   justify-content: center;
-  overflow-y: scroll;
   width: 100%;
   @media screen and (min-width: 700px) {
 
@@ -34,7 +33,14 @@ body, html {
   min-height: 688px;
 }
 
-.panelheadbutton {
+.panelhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #42526e;
+}
+
+.panelhead button {
   cursor: pointer;
   padding: 3px;
   box-sizing: border-box;
@@ -43,10 +49,13 @@ body, html {
   border: solid 2.5px #2a3647;
   width: 24px;
   height: 24px;
+  background-image: url(/assets/img/Capa1.svg);
   background-repeat: no-repeat;
   background-position-x: 53%;
   background-position-y: 50%;
 }
+
+
 
 h1 {
   font-size: 30px;
@@ -142,7 +151,7 @@ h1 {
   @media screen and (min-width: 700px) {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    min-width: 280px;
     gap: 16px;
   }
 }
@@ -189,6 +198,6 @@ h1 {
   width: 100%;
   padding: 0 8px;
   @media screen and (min-width: 768px) {
-    padding: 0 16px;
+    padding: 0 8px;
   }
 }

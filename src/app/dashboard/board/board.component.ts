@@ -70,12 +70,16 @@ export class BoardComponent implements OnInit {
     } else {
       const task = event.previousContainer.data[event.previousIndex];
       task.status = event.container.id as 'TO_DO' | 'AWAIT_FEEDBACK' | 'IN_PROGRESS' | 'DONE';
+  
       this.addTaskService.updateTask(task).subscribe({
         next: () => {
           transferArrayItem(event.previousContainer.data,
             event.container.data,
             event.previousIndex,
             event.currentIndex);
+          
+          // Nach erfolgreicher Aktualisierung die Aufgaben neu laden
+          this.loadTasks();
         },
         error: (error) => {
           console.error('Fehler beim Aktualisieren der Task', error);
@@ -83,6 +87,7 @@ export class BoardComponent implements OnInit {
       });
     }
   }
+  
 
   getInitials(firstName: string, lastName: string): string {
     const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';

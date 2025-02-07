@@ -1,48 +1,75 @@
 <div class="taskcard" (click)="!showOverlay && openOverlay($event)">
-  <ng-container *ngIf="!showOverlay; else editMode">
-    <h3>{{ task.title }}</h3>
-    <p class="description">{{ task.description }}</p>
-    <div class="task-details">
-      <div>
-        <span>Status:</span>
-        <span>{{ task.status }}</span>
-      </div>
-      <div>
-        <span>Priorität:</span>
-        <span>{{ task.priority }}</span>
-      </div>
-      <div>
-        <span>Kategorie:</span>
-        <span>{{ task.category }}</span>
-      </div>
-      <div>
-        <span>Zieldatum:</span>
-        <span>{{ task.due_date | date: 'shortDate' }}</span>
-      </div>
-      <div>
-        <span>Erstellt von:</span>
-        <div class="user-border" [ngStyle]="{'background-color': task.created_by.color}">
-          {{ getInitials(task.created_by.first_name, task.created_by.last_name) }}
-        </div>
-      </div>
-      <div>
-        <span>Zugewiesen an:</span>
-        <div class="users">
-          <div *ngFor="let user of assignedUsers" class="user-border" [ngStyle]="{'background-color': user.color || '#FFFFFF'}">
-            {{ getInitials(user.first_name, user.last_name) }}
-          </div>
-        </div>
-      </div>
-      <div>
-        <span>Unteraufgaben:</span>
-        <ul>
-          <li *ngFor="let subtask of task.subtasks">{{ subtask }}</li>
-        </ul>
+  <!-- Kategorie-Badge -->
+  <div class="row">
+    <div>
+      <span
+        class="category-badge"
+        *ngIf="task.category.name"
+        [ngClass]="getCategoryClass()"
+        [ngStyle]="{ 'background-color': task.category.color || '#6200ea' }"
+      >
+        {{ task.category.name || "No Category" }}
+      </span>
+    </div>
+
+    <div>
+      <img src="assets/img/check.svg" />
+    </div>
+  </div>
+
+  <!-- Titel der Task -->
+  <div class="titleTasksCard">{{ task.title || "No Title" }}</div>
+
+  <!-- Beschreibung -->
+  <p class="description">{{ task.description || "No Description" }}</p>
+
+  <!-- Subtasks-Fortschritt -->
+  <div class="subtasksProgressbarContainer">
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        [ngStyle]="{ width: getSubtaskCompletionPercentage() + '%' }"
+      ></div>
+    </div>
+    <span class="subtask-count">{{ getSubtaskCompletion() }} Subtasks</span>
+  </div>
+
+  <!-- Benutzer -->
+  <div class="row">
+    <div class="users">
+      <div
+        *ngFor="let user of assignedUsers"
+        class="user-border"
+        [ngStyle]="{ 'background-color': user.color || '#CCCCCC' }"
+      >
+        {{ getInitials(user.first_name || "", user.last_name || "") }}
       </div>
     </div>
-  </ng-container>
-  
-  <ng-template #editMode>
-    <app-edit-contacts-dialog [task]="task" (close)="handleClose()" (deleted)="handleDelete(task.id)"></app-edit-contacts-dialog>
-  </ng-template>
+
+    <!-- Task-Status Icons -->
+    <div class="task-status">
+      <img
+        *ngIf="task.priority === 'Low'"
+        src="assets/img/Prio_baja.png"
+        alt="Low Priority"
+      />
+      <img
+        *ngIf="task.priority === 'Medium'"
+        src="assets/img/Prio_media.png"
+        alt="Medium Priority"
+      />
+      <img
+        *ngIf="task.priority === 'Urgent'"
+        src="assets/img/Prio_alta.png"
+        alt="Urgent Priority"
+      />
+    </div>
+  </div>
 </div>
+
+<app-edit-task-overlay
+  *ngIf="showOverlay"
+  [task]="task"
+  (close)="closeOverlay()"
+></app-edit-task-overlay>
+

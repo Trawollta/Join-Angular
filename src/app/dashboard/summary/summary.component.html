@@ -18,7 +18,7 @@
         <div class="box box-size-first-row">
           <div class="image-circle">
             <div>
-              <img src="assets/img/pencil-grey.svg" alt="">
+              <img class="icon"src="assets/img/pencil-grey.svg" alt="">
             </div>
           </div>
           <div class="column">
@@ -42,29 +42,48 @@
           </div>
         </div>
       </div>
-      
+
+      <div class="second-row">
+        <div class="box box-size-second-row urgent-box">
+          <div class="urgent-section">
+            <div class="image-circle urgent-circle">
+              <img src="assets/img/Prio_alta.png" alt="Urgent">
+            </div>
+            <div class="status">
+              <span class="ammount">{{ urgentCount }}</span>
+              <span>Urgent</span>
+            </div>
+          </div>
+          <div class="divider-line"></div> <!-- ✅ Neuer Trennstrich -->
+          <div class="deadline">
+            <span class="deadline-date">{{ upcomingDeadline | date: 'MMMM d, yyyy' }}</span>
+            <span class="deadline-text">Upcoming Deadline</span>
+          </div>
+        </div>
+      </div>
+
       <div class="third-row">
-        <div class="box box-size-third-row">
+        <div class="box-container">
           <div class="column">
             <div class="status">
               <span class="ammount">{{ tasksCount }}</span>
-              <span>Tasks in <br>Board</span>
+              <span class="name">Tasks in Board</span>
             </div>
           </div>
         </div>
-        <div class="box box-size-third-row">
+        <div class="box-container">
           <div class="column">
             <div class="status">
               <span class="ammount">{{ inProgressCount }}</span>
-              <span>Tasks in <br>Progress</span>
+              <span class="name">Tasks in Progress</span>
             </div>
           </div>
         </div>
-        <div class="box box-size-third-row">
+        <div class="box-container">
           <div class="column">
             <div class="status">
-              <span class="ammount">{{ awaitFeedbackCount }}</span>
-              <span>Awaiting<br>Feedback</span>
+              <div class="ammount">{{ awaitFeedbackCount }}</div>
+              <div class="name">Awaiting Feedback</div>
             </div>
           </div>
         </div>
@@ -72,4 +91,3 @@
     </div>
   </div>
 </div>
-      

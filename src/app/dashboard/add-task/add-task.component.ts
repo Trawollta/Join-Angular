@@ -23,10 +23,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   standalone: true,
   imports: [
     ButtonComponent,
-    InputComponent,
     CommonModule,
     MatSelectModule,
-    ContactsComponent,
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
@@ -59,7 +57,13 @@ export class AddTaskComponent implements OnInit {
   taskCreated = false;
   newSubtask = '';
   subtasks: string[] = [];
-  categories: string[] = ['General', 'Work', 'Personal'];
+  categories: { id: number, name: string, color: string }[] = [
+    { id: 1, name: 'General', color: '#CCCCCC' },
+    { id: 2, name: 'Work', color: '#FF5733' },
+    { id: 3, name: 'Personal', color: '#2ECC71' }
+  ];
+  
+  
   newCategory = '';
   showCategoryInput = false;
 
@@ -77,10 +81,11 @@ export class AddTaskComponent implements OnInit {
       priority: [this.currentPriority, Validators.required],
       assigned_to: this.fb.array([]),
       subtasks: this.fb.array([]),
-      category: ['', Validators.required],
+      category: [null, Validators.required],  // ✅ `null` statt `''`, damit wir ein Objekt speichern
       due_date: ['', Validators.required],
     });
   }
+  
 
   ngOnInit(): void {}
 
@@ -143,7 +148,12 @@ export class AddTaskComponent implements OnInit {
 
   addCategory() {
     if (this.newCategory.trim()) {
-      this.categories.push(this.newCategory);
+      const newCategory = {
+        id: this.categories.length + 1,
+        name: this.newCategory,
+        color: '#000000' // Default color, you can change it as needed
+      };
+      this.categories.push(newCategory);
       this.newCategory = '';
       this.showCategoryInput = false;
     }
@@ -152,9 +162,13 @@ export class AddTaskComponent implements OnInit {
   async addTask() {
     if (this.taskForm.valid) {
       try {
-        const taskData = this.taskForm.value;
-        taskData.assigned_to = this.selectedUsers;
-        taskData.subtasks = this.subtasks;
+        const taskData = { ...this.taskForm.value };
+  
+        // Stelle sicher, dass category als ID gesendet wird
+        taskData.category_id = taskData.category?.id || null;
+        delete taskData.category; // Entferne das Objekt
+  
+        console.log("📤 Gesendete Task-Daten:", JSON.stringify(taskData, null, 2));
   
         const response = await this.taskService.newTask(taskData).toPromise();
         this.taskCreated = true;
@@ -163,12 +177,35 @@ export class AddTaskComponent implements OnInit {
           this.router.navigate(['/dashboard/board']);
         }, 4000);
       } catch (e) {
-        if (e instanceof Error) {
-          alert('Error adding task: ' + e.message);
-        } else {
-          alert('An unknown error occurred');
-        }
+        console.error("❌ Fehler beim Erstellen der Aufgabe:", e);
       }
+    }
+  }
+  
+  
+  
+  selectedCategory: { id: number, name: string, color: string } | null = null;
+showCategoryDropdown = false;
+
+toggleCategoryDropdown() {
+  this.showCategoryDropdown = !this.showCategoryDropdown;
+}
+
+selectCategory(category: { id: number, name: string, color: string }) {
+  this.selectedCategory = category;
+  this.taskForm.patchValue({ category }); // Kategorie in Form setzen
+  this.showCategoryDropdown = false;
+}
+
+  
+  
+  
+
+  onCategoryChange(event: any) {
+    if (event.value === '+ Add Category') {
+      this.showCategoryInput = true;
+    } else {
+      this.showCategoryInput = false;
     }
   }
 }

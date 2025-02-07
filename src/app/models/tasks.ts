@@ -1,3 +1,8 @@
+export interface Subtask {
+  title: string;
+  completed: boolean;
+}
+
 export interface Task {
   id: number;
   title: string;
@@ -8,9 +13,13 @@ export interface Task {
   project_lead: number | null;
   created_by: User;
   assigned_to: User[];
-  category: string;  
+  category: {  
+    id: number;
+    name: string;
+    color: string;
+  }; 
   due_date: Date | null;
-  subtasks: string[];
+  subtasks: Subtask[];
 }
 
 export interface User {

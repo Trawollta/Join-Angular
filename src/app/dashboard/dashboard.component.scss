@@ -21,16 +21,11 @@ app-header {
   grid-area: main-content;
 }
 
-app-navigation {
-  height: 80px;
-  grid-area: nav-bar;
-  background-color: #2a3647;
-}
 
 @media (min-width: 900px) {
   .overview {
     grid-template-columns: repeat(4, 1fr);
-    // grid-template-rows: 80px auto 80px;
+    grid-template-rows: 80px auto 80px;
     grid-template-areas:
       "nav-bar header header header"
       "nav-bar main-content main-content main-content"
@@ -41,4 +36,11 @@ app-navigation {
     height: calc(100vh - 80px - 4px);
     height: calc(100dvh - 80px - 4px);
   }
+
+  .app-navigation {
+    width: 15vw;
+    grid-area: nav-bar;
+  }
+
+
 }

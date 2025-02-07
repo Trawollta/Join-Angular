@@ -1,0 +1,65 @@
+<div class="overlay" *ngIf="isEditDialogOpen" (click)="onOverlayClick($event)">
+    <div class="overlay-content" (click)="$event.stopPropagation()">
+  
+      <!-- 🔴 Schließen-Button -->
+      <img src="assets/img/close.svg" alt="Schließen-Icon" class="close-icon" (click)="closeOverlay()">
+  
+      <!-- Task Kategorie -->
+      <span class="task-category">{{ task.category || 'User Story' }}</span>
+  
+      <!-- 📝 Titel -->
+      <h2 class="task-title">{{ task.title }}</h2>
+  
+      <!-- 📝 Beschreibung -->
+      <p class="task-description">{{ task.description }}</p>
+  
+      <!-- 📅 Fälligkeitsdatum -->
+      <div class="task-meta">
+        <span class="meta-title">Due date:</span>
+        <span class="meta-value">{{ task.due_date | date: 'MM/dd/yyyy' }}</span>
+      </div>
+  
+      <!-- 🚨 Priorität -->
+      <div class="task-meta">
+        <span class="meta-title">Priority:</span>
+        <span class="meta-value priority">{{ task.priority }}</span>
+        <img class="priority-icon" [src]="'assets/img/priority-' + task.priority.toLowerCase() + '.svg'" alt="Priority Icon">
+      </div>
+  
+      <!-- 🧑‍🤝‍🧑 Zugewiesen an -->
+      <div class="assigned-users">
+        <span class="meta-title">Assigned To:</span>
+        <div class="user-list">
+          <div *ngFor="let user of task.assigned_to" class="user-chip">
+            <span class="user-initials" [ngStyle]="{'background-color': user.color || '#CCCCCC'}">
+              {{ getInitials(user.first_name, user.last_name) }}
+            </span>
+            <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- ✅ Unteraufgaben -->
+      <div class="subtasks">
+        <span class="meta-title">Subtasks</span>
+        <ul class="subtask-list">
+          <li *ngFor="let subtask of task.subtasks">
+            <input type="checkbox" [checked]="subtask.completed">
+            <span class="subtask-title">{{ subtask.title }}</span>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- 🗑️ Löschen & ✏️ Editieren -->
+      <div class="task-actions">
+        <button class="delete-btn" (click)="confirmDelete()">
+          <img src="assets/img/delete.svg" alt="Delete Icon"> Delete
+        </button>
+        <button class="edit-btn" (click)="isEditMode = true">
+          <img src="assets/img/edit.svg" alt="Edit Icon"> Edit
+        </button>
+      </div>
+  
+    </div>
+  </div>
+  

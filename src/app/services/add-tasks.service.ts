@@ -8,30 +8,35 @@ import { Contact } from '../models/contacts';
   providedIn: 'root'
 })
 export class AddTaskService {
-  private apiUrl = 'http://localhost:8000/tasks/';
+  // Basis-URL für Tasks; beachte, dass sie mit dem Pfad in deiner Haupt-urls.py übereinstimmt
+  private tasksUrl = 'http://localhost:8000/tasks/';
   private usersUrl = 'http://localhost:8000/users/';
 
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
+  // Erstelle einen neuen Task (POST an /tasks/)
   newTask(taskData: Task): Observable<any> {
-    const url = `${this.apiUrl}createTask/`;
-    return this.http.post(url, taskData);
+    return this.http.post(this.tasksUrl, taskData);
   }
 
+  // Hole alle Tasks (GET an /tasks/)
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}getTasks/`);
+    return this.http.get<Task[]>(this.tasksUrl);
   }
 
-  deleteTask(taskId: number): Observable<any> {
-    const url = `${this.apiUrl}deleteTask/${taskId}/`;
-    return this.http.delete(url);
-  }
-
+  // Aktualisiere einen Task (PUT an /tasks/<id>/)
   updateTask(task: Task): Observable<any> {
-    const url = `${this.apiUrl}updateTask/${task.id}/`;
+    const url = `${this.tasksUrl}${task.id}/`;
     return this.http.put(url, task);
   }
 
+  // Lösche einen Task – hier nutzen wir den dedizierten Endpunkt DELETE an /tasks/delete/<task_id>/
+  deleteTask(taskId: number): Observable<any> {
+    const url = `${this.tasksUrl}delete/${taskId}/`;
+    return this.http.delete(url);
+  }
+
+  // Benutzerbezogene Endpunkte (sofern diese in Django vorhanden sind)
   getUsers(): Observable<Contact[]> {
     return this.http.get<Contact[]>(this.usersUrl);
   }

@@ -43,7 +43,7 @@ export const routes: Routes = [
       { path: 'summary', component: SummaryComponent },
       { path: 'addtask', component: AddTaskComponent },
       { path: 'board', component: BoardComponent },
-      { path: '**', redirectTo: 'login' }  // Fallback route
+      { path: '**', redirectTo: 'login' } 
     ]
   }
 ];
